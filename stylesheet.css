@@ -122,14 +122,14 @@ h2 {
     position: relative;
 }
 
-.two {
+/* .two {
     width: 160px;
     height: 160px;
     position: absolute;
     transition: opacity .2s ease-in-out;
     -moz-transition: opacity .2s ease-in-out;
     -webkit-transition: opacity .2s ease-in-out;
-}
+} */
 
 .fade {
     transition: opacity .2s ease-in-out;
@@ -139,4 +139,26 @@ h2 {
 
 span.highlight {
     background-color: #ffffd0;
+}
+
+sup {
+    position: relative;
+    cursor: pointer;
+}
+
+sup::after {
+    content: "Equal contribution";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f1f1f1;
+    padding: 3px;
+    border: 1px solid #ccc;
+    display: none;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+sup:hover::after {
+    display: block;
 }
