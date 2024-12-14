@@ -162,3 +162,45 @@ sup::after {
 sup:hover::after {
     display: block;
 }
+
+td.td_img {
+    padding: 20px;
+    width: 25%;
+    vertical-align: middle;
+}
+
+
+@media screen and (max-width: 768px) {
+
+    body,
+    td,
+    th,
+    tr,
+    strong,
+    p,
+    a {
+        font-family: 'Lato', Verdana, Helvetica, sans-serif;
+        font-size: 10px;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-weight: 600;
+    }
+
+    p,
+    .content {
+        font-size: 10px;
+    }
+
+    td.td_img {
+        padding: 0px;
+        width: 25%;
+        vertical-align: middle;
+    }
+
+}
