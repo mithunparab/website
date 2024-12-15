@@ -1,0 +1,17 @@
+proposed_method.tex:8:72: Error: `}' expected, found `)'.     \caption{The architecture we used in this paper for haze removal. A) Encoder block and B) Decoder block}  
+proposed_method.tex:8:93: Error: Solo `)' found.     \caption{The architecture we used in this paper for haze removal. A) Encoder block and B) Decoder block}  
+proposed_method.tex:8:108: Error: Solo `}' found.     \caption{The architecture we used in this paper for haze removal. A) Encoder block and B) Decoder block}  
+experiments.tex:17:116: Error: `}' expected, found `)'. \caption{The training and validation plot. Blue (train) indicates training and orange (val) indicates validation. a) Loss, b) PSNR, c)SSIM}  
+experiments.tex:17:125: Error: Solo `)' found. \caption{The training and validation plot. Blue (train) indicates training and orange (val) indicates validation. a) Loss, b) PSNR, c)SSIM}  
+experiments.tex:17:134: Error: Solo `)' found. \caption{The training and validation plot. Blue (train) indicates training and orange (val) indicates validation. a) Loss, b) PSNR, c)SSIM}  
+experiments.tex:17:139: Error: Solo `}' found. \caption{The training and validation plot. Blue (train) indicates training and orange (val) indicates validation. a) Loss, b) PSNR, c)SSIM}  
+experiments.tex:22:28: Error: `}' expected, found `)'. \multicolumn{1}{c} {\Huge{a) Loss}} & \multicolumn{1}{c}{\Huge{b) PSNR}} & \multicolumn{1}{c}{\Huge{c) SSIM}}  
+experiments.tex:22:65: Error: `}' expected, found `)'. \multicolumn{1}{c} {\Huge{a) Loss}} & \multicolumn{1}{c}{\Huge{b) PSNR}} & \multicolumn{1}{c}{\Huge{c) SSIM}}  
+experiments.tex:22:72: Error: Solo `}' found. \multicolumn{1}{c} {\Huge{a) Loss}} & \multicolumn{1}{c}{\Huge{b) PSNR}} & \multicolumn{1}{c}{\Huge{c) SSIM}}  
+experiments.tex:22:102: Error: `}' expected, found `)'. \multicolumn{1}{c} {\Huge{a) Loss}} & \multicolumn{1}{c}{\Huge{b) PSNR}} & \multicolumn{1}{c}{\Huge{c) SSIM}}  
+experiments.tex:22:109: Error: Solo `}' found. \multicolumn{1}{c} {\Huge{a) Loss}} & \multicolumn{1}{c}{\Huge{b) PSNR}} & \multicolumn{1}{c}{\Huge{c) SSIM}}  
+experiments.tex:24:1: Error: Solo `}' found. }  
+ablation_study.tex:14:45: Error: `}' expected, found `)'.         \multicolumn{5}{c}{\textit{\textbf{A) $\mathcal{L}_1$ Loss}}}   \\ \hline  
+ablation_study.tex:14:69: Error: Solo `}' found.         \multicolumn{5}{c}{\textit{\textbf{A) $\mathcal{L}_1$ Loss}}}   \\ \hline  
+ablation_study.tex:19:45: Error: `}' expected, found `)'.         \multicolumn{5}{c}{\textit{\textbf{B) $\mathcal{L}_2$ Loss}}}   \\ \hline  
+ablation_study.tex:19:69: Error: Solo `}' found.         \multicolumn{5}{c}{\textit{\textbf{B) $\mathcal{L}_2$ Loss}}}   \\ \hline  

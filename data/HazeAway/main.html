@@ -1,0 +1,2515 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>HazeAway: A Convolutional Approach to Single-Image Haze Removal</title>
+  <meta charset='UTF-8' />
+  <meta content='TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)' name='generator' />
+  <link href='main.css' rel='stylesheet' type='text/css' />
+  <!--  for beautifying  -->
+  <link href='site.css' rel='stylesheet' type='text/css' />
+  <script
+    type='text/x-mathjax-config'> MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX", "output/HTML-CSS"], tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], displayMath: [ ['$$','$$'], ["\\[","\\]"] ], processEscapes: true }, "HTML-CSS": { availableFonts: ["TeX"] } }); </script>
+  <script src='http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+    type='text/javascript'></script>
+</head>
+
+<body>
+  <div class='maketitle'>
+
+
+
+
+    <span class='colorbox' id='colorbox1'></span>
+
+    <h2 class='titleHead'>HazeAway:
+      A
+      Convolutional
+      Approach
+      to
+      Single-Image
+      Haze
+      Removal</h2>
+    <span class='cmbx-9'>Abstract:
+    </span><span class='cmr-9'> The existence of particles in the air cause haze, and this haze or fog cause degraded
+      visibility
+      in the captured shot from the camera. The non-uniform distribution of these particles,
+      along with smoke, low light and pollution in the atmosphere, makes haze removal
+      difficult in the real world images. The core computer vision tasks struggle with
+      hazy images due to the lack of detail and poor visibility. The existing method
+      relies on a transmission map in amalgamation with the atmospheric scattering
+      input images to reconstruct a haze-free depiction. We suggested a single-image
+      convolutions neural network that removes the haze present in the image and improves
+      the perceptual quality by enhancing visibility. We used U-Net-like architecture
+      with an encoder, bottleneck and decoder coupled with skip connections. In our
+      experiment, we demonstrated the results on various benchmark dataset and compared
+      our results with existing approaches. Additionally we compared the results from
+      our network training on different image representations RGB verses YCbCr. The
+      proposed method is straightforward and miniature yet still gives near state-of-the-art
+      results.
+      <br>
+    </span><span class='cmbx-8'>Keywords:
+    </span><span class='cmr-8'>Haze
+      removal,
+      De-hazing,
+      U-Net,
+      Visibility
+      enhancement,
+      Convolution
+      neural
+      networks.</span>
+
+
+  </div>
+  <h3 class='sectionHead' id='introduction'><span class='titlemark'>1 </span> <a id='x1-10001'></a>Introduction</h3>
+  <p>The light disperses into the surroundings, or it gets absorbed by the fragments present in
+    the airspace. The total amount of fragments in the region is proportional to the scattering
+    of light. This scattering reduces the clarity and colour in that region. Different particles and
+    the environment they are in impact the scattering. Such as humidity and particles like
+    sulphur cause a hazier environment. Most of these particles are present due to air pollution
+    from industry. Some exist because of the natural world, such as windblown dust and forest
+    fire. This haze, coupled with smoke, dust and low light condition, makes the haze removal
+    task particularly difficult. This haze makes visibility extremely difficult for both
+    humans and computer vision. e.g. the analysis from Wang et al. [<a href='#Xtourist'>1</a>] concluded,
+    the presence of haze can drastically effects tourist arrival. For better and more
+    effective accuracy, vision algorithms expect clean, clear, and visible input. Since
+    real-world places have haze environment tasks like object detection [<a href='#Xobj_det_cnn'>2</a>], object
+    segmentation [<a href='#Xmotion_seg_cnn'>3</a>] becomes difficult due to a lack of information in captured images.
+    To get the best out of these algorithms, we need to process real-world data to
+    have the minimum possible haze and other artefacts. We can fix this via either
+    pre-processing, post-processing or both. Haze removal could be achievable in two
+    ways physical and non-physical. The physical method analyses the atmospheric
+    transmission that degrades the image and regenerates the image by inversing the existing
+    transmission. The physical-based methods take the path of approximation and
+    assumption about the prior condition. The non-physical-based techniques solve
+    this problem through image enhancement. Popular approaches like Histogram
+    equalization [<a href='#Xlai'>4</a>], logarithmic transformation [<a href='#Xmulti_sc'>5</a>], various filters [<a
+      href='#Xfilters'>6</a>–<a href='#Xprior_filt'>9</a>] in the frequency
+    domain and Retinex theory [<a href='#Xretinex'>10</a>] are very robust and achieve remarkable results.
+    These methods are not robust to the change and thus struggle with noise, different
+    exposure settings and artefacts in the image. The core computer vision task needs
+    clean and visible input to give a decent performance. Tasks like object detection,
+    segmentation, and depth estimation deal with real-world data, these tasks struggle in
+    performance when the images are hazy. We present a simple and miniature method to
+    pre-process the input image, such that the performance of these tasks will improve.
+    <br class='newline' />Recently, Deep learning-based methods perform exceptionally on the image enhancement
+    task. These methods provide robust solutions to haze removal better than the quaint
+    algorithm results. In this paper, we remove haze from both indoor and outdoor images. Our
+    methods fix the different difficulties in the real world of hazy images like noise, challenging
+    light and image artefacts. We constructed U-Net-like CNN [<a href='#Xu_net'>11</a>] with an encoder,
+    bottleneck and decoder. Each of these consists of blocks of layers carefully designed for
+    haze removal. These blocks consist of downsampling and upsampling layers with
+    skip connections. We used a combination of loss functions to enhance different
+    aspects of the images like the structural and perceptual quality of the image.
+    <br class='newline' />The outline of the paper is summarized as follows. In this Section <a
+      href='#introduction'>1<!-- tex4ht:ref: introduction  --></a>, we described haze and
+
+
+    the difficulties faced in the haze removal process. Also, we explained the goal of the
+    suggested method. In Section <a href='#related-work'>2<!-- tex4ht:ref: related_work  --></a>, we will discuss
+    existing literature, the popular methods and
+    their approach to solving the haze removal problem. The proposed technique and details
+    about the model architecture and implementation are in Section <a
+      href='#proposed-method'>3<!-- tex4ht:ref: proposed_method  --></a>. Training structure and
+    comparison of our results with different methods are illustrated Section <a
+      href='#experiments'>4<!-- tex4ht:ref: experiments  --></a>. Finally in Section
+    <a href='#conclusion'>6<!-- tex4ht:ref: conclusion  --></a>, we concluded the findings and summarised our approach
+    of single image haze
+    removal.
+  </p>
+
+  <h3 class='sectionHead' id='related-work'><span class='titlemark'>2 </span> <a id='x1-20002'></a>Related Work</h3>
+  <p>We can categorise haze removal tasks into prior-knowledge and learning-based
+    techniques. The prior-knowledge approaches take advantage of statistical hypotheses. In
+    opposition, learning-based methods learn the nonlinear mapping in the haze-free and
+    between the given haze-full image. This section, we will embrace the difference
+    between these two techniques in detail. In the prior-based algorithms [<a href='#Xprior_filt'>9</a>, <a
+      href='#Xprior_cap'>12</a>], physical
+    assumptions such as atmospheric scattering technique (ATM) [<a href='#Xatm'>13</a>–<a href='#Xatm_illu'>15</a>] and
+    statistical
+    hypotheses are used to expect the outcome to be a haze-free image. In the prior-based
+    methods [<a href='#Xprior_filt'>9</a>, <a href='#Xprior_cap'>12</a>, <a href='#Xprior1'>16</a>–<a
+      href='#Xprior_cnn1'>18</a>], authors investigate the factors affecting the image and
+    minimize those factors to get a haze-free outcome. The transmission map with colour
+    attenuation prior is calculated to manipulate the discrepancy between RGB channels.
+    However, these techniques only reach sub-optimal performance in haze removal. Other
+    approaches include polarized filters, multiview images of the common scenery and
+    prior-based hazy methods. He et al. demonstrated dark channels prior (DHCP) [<a href='#Xhe'>19</a>] to
+    improve visibility in haze-full images. This approach struggles with edge structure
+    and undergoes a halo effect [<a href='#Xhalo_cai_cnn'>20</a>]. Further approaches Lai et al. [<a href='#Xlai'>4</a>]
+    proposed two
+    prior-based transmission maps for the hazy scene, a multi-scale retinex-based
+    algorithm [<a href='#Xwang'>21</a>] to estimate luminous detail in the image, colour attenuation prior
+    (CAP) [<a href='#Xprior_cap'>12</a>], and an HSV colourspace method to extract haze-related features.
+    <br class='newline' />In learning-based methods, the first few techniques estimated transmission maps using
+    end-to-end CNN like Cai et al.[<a href='#Xhalo_cai_cnn'>20</a>] and Ren et al. [<a href='#Xren'>22</a>] Zhang et al.
+    [<a href='#Xzhang'>23</a>] suggested an
+    approach to get transmission maps and atmospheric light with atmospheric scattering to
+    estimate haze-free images. A variety of methods used CNN [<a href='#Xobj_det_cnn'>2</a>, <a
+      href='#Xprior_cnn1'>18</a>, <a href='#Xhalo_cai_cnn'>20</a>, <a href='#Xcnn_o'>24</a>] to get a direct
+    clean haze-free image. The result of the investigation from Chen et al. [<a href='#Xgated'>25</a>] using dilated
+    convolutional for haze-free image reconstruction showed better unit performance than the
+    previous existing methods.The approaches like AOD-net [<a href='#Xaod'>26</a>] analyzes the contradiction
+    between the quaint atmospheric models and the haze removal techniques. Later Swami et al.
+    [<a href='#Xswami'>27</a>] proposed conditional GAN to remove haze from the degraded hazy images. Now,
+    researchers [<a href='#Xres_unp'>28</a>, <a href='#Xres_unp1'>29</a>] use an unpaired training approach for a
+    variety of computer
+    vision tasks. Various methods used this unpaired training technique some even
+    used this for motion object segmentation [<a href='#Xmotion_seg_cnn'>3</a>]. Another application-specific task
+    on haze removal includes Chen et al. [<a href='#Xnon_uniform'>30</a>] proposed nonuniform remote sensing
+    technique for removing the haze. Zheng et al. [<a href='#Xuhd'>31</a>] performed dehazing on a Ultra-high
+    definition image using multi-guided bilateral learning. Illumination adjustment for
+
+
+    haze [<a href='#Xcol_d_ill'>32</a>], smoke and fire removal from a single input image. VRHI [<a
+      href='#XVRHI'>33</a>] is used
+    for visibility restoration in hazy images by incorporating haze density model.
+    <br class='newline' />In GAN-based techniques [<a href='#Xmulti_scale_ad'>34</a>], BPPnet [<a
+      href='#Xbppnet_sota'>35</a>] used a pyramid-based network that
+    gives state-of-the-art results with only 20 pairs of training images. EDN-GTM [<a href='#Xsec_sota'>36</a>]
+    use dark channel prior in their approach with a guided transmission map that
+    outperforms the traditional methodology. DW-GAN [<a href='#Xdw_gan'>37</a>] used discrete wavelet transform
+    with two-branch GAN. RI-GAN [<a href='#Xri_gan'>38</a>] with residual inception modules in both
+    generator and discriminator. All of the above-mentioned methods works decently on
+    haze removal task, but the GANs are computationally expensive and difficult to
+    implement. Therefore, our model is CNN-based, easy to implement and computationally
+    inexpensive.
+  </p>
+
+  <h3 class='sectionHead' id='proposed-method'><span class='titlemark'>3 </span> <a id='x1-30003'></a>Proposed Method
+  </h3>
+  <figure class='figure'>
+
+
+
+
+
+    <p id='the-architecture-we-used-in-this-paper-for-haze-removal-a-encoder-block-and-b-decoder-block'><img alt='PIC'
+        height='286' src='images/i4c_haze.png' width='668' /> <a id='x1-3001r1'></a>
+    </p>
+    <figcaption class='caption'><span class='id'><span class='cmbx-10'>Fig. 1</span>: </span><span class='content'>The
+        architecture we used in this paper for haze removal. A) Encoder block
+        and B) Decoder block </span></figcaption><!-- tex4ht:label?: x1-3001r1  -->
+
+
+  </figure>
+  <h4 class='subsectionHead' id='colour-space'><span class='titlemark'>3.1 </span> <a id='x1-40003.1'></a>Colour space
+  </h4>
+  <p>We compared RGB and YCbCr colourspace as training inputs to our neural network. We
+    determined that the YCbCr image representation works very well on image haze
+    removal. The YCbCr colourspace is mainly used in image enhancement and image
+    super-resolution tasks because it represents information better than RGB and is noise free
+    compared to RGB colourspace. Recently, YCbCr image representation has shown
+    exceptional outcomes in haze removal tasks. As Bianco et al. [<a href='#Xhr_haze'>39</a>] showed in their
+    experiment, the mean squared error <em><span class='cmti-10'>(MSE)</span></em> (<a
+      href='#x1-7004r4'>4<!-- tex4ht:ref: eqn:mse  --></a>) is qualitatively better in YCbCr
+    colourspace than RGB because atmospheric illumination in hazy images affects
+    more Y channel more. A better <em><span class='cmti-10'>MSE</span></em> score in YCbCr colourspace is the direct
+    reason for better peak-signal-to-noise ratio <em><span class='cmti-10'>(PSNR)</span></em>. Therefore to evaluate the
+    methodology, we will be using YCbCr colourspace as our primary image input
+    representation.
+  </p>
+
+  <h4 class='subsectionHead' id='model-overview'><span class='titlemark'>3.2 </span> <a id='x1-50003.2'></a>Model
+    overview</h4>
+  <p>We prioritise performance, efficiency and simple architecture for our neural network model.
+    The proposed technique is miniature and straightforward to conduct yet achieves better
+    performance than the traditional methodology. We experimented with different approaches
+    that will advance our expectations from our model. The proposed architecture is a
+    U-Net-based formation of encoder, bottleneck and decoder. Each of the sub-formations
+    is a set of cautiously selected blocks of layers that meet close to our prioritise.
+    <br class='newline' />Our end-to-end network’s encoder and decoder are composed of convolutional blocks. Each
+    of these blocks contains manually designed layers. Such as the encoder is constructed of
+    downsampling layers and convolutional layers with pre-defined pooling. Whereas
+    the decoder is created using upsampling layers and convolutional layers. These
+    blocks coupled with the skip connection make our network end-to-end. We avoided
+    the batch-normalization layer because of its poor performance on small batches,
+    expensive computation and dissimilarity between training and testing. We used
+    weight normalization because of is computationally inexpensive and gives better
+    weight initialization. We used parametric PReLU as our activation function since
+    PReLU’s learn parameters on how activation should be permitted for negative
+    values.The bottleneck is created with only convolutional layers with fixed weights and
+    biases.
+  </p>
+
+  <h4 class='subsectionHead' id='model-architecture'><span class='titlemark'>3.3 </span> <a id='x1-60003.3'></a>Model
+    architecture</h4>
+  <p>As outlined in Fig (<a
+      href='#the-architecture-we-used-in-this-paper-for-haze-removal-a-encoder-block-and-b-decoder-block'>1<!-- tex4ht:ref: fig:haze_removal_model  --></a>),
+    the encoder is stacked with multiple convolutional blocks. Each of
+    these blocks contains a set of convolutional layers, average pooling, max pooling, weight
+
+
+    normalization and parametric ReLU. We downsampled the input by half i.e. the stride of
+    two and raise the weight by a factor of two. The feature extracted in the block passed to the
+    next block till they reach the bottleneck. The encoder is directly connected to the decoder
+    via skip connection. Such that, the initially learned parameter could directly transfer to the
+    decoder. The bottleneck is the only phase without any skip connection and sampling. The
+    input and output size of this phase is equal and the weight is the same for each block.
+    <br class='newline' />The decoder is composed of downsampling convolutional blocks. The decoder has the same
+    set of layers as the encoder except for the downsampling layers such as average pooling and
+    max pooling decoder has an upsampling layer. we used stride two with decreasing weight by
+    a factor of two. For upsampling, we used bilinear interpolation. The decoder is directly
+    connected to encode via skip connections from which the decoder gets learned parameters
+    from an encoder.
+  </p>
+  <figure class='figure' id='x1-6001r2'><span
+      id='the-results-on-datasets-ohaze-ohaze-densehaze-densehaze-and-ihaze-ihaze'></span>
+
+
+
+
+
+
+    <figcaption class='caption'><span class='id'><span class='cmbx-10'>Fig. 2</span>: </span><span class='content'>The
+        results on datasets O-Haze [<a href='#Xo_haze'>40</a>] I-Haze
+        [<a href='#Xi_haze'>42</a>]
+      </span></figcaption><!-- tex4ht:label?: x1-6001r2  -->
+    <div class='tabular'>
+      <table class='tabular' id='TBL-1'>
+        <colgroup id='TBL-1-1g'>
+          <col id='TBL-1-1' />
+          <col id='TBL-1-2' />
+          <col id='TBL-1-3' />
+        </colgroup>
+        <tr id='TBL-1-1-' style='vertical-align:baseline;'>
+          <td class='td11' id='TBL-1-1-1' style='text-align:center; white-space:nowrap;'> Ground-truth </td>
+          <td class='td11' id='TBL-1-1-2' style='text-align:center; white-space:nowrap;'>
+            <div class='multicolumn' style='text-align:center; white-space:nowrap;'>Input</div>
+          </td>
+          <td class='td11' id='TBL-1-1-3' style='text-align:center; white-space:nowrap;'>
+            <div class='multicolumn' style='text-align:center; white-space:nowrap;'> Our </div>
+          </td>
+        </tr>
+        <tr id='TBL-1-2-' style='vertical-align:baseline;'>
+          <td class='td11' id='TBL-1-2-1' style='text-align:center; white-space:nowrap;'> <a id='x1-6002r1'></a><img
+              alt='PIC' height='119' src='images/40_outdoor_GT.jpg' width='119' />
+            <span class='cmr-7'>(a)</span>
+          </td>
+          <td class='td11' id='TBL-1-2-2' style='text-align:center; white-space:nowrap;'> <a id='x1-6003r2'></a> <img
+              alt='PIC' height='119' src='images/40_outdoor_hazy.jpg' width='119' />
+            <span class='cmr-7'>(b)</span>
+          </td>
+          <td class='td11' id='TBL-1-2-3' style='text-align:center; white-space:nowrap;'> <a id='x1-6004r3'></a><img
+              alt='PIC' height='119' src='images/O-Dataset_40.png' width='119' />
+            <span class='cmr-7'>(c)</span>
+          </td>
+        </tr>
+        <tr id='TBL-1-3-' style='vertical-align:baseline;'>
+          <td class='td11' id='TBL-1-3-1' style='text-align:center; white-space:nowrap;'> <a id='x1-6005r4'></a><img
+              alt='PIC' height='119' src='images/02_indoor_GT.jpg' width='119' />
+            <span class='cmr-7'>(d)</span>
+          </td>
+          <td class='td11' id='TBL-1-3-2' style='text-align:center; white-space:nowrap;'> <a id='x1-6006r5'></a> <img
+              alt='PIC' height='119' src='images/03_indoor_hazy.jpg' width='119' />
+            <span class='cmr-7'>(e)</span>
+          </td>
+          <td class='td11' id='TBL-1-3-3' style='text-align:center; white-space:nowrap;'> <a id='x1-6007r6'></a> <img
+              alt='PIC' height='119' src='images/I-Dataset_2.png' width='119' />
+            <span class='cmr-7'>(f)</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+
+  </figure>
+  <h4 class='subsectionHead' id='losses-and-metrics'><span class='titlemark'>3.4 </span> <a id='x1-70003.4'></a>Losses
+    and metrics</h4>
+  <p>The loss function associated with the trained model is stated as follows: </p>
+  <table class='equation'>
+    <tr>
+      <td>
+        <p>
+        </p>
+        <!-- l. 46 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <mrow>
+            <mstyle class='label' id='x1-7001r1'></mstyle><!-- endlabel -->
+            <mstyle mathvariant='script'>
+              <mi>L</mi>
+            </mstyle>
+            <mspace class='nbsp' width='0.33em'></mspace>
+            <mo class='MathClass-rel' stretchy='false'>=</mo>
+            <mspace class='nbsp' width='0.33em'></mspace>
+            <msub>
+              <mrow>
+                <mstyle mathvariant='script'>
+                  <mi>L</mi>
+                </mstyle>
+              </mrow>
+              <mrow>
+                <mn>1</mn>
+                <mo class='MathClass-punc' stretchy='false'>,</mo>
+                <mn>2</mn>
+              </mrow>
+            </msub>
+            <mspace class='nbsp' width='0.33em'></mspace>
+            <mo class='MathClass-bin' stretchy='false'>+</mo>
+            <mspace class='nbsp' width='0.33em'></mspace>
+            <msub>
+              <mrow>
+                <mstyle mathvariant='script'>
+                  <mi>L</mi>
+                </mstyle>
+              </mrow>
+              <mrow>
+                <mi mathvariant='italic'>FFT</mi>
+              </mrow>
+            </msub>
+            <mspace class='nbsp' width='0.33em'></mspace>
+            <mo class='MathClass-bin' stretchy='false'>+</mo>
+            <mspace class='nbsp' width='0.33em'></mspace>
+            <msub>
+              <mrow>
+                <mstyle mathvariant='script'>
+                  <mi>L</mi>
+                </mstyle>
+              </mrow>
+              <mrow>
+                <mi mathvariant='italic'>SSIM</mi>
+              </mrow>
+            </msub>
+          </mrow>
+        </math>
+      </td>
+      <td class='eq-no'>(1)</td>
+    </tr>
+  </table>
+  <ul class='itemize1'>
+    <li class='itemize'>
+      <p>Frequency-domain loss [<a href='#Xfft'>43</a>] (<!-- l. 51 --><math display='inline'
+          xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mstyle mathvariant='script'>
+                <mi>L</mi>
+              </mstyle>
+            </mrow>
+            <mrow>
+              <mi mathvariant='italic'>FFT</mi>
+            </mrow>
+          </msub>
+        </math>)
+        transforms output images into frequency signals. To increase sharpness and reduced noise and other
+        artifacts. Let <!-- l. 52 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <mi>m</mi>
+        </math>,
+        <!-- l. 52 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <mi>n</mi>
+        </math> dimension
+        of images <!-- l. 52 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mi>I</mi>
+            </mrow>
+            <mrow>
+              <mn>1</mn>
+            </mrow>
+          </msub>
+        </math>
+        and <!-- l. 52 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mi>I</mi>
+            </mrow>
+            <mrow>
+              <mn>2</mn>
+            </mrow>
+          </msub>
+        </math>
+        , where <!-- l. 52 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <mi>K</mi>
+        </math>
+        is scaling factor <em><span class='cmti-10'>FFT</span></em> stands for <em><span class='cmti-10'>Fast Fourier
+            Transform</span></em> of Image
+        <!-- l. 54 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <mi>I</mi>
+        </math>.
+        The Fast Fourier transform is
+      </p>
+      <table class='equation'>
+        <tr>
+          <td>
+            <p>
+            </p>
+            <!-- l. 55 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+              <mrow>
+                <mstyle class='label' id='x1-7002r2'></mstyle><!-- endlabel -->
+                <msub>
+                  <mrow>
+                    <mstyle mathvariant='script'>
+                      <mi>L</mi>
+                    </mstyle>
+                  </mrow>
+                  <mrow>
+                    <mi mathvariant='italic'>FFT</mi>
+                  </mrow>
+                </msub>
+                <mo class='MathClass-rel' stretchy='false'>=</mo>
+                <msup>
+                  <mrow>
+                    <mstyle mathvariant='script'>
+                      <mi>L</mi>
+                    </mstyle>
+                  </mrow>
+                  <mrow>
+                    <mfrac>
+                      <mrow>
+                        <mi>m</mi>
+                      </mrow>
+                      <mrow>
+                        <mi>k</mi>
+                      </mrow>
+                    </mfrac>
+                    <mo class='MathClass-bin' stretchy='false'>×</mo>
+                    <mfrac>
+                      <mrow>
+                        <mi>n</mi>
+                      </mrow>
+                      <mrow>
+                        <mi>k</mi>
+                      </mrow>
+                    </mfrac>
+                  </mrow>
+                </msup>
+                <mo class='MathClass-rel' stretchy='false'>=</mo>
+                <mfrac>
+                  <mrow>
+                    <msup>
+                      <mrow>
+                        <mi>k</mi>
+                      </mrow>
+                      <mrow>
+                        <mn>2</mn>
+                      </mrow>
+                    </msup>
+                  </mrow>
+                  <mrow>
+                    <mi>m</mi>
+                    <mo class='MathClass-bin' stretchy='false'>×</mo>
+                    <mi>n</mi>
+                  </mrow>
+                </mfrac>
+                <msup>
+                  <mrow>
+                    <mrow>
+                      <mo fence='true' form='prefix'> |</mo>
+                      <mrow>
+                        <mi mathvariant='italic'>FFT</mi>
+                        <mo class='MathClass-open' stretchy='false'>(</mo>
+                        <msub>
+                          <mrow>
+                            <mi>I</mi>
+                          </mrow>
+                          <mrow>
+                            <mn>1</mn>
+                          </mrow>
+                        </msub>
+                        <mo class='MathClass-close' stretchy='false'>)</mo>
+                        <mo class='MathClass-bin' stretchy='false'>−</mo>
+                        <mi mathvariant='italic'>FFT</mi>
+                        <mo class='MathClass-open' stretchy='false'>(</mo>
+                        <msub>
+                          <mrow>
+                            <mi>I</mi>
+                          </mrow>
+                          <mrow>
+                            <mn>2</mn>
+                          </mrow>
+                        </msub>
+                        <mo class='MathClass-close' stretchy='false'>)</mo>
+                      </mrow>
+                      <mo fence='true' form='postfix'>|</mo>
+                    </mrow>
+                  </mrow>
+                  <mrow>
+                    <mfrac>
+                      <mrow>
+                        <mi>m</mi>
+                      </mrow>
+                      <mrow>
+                        <mi>k</mi>
+                      </mrow>
+                    </mfrac>
+                    <mo class='MathClass-bin' stretchy='false'>×</mo>
+                    <mfrac>
+                      <mrow>
+                        <mi>n</mi>
+                      </mrow>
+                      <mrow>
+                        <mi>k</mi>
+                      </mrow>
+                    </mfrac>
+                  </mrow>
+                </msup>
+              </mrow>
+            </math>
+          </td>
+          <td class='eq-no'>(2)</td>
+        </tr>
+      </table>
+
+
+      <p>fast algorithm to compute <!-- l. 59 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <mrow>
+            <mi mathvariant='italic'>DFT</mi>
+          </mrow>
+        </math>
+        i.e. <em><span class='cmti-10'>Discrete Fourier Transform</span></em>. By transforming images into frequency, we
+        can
+        learn to see the differences in higher dimensional region. By transforming image
+        signals into a frequency domain for Fourier transform such that we can enhance
+        the higher frequencies while keeping lower frequencies which will sharpen the
+        images.
+      </p>
+    </li>
+    <li class='itemize'>
+      <p>Smooth <!-- l. 64 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mstyle mathvariant='script'>
+                <mi>L</mi>
+              </mstyle>
+            </mrow>
+            <mrow>
+              <mn>1</mn>
+            </mrow>
+          </msub>
+        </math>
+        loss (<!-- l. 64 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mstyle mathvariant='script'>
+                <mi>L</mi>
+              </mstyle>
+            </mrow>
+            <mrow>
+              <mn>1</mn>
+            </mrow>
+          </msub>
+        </math>) is
+        amalgamation of <!-- l. 64 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mstyle mathvariant='script'>
+                <mi>L</mi>
+              </mstyle>
+            </mrow>
+            <mrow>
+              <mn>1</mn>
+            </mrow>
+          </msub>
+        </math>
+        and <!-- l. 64 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mstyle mathvariant='script'>
+                <mi>L</mi>
+              </mstyle>
+            </mrow>
+            <mrow>
+              <mn>2</mn>
+            </mrow>
+          </msub>
+        </math>
+        losses, when the respective absolute error is high it behaves like
+        <!-- l. 65 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mstyle mathvariant='script'>
+                <mi>L</mi>
+              </mstyle>
+            </mrow>
+            <mrow>
+              <mn>1</mn>
+            </mrow>
+          </msub>
+        </math>
+        and when the absolute error is close to zero it behaves like an
+        <!-- l. 66 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mstyle mathvariant='script'>
+                <mi>L</mi>
+              </mstyle>
+            </mrow>
+            <mrow>
+              <mn>2</mn>
+            </mrow>
+          </msub>
+        </math>. We used Huber
+        loss [<a href='#Xhuber'>44</a>] as smooth <!-- l. 66 --><math display='inline'
+          xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mstyle mathvariant='script'>
+                <mi>L</mi>
+              </mstyle>
+            </mrow>
+            <mrow>
+              <mn>1</mn>
+            </mrow>
+          </msub>
+        </math>
+        loss because of its similarity
+      </p>
+      <table class='equation'>
+        <tr>
+          <td>
+            <p>
+            </p>
+            <!-- l. 67 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+              <mrow>
+                <mstyle class='label' id='x1-7003r3'></mstyle><!-- endlabel -->
+                <msub>
+                  <mrow>
+                    <mstyle mathvariant='script'>
+                      <mi>L</mi>
+                    </mstyle>
+                  </mrow>
+                  <mrow>
+                    <mi>δ</mi>
+                  </mrow>
+                </msub>
+                <mrow>
+                  <mo fence='true' form='prefix'> (</mo>
+                  <mrow>
+                    <mi>a</mi>
+                  </mrow>
+                  <mo fence='true' form='postfix'>)</mo>
+                </mrow>
+                <mspace class='nbsp' width='0.33em'></mspace>
+                <mo class='MathClass-rel' stretchy='false'>=</mo>
+                <mspace class='nbsp' width='0.33em'></mspace>
+                <mrow>
+                  <mo fence='true' form='prefix'> {</mo>
+                  <mrow>
+                    <mtable align='axis' class='array' columnlines='none none none none none none none none none'
+                      displaystyle='true' equalcolumns='false' equalrows='false' style=''>
+                      <mtr class='array-row'>
+                        <mtd class='array-td' columnalign='center'>
+                          <mfrac>
+                            <mrow>
+                              <msup>
+                                <mrow>
+                                  <mi>a</mi>
+                                </mrow>
+                                <mrow>
+                                  <mn>2</mn>
+                                </mrow>
+                              </msup>
+                            </mrow>
+                            <mrow>
+                              <mn>2</mn>
+                            </mrow>
+                          </mfrac>
+                        </mtd>
+                        <mtd class='array-td' columnalign='center'>
+                          <mi mathvariant='italic'>for</mi>
+                          <mspace class='nbsp' width='0.33em'></mspace>
+                          <mrow>
+                            <mo fence='true' form='prefix'> |</mo>
+                            <mrow>
+                              <mi>a</mi>
+                            </mrow>
+                            <mo fence='true' form='postfix'>|</mo>
+                          </mrow>
+                          <mo class='MathClass-rel' stretchy='false'>≤</mo>
+                          <mi>δ</mi>
+                        </mtd>
+                      </mtr>
+                      <mtr class='array-row'>
+                        <mtd class='array-td' columnalign='center'> </mtd>
+                      </mtr>
+                      <mtr class='array-row'>
+                        <mtd class='array-td' columnalign='center'>
+                          <mi>δ</mi>
+                          <mrow>
+                            <mo fence='true' form='prefix'> (</mo>
+                            <mrow>
+                              <mrow>
+                                <mo fence='true' form='prefix'> |</mo>
+                                <mrow>
+                                  <mi>a</mi>
+                                </mrow>
+                                <mo fence='true' form='postfix'>|</mo>
+                              </mrow>
+                              <mo class='MathClass-bin' stretchy='false'>−</mo>
+                              <mfrac>
+                                <mrow>
+                                  <mi>δ</mi>
+                                </mrow>
+                                <mrow>
+                                  <mn>2</mn>
+                                </mrow>
+                              </mfrac>
+                            </mrow>
+                            <mo fence='true' form='postfix'>)</mo>
+                          </mrow>
+                        </mtd>
+                        <mtd class='array-td' columnalign='center'>
+                          <mi mathvariant='italic'>otherwise</mi>
+                        </mtd>
+                      </mtr><!-- *\c@MaxMatrixCols c -->
+                    </mtable>
+                  </mrow>
+                  <mo fence='true' form='postfix'></mo>
+                </mrow>
+              </mrow>
+            </math>
+          </td>
+          <td class='eq-no'>(3)</td>
+        </tr>
+      </table>
+    </li>
+    <li class='itemize'>
+      <p>Mean Square Error (<em><span class='cmti-10'>MSE</span></em>) is used as <!-- l. 74 --><math display='inline'
+          xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mstyle mathvariant='script'>
+                <mi>L</mi>
+              </mstyle>
+            </mrow>
+            <mrow>
+              <mn>2</mn>
+            </mrow>
+          </msub>
+        </math>
+        loss function as follows: <br class='newline' />
+      </p>
+      <table class='equation'>
+        <tr>
+          <td>
+            <p>
+
+
+            </p>
+            <!-- l. 76 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+              <mrow>
+                <mstyle class='label' id='x1-7004r4'></mstyle><!-- endlabel -->
+                <msub>
+                  <mrow>
+                    <mstyle mathvariant='script'>
+                      <mi>L</mi>
+                    </mstyle>
+                  </mrow>
+                  <mrow>
+                    <mn>2</mn>
+                  </mrow>
+                </msub>
+                <mo class='MathClass-rel' stretchy='false'>=</mo>
+                <mspace class='nbsp' width='0.33em'></mspace>
+                <mi mathvariant='italic'>MSE</mi>
+                <mo class='MathClass-rel' stretchy='false'>=</mo>
+                <mfrac>
+                  <mrow>
+                    <mn>1</mn>
+                  </mrow>
+                  <mrow>
+                    <mi mathvariant='italic'>mn</mi>
+                  </mrow>
+                </mfrac>
+                <munderover accent='false' accentunder='false'>
+                  <mrow>
+                    <mo>∑</mo>
+                  </mrow>
+                  <mrow>
+                    <mn>1</mn>
+                  </mrow>
+                  <mrow>
+                    <mi>m</mi>
+                  </mrow>
+                </munderover>
+                <munderover accent='false' accentunder='false'>
+                  <mrow>
+                    <mo> ∑</mo>
+                  </mrow>
+                  <mrow>
+                    <mn>1</mn>
+                  </mrow>
+                  <mrow>
+                    <mi>n</mi>
+                  </mrow>
+                </munderover>
+                <msup>
+                  <mrow>
+                    <mrow>
+                      <mo fence='true' form='prefix'> ∥</mo>
+                      <mrow>
+                        <mover accent='true'>
+                          <mrow>
+                            <mi>I</mi>
+                          </mrow>
+                          <mo accent='true'>^</mo>
+                        </mover>
+                        <mo class='MathClass-open' stretchy='false'>(</mo>
+                        <mi>n</mi>
+                        <mo class='MathClass-punc' stretchy='false'>,</mo>
+                        <mi>m</mi>
+                        <mo class='MathClass-close' stretchy='false'>)</mo>
+                        <mo class='MathClass-bin' stretchy='false'>−</mo>
+                        <msup>
+                          <mrow>
+                            <mi>I</mi>
+                          </mrow>
+                          <mrow>
+                            <mo class='MathClass-bin' stretchy='false'>∗</mo>
+                          </mrow>
+                        </msup>
+                        <mo class='MathClass-open' stretchy='false'>(</mo>
+                        <mi>n</mi>
+                        <mo class='MathClass-punc' stretchy='false'>,</mo>
+                        <mi>m</mi>
+                        <mo class='MathClass-close' stretchy='false'>)</mo>
+                      </mrow>
+                      <mo fence='true' form='postfix'>∥</mo>
+                    </mrow>
+                  </mrow>
+                  <mrow>
+                    <mn>2</mn>
+                  </mrow>
+                </msup>
+              </mrow>
+            </math>
+          </td>
+          <td class='eq-no'>(4)</td>
+        </tr>
+      </table>
+      <p>Where, <!-- l. 80 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <mover accent='true'>
+            <mrow>
+              <mi>I</mi>
+            </mrow>
+            <mo accent='true'>^</mo>
+          </mover>
+        </math> is predicted
+        image and <!-- l. 80 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msup>
+            <mrow>
+              <mi>I</mi>
+            </mrow>
+            <mrow>
+              <mo class='MathClass-bin' stretchy='false'>∗</mo>
+            </mrow>
+          </msup>
+        </math>
+        is ground-truth image.
+      </p>
+    </li>
+    <li class='itemize'>
+      <p>PSNR is used as a metric for image quality. The higher value indicates better
+        quality. The unit of <em><span class='cmti-10'>PSNR</span></em> is <code><span class='cmtt-10'>dB</span></code>.
+        We calcuate the <em><span class='cmti-10'>PSNR</span></em> as following equation.
+      </p>
+      <table class='equation'>
+        <tr>
+          <td>
+            <p>
+            </p>
+            <!-- l. 82 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+              <mrow>
+                <mstyle class='label' id='x1-7005r5'></mstyle><!-- endlabel -->
+                <mi mathvariant='italic'>PSNR</mi>
+                <mo class='MathClass-rel' stretchy='false'>=</mo>
+                <mn>20</mn>
+                <msub>
+                  <mrow>
+                    <mi class='loglike'>log</mi>
+                    <mo>⁡<!-- FUNCTION APPLICATION --></mo><!-- nolimits -->
+                  </mrow>
+                  <mrow>
+                    <mn>10</mn>
+                  </mrow>
+                </msub>
+                <mrow>
+                  <mo fence='true' form='prefix'> (</mo>
+                  <mrow>
+                    <mfrac>
+                      <mrow>
+                        <mi mathvariant='italic'>MA</mi>
+                        <msub>
+                          <mrow>
+                            <mi>X</mi>
+                          </mrow>
+                          <mrow>
+                            <mover accent='true'>
+                              <mrow>
+                                <mi>I</mi>
+                              </mrow>
+                              <mo accent='true'>^</mo>
+                            </mover>
+                          </mrow>
+                        </msub>
+                      </mrow>
+                      <mrow>
+                        <msqrt>
+                          <mrow>
+                            <mi mathvariant='italic'>MSE</mi>
+                          </mrow>
+                        </msqrt>
+                      </mrow>
+                    </mfrac>
+                  </mrow>
+                  <mo fence='true' form='postfix'>)</mo>
+                </mrow>
+              </mrow>
+            </math>
+          </td>
+          <td class='eq-no'>(5)</td>
+        </tr>
+      </table>
+      <p>Where, <!-- l. 86 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <mover accent='true'>
+            <mrow>
+              <mi>I</mi>
+            </mrow>
+            <mo accent='true'>^</mo>
+          </mover>
+        </math>
+        is predicted image based on <em><span class='cmti-10'>MSE</span></em> (<a
+          href='#x1-7004r4'>4<!-- tex4ht:ref: eqn:mse  --></a>).
+      </p>
+    </li>
+    <li class='itemize'>
+      <p>Structural Similarity (<em><span class='cmti-10'>SSIM</span></em>) is used as a metric to improve the
+        structural accuracy of
+        predicted output. </p>
+      <table class='equation'>
+        <tr>
+          <td>
+            <p>
+            </p>
+            <!-- l. 88 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+              <mrow>
+                <mstyle class='label' id='x1-7006r6'></mstyle><!-- endlabel -->
+                <mi mathvariant='italic'>SSIM</mi>
+                <mo class='MathClass-open' stretchy='false'>(</mo>
+                <mi>x</mi>
+                <mo class='MathClass-punc' stretchy='false'>,</mo>
+                <mi>y</mi>
+                <mo class='MathClass-close' stretchy='false'>)</mo>
+                <mspace class='nbsp' width='0.33em'></mspace>
+                <mo class='MathClass-rel' stretchy='false'>=</mo>
+                <mspace class='nbsp' width='0.33em'></mspace>
+                <mfrac>
+                  <mrow>
+                    <mrow>
+                      <mo fence='true' form='prefix'> (</mo>
+                      <mrow>
+                        <mn>2</mn>
+                        <msub>
+                          <mrow>
+                            <mi>μ</mi>
+                          </mrow>
+                          <mrow>
+                            <mi>x</mi>
+                          </mrow>
+                        </msub>
+                        <msub>
+                          <mrow>
+                            <mi>μ</mi>
+                          </mrow>
+                          <mrow>
+                            <mi>y</mi>
+                          </mrow>
+                        </msub>
+                        <mspace class='nbsp' width='0.33em'></mspace>
+                        <mo class='MathClass-bin' stretchy='false'>+</mo>
+                        <mspace class='nbsp' width='0.33em'></mspace>
+                        <msub>
+                          <mrow>
+                            <mi>C</mi>
+                          </mrow>
+                          <mrow>
+                            <mn>1</mn>
+                          </mrow>
+                        </msub>
+                      </mrow>
+                      <mo fence='true' form='postfix'>)</mo>
+                    </mrow>
+                    <mrow>
+                      <mo fence='true' form='prefix'> (</mo>
+                      <mrow>
+                        <mn>2</mn>
+                        <msub>
+                          <mrow>
+                            <mi>σ</mi>
+                          </mrow>
+                          <mrow>
+                            <mi mathvariant='italic'>xy</mi>
+                          </mrow>
+                        </msub>
+                        <mo class='MathClass-bin' stretchy='false'>+</mo>
+                        <mspace class='nbsp' width='0.33em'></mspace>
+                        <msub>
+                          <mrow>
+                            <mi>C</mi>
+                          </mrow>
+                          <mrow>
+                            <mn>2</mn>
+                          </mrow>
+                        </msub>
+                      </mrow>
+                      <mo fence='true' form='postfix'>)</mo>
+                    </mrow>
+                  </mrow>
+                  <mrow>
+                    <mrow>
+                      <mo fence='true' form='prefix'> (</mo>
+                      <mrow>
+                        <msubsup>
+                          <mrow>
+                            <mi>μ</mi>
+                          </mrow>
+                          <mrow>
+                            <mi>x</mi>
+                          </mrow>
+                          <mrow>
+                            <mn>2</mn>
+                          </mrow>
+                        </msubsup>
+                        <mspace class='nbsp' width='0.33em'></mspace>
+                        <mo class='MathClass-bin' stretchy='false'>+</mo>
+                        <mspace class='nbsp' width='0.33em'></mspace>
+                        <msubsup>
+                          <mrow>
+                            <mi>μ</mi>
+                          </mrow>
+                          <mrow>
+                            <mi>y</mi>
+                          </mrow>
+                          <mrow>
+                            <mn>2</mn>
+                          </mrow>
+                        </msubsup>
+                        <mo class='MathClass-bin' stretchy='false'>+</mo>
+                        <msub>
+                          <mrow>
+                            <mi>C</mi>
+                          </mrow>
+                          <mrow>
+                            <mn>1</mn>
+                          </mrow>
+                        </msub>
+                      </mrow>
+                      <mo fence='true' form='postfix'>)</mo>
+                    </mrow>
+                    <mrow>
+                      <mo fence='true' form='prefix'> (</mo>
+                      <mrow>
+                        <msubsup>
+                          <mrow>
+                            <mi>σ</mi>
+                          </mrow>
+                          <mrow>
+                            <mi>x</mi>
+                          </mrow>
+                          <mrow>
+                            <mn>2</mn>
+                          </mrow>
+                        </msubsup>
+                        <mspace class='nbsp' width='0.33em'></mspace>
+                        <mo class='MathClass-bin' stretchy='false'>+</mo>
+                        <mspace class='nbsp' width='0.33em'></mspace>
+                        <msubsup>
+                          <mrow>
+                            <mi>σ</mi>
+                          </mrow>
+                          <mrow>
+                            <mi>y</mi>
+                          </mrow>
+                          <mrow>
+                            <mn>2</mn>
+                          </mrow>
+                        </msubsup>
+                        <mo class='MathClass-bin' stretchy='false'>+</mo>
+                        <msub>
+                          <mrow>
+                            <mi>C</mi>
+                          </mrow>
+                          <mrow>
+                            <mn>2</mn>
+                          </mrow>
+                        </msub>
+                      </mrow>
+                      <mo fence='true' form='postfix'>)</mo>
+                    </mrow>
+                  </mrow>
+                </mfrac>
+              </mrow>
+            </math>
+          </td>
+          <td class='eq-no'>(6)</td>
+        </tr>
+      </table>
+
+
+      <p>whereas, <!-- l. 92 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mi>μ</mi>
+            </mrow>
+            <mrow>
+              <mi>x</mi>
+            </mrow>
+          </msub>
+        </math> the pixel sample
+        mean of x , <!-- l. 92 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mi>μ</mi>
+            </mrow>
+            <mrow>
+              <mi>y</mi>
+            </mrow>
+          </msub>
+        </math> the pixel
+        sample mean of y, <!-- l. 92 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msubsup>
+            <mrow>
+              <mi>σ</mi>
+            </mrow>
+            <mrow>
+              <mi>x</mi>
+            </mrow>
+            <mrow>
+              <mn>2</mn>
+            </mrow>
+          </msubsup>
+        </math> and the
+        change in variance of x, <!-- l. 92 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msubsup>
+            <mrow>
+              <mi>σ</mi>
+            </mrow>
+            <mrow>
+              <mi>y</mi>
+            </mrow>
+            <mrow>
+              <mn>2</mn>
+            </mrow>
+          </msubsup>
+        </math>
+        can effect the variance of y, <!-- l. 92 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mi>σ</mi>
+            </mrow>
+            <mrow>
+              <mi mathvariant='italic'>xy</mi>
+            </mrow>
+          </msub>
+        </math>
+        which is associated with the covariance of x,
+      </p>
+    </li>
+    <li class='itemize'>
+      <p>Structural Similarity loss (<!-- l. 93 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+          <msub>
+            <mrow>
+              <mstyle mathvariant='script'>
+                <mi>L</mi>
+              </mstyle>
+            </mrow>
+            <mrow>
+              <mi mathvariant='italic'>SSIM</mi>
+            </mrow>
+          </msub>
+        </math>)
+        is used retain structural similarity of reconstructed image we minimized <em><span
+            class='cmti-10'>SSIM</span></em> loss. The
+        loss function is stated as below, </p>
+      <table class='equation'>
+        <tr>
+          <td>
+            <p>
+            </p>
+            <!-- l. 94 --><math class='equation' display='block' xmlns='http://www.w3.org/1998/Math/MathML'>
+              <mrow>
+                <mstyle class='label' id='x1-7007r7'></mstyle><!-- endlabel -->
+                <msub>
+                  <mrow>
+                    <mstyle mathvariant='script'>
+                      <mi>L</mi>
+                    </mstyle>
+                  </mrow>
+                  <mrow>
+                    <mi mathvariant='italic'>SSIM</mi>
+                  </mrow>
+                </msub>
+                <mo class='MathClass-rel' stretchy='false'>=</mo>
+                <mfrac>
+                  <mrow>
+                    <mrow>
+                      <mo fence='true' form='prefix'> (</mo>
+                      <mrow>
+                        <mn>1</mn>
+                        <mo class='MathClass-bin' stretchy='false'>−</mo>
+                        <mi mathvariant='italic'>SSIM</mi>
+                      </mrow>
+                      <mo fence='true' form='postfix'>)</mo>
+                    </mrow>
+                  </mrow>
+                  <mrow>
+                    <mn>2</mn>
+                  </mrow>
+                </mfrac>
+              </mrow>
+            </math>
+          </td>
+          <td class='eq-no'>(7)</td>
+        </tr>
+      </table>
+      <p>where as <em><span class='cmti-10'>SSIM</span></em> is from (<a
+          href='#x1-7006r6'>6<!-- tex4ht:ref: eqn:ssim  --></a>)</p>
+    </li>
+  </ul>
+  <div class='table'>
+
+
+    <p> </p>
+    <figure class='float'>
+
+
+      <div class='center'>
+        <p>
+        </p>
+        <div class='threeparttable'
+          id='the-quantitative-result-of-different-traditional-methods-with-our-model-on-ihaze-ohaze-'><a
+            id='x1-7008r1'></a>
+          <div class='tabular'>
+            <figcaption class='caption'><span class='id'><span class='cmbx-10'>Table 1</span>: </span><span
+                class='content'>The quantitative result of different traditional methods with our model on I-Haze,
+                O-Haze.
+              </span></figcaption><!-- tex4ht:label?: x1-7008r1  -->
+            <table class='tabular' id='TBL-3'>
+              <colgroup id='TBL-3-1g'>
+                <col id='TBL-3-1' />
+                <col id='TBL-3-2' />
+                <col id='TBL-3-3' />
+                <col id='TBL-3-4' />
+                <col id='TBL-3-5' />
+                <col id='TBL-3-6' />
+              </colgroup>
+              <tr id='TBL-3-1-' style='vertical-align:baseline;'>
+                <td class='td11' colspan='3' id='TBL-3-1-1' style='text-align:center; white-space:nowrap;'></td>
+                <div class='multicolumn' style='text-align:center; white-space:nowrap;'><em><strong><span
+                        class='cmbxti-10x-x-80'>I-Haze</span></strong></em> <span class='cmr-8'>[</span><a
+                    href='#Xi_haze'><span class='cmr-8'>42</span></a><span class='cmr-8'>] </span></div>
+              </tr>
+              <tr class='array-hline'>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr id='TBL-3-2-' style='vertical-align:baseline;'>
+                <td class='td11' id='TBL-3-2-1' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>Metric</span></strong> </td>
+                <td class='td11' id='TBL-3-2-2' style='text-align:center; white-space:nowrap;'> <em><strong><span
+                        class='cmbxti-10x-x-80'>Berman et al.</span></strong></em> <span class='cmr-8'>[</span><a
+                    href='#Xprior1'><span class='cmr-8'>16</span></a><span class='cmr-8'>] </span></td>
+                <td class='td11' id='TBL-3-2-3' style='text-align:center; white-space:nowrap;'> <em><strong><span
+                        class='cmbxti-10x-x-80'>AOD-Net</span></strong></em> <span class='cmr-8'>[</span><a
+                    href='#Xaod'><span class='cmr-8'>26</span></a><span class='cmr-8'>] </span></td>
+                <td class='td11' id='TBL-3-2-4' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>BPPNet</span></strong> <span class='cmr-8'>[</span><a href='#Xbppnet_sota'><span
+                      class='cmr-8'>35</span></a><span class='cmr-8'>] </span></td>
+                <td class='td11' id='TBL-3-2-5' style='text-align:center; white-space:nowrap;'> <em><strong><span
+                        class='cmbxti-10x-x-80'>EDN-GTM</span></strong></em> <span class='cmr-8'>[</span><a
+                    href='#Xsec_sota'><span class='cmr-8'>36</span></a><span class='cmr-8'>] </span></td>
+                <td class='td11' id='TBL-3-2-6' style='text-align:center; white-space:nowrap;'> <em><strong><span
+                        class='cmbxti-10x-x-80'>Our</span></strong></em> </td>
+              </tr>
+              <tr class='array-hline'>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr id='TBL-3-3-' style='vertical-align:baseline;'>
+                <td class='td11' id='TBL-3-3-1' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>PSNR (dB)</span></strong> </td>
+                <td class='td11' id='TBL-3-3-2' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>14.12 </span></td>
+                <td class='td11' id='TBL-3-3-3' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>13.98 </span></td>
+                <td class='td11' id='TBL-3-3-4' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>22.56 </span></td>
+                <td class='td11' id='TBL-3-3-5' style='text-align:center; white-space:nowrap;'><span
+                    class='cmbx-8'>22.90</span> </td>
+                <td class='td11' id='TBL-3-3-6' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>22.54 </span></td>
+              </tr>
+              <tr id='TBL-3-4-' style='vertical-align:baseline;'>
+                <td class='td11' id='TBL-3-4-1' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>SSIM</span></strong> </td>
+                <td class='td11' id='TBL-3-4-2' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.6537 </span></td>
+                <td class='td11' id='TBL-3-4-3' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.7323 </span></td>
+                <td class='td11' id='TBL-3-4-4' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmbx-8'>0.8994</span> </td>
+                <td class='td11' id='TBL-3-4-5' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.8270 </span></td>
+                <td class='td11' id='TBL-3-4-6' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.8702 </span></td>
+              </tr>
+              <tr class='array-hline'>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr id='TBL-3-5-' style='vertical-align:baseline;'>
+                <td class='td11' colspan='3' id='TBL-3-5-1' style='text-align:center; white-space:nowrap;'></td>
+                <div class='multicolumn' style='text-align:left; white-space:nowrap;'></div>
+              </tr>
+              <tr id='TBL-3-6-' style='vertical-align:baseline;'>
+                <td class='td11' colspan='3' id='TBL-3-6-1' style='text-align:center; white-space:nowrap;'></td>
+                <div class='multicolumn' style='text-align:center; white-space:nowrap;'><em><span
+                      class='cmbxti-10x-x-80'>O-Haze</span></em> <span class='cmr-8'>[</span><a href='#Xo_haze'><span
+                      class='cmr-8'>40</span></a><span class='cmr-8'>] </span></div>
+              </tr>
+              <tr class='array-hline'>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr id='TBL-3-7-' style='vertical-align:baseline;'>
+                <td class='td11' id='TBL-3-7-1' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>Metric </span></td>
+                <td class='td11' id='TBL-3-7-2' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>Berman et al.</span></strong> <span class='cmr-8'>[</span><a href='#Xprior1'><span
+                      class='cmr-8'>16</span></a><span class='cmr-8'>] </span></td>
+                <td class='td11' id='TBL-3-7-3' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>AOD-Net</span></strong> <span class='cmr-8'>[</span><a href='#Xaod'><span
+                      class='cmr-8'>26</span></a><span class='cmr-8'>] </span></td>
+                <td class='td11' id='TBL-3-7-4' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>BPPNet</span></strong> <span class='cmr-8'>[</span><a href='#Xbppnet_sota'><span
+                      class='cmr-8'>35</span></a><span class='cmr-8'>] </span></td>
+                <td class='td11' id='TBL-3-7-5' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>EDN-GTM</span></strong> <span class='cmr-8'>[</span><a href='#Xsec_sota'><span
+                      class='cmr-8'>36</span></a><span class='cmr-8'>] </span></td>
+                <td class='td11' id='TBL-3-7-6' style='text-align:center; white-space:nowrap;'> <em><strong><span
+                        class='cmbxti-10x-x-80'>Our</span></strong></em> </td>
+              </tr>
+              <tr class='array-hline'>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr id='TBL-3-8-' style='vertical-align:baseline;'>
+                <td class='td11' id='TBL-3-8-1' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmbx-8'>PSNR (dB)</span> </td>
+                <td class='td11' id='TBL-3-8-2' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>15.98 </span></td>
+                <td class='td11' id='TBL-3-8-3' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>15.03 </span></td>
+                <td class='td11' id='TBL-3-8-4' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmbx-8'>24.27</span> </td>
+                <td class='td11' id='TBL-3-8-5' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>23.46 </span></td>
+                <td class='td11' id='TBL-3-8-6' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>23.02 </span></td>
+              </tr>
+              <tr id='TBL-3-9-' style='vertical-align:baseline;'>
+                <td class='td11' id='TBL-3-9-1' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmbx-8'>SSIM</span> </td>
+                <td class='td11' id='TBL-3-9-2' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.5894 </span></td>
+                <td class='td11' id='TBL-3-9-3' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.5385 </span></td>
+                <td class='td11' id='TBL-3-9-4' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmbx-8'>0.8919</span></td>
+                <td class='td11' id='TBL-3-9-5' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.8198 </span></td>
+                <td class='td11' id='TBL-3-9-6' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.8034 </span></td>
+              </tr>
+              <tr class='array-hline'>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+    </figure>
+  </div>
+  <h3 class='sectionHead' id='experiments'><span class='titlemark'>4 </span> <a id='x1-80004'></a>Experiments</h3>
+  <p>
+  </p>
+
+  <h4 class='subsectionHead' id='dataset'><span class='titlemark'>4.1 </span> <a id='x1-90004.1'></a>Dataset</h4>
+  <p>To train the model, we incorporated two different datasets Realistic Single Image
+    Dehazing (<em><span class='cmti-10'>RESIDE</span></em>) dataset [<a href='#Xbench'>45</a>] with total number 18,200
+    images for training are
+    consider and additionally the Real-world Video Dehazing dataset (<em><span
+        class='cmti-10'>REVIDE-indoor</span></em>)
+    [<a href='#Xrevid'>46</a>] with a total of 1697 images for training and 282 for testing. To infer the
+    proposed model, we used various benchmarking datasets like Dense haze [<a href='#Xdense_haze'>41</a>], NH
+    haze [<a href='#Xnh_haze'>47</a>], I haze [<a href='#Xi_haze'>42</a>] and O haze [<a href='#Xo_haze'>40</a>]. We
+    split the training dataset into 80%
+    training and 20% validation. In pre-processing, we resize input images into
+    <!-- l. 6 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <mrow>
+        <mn>128</mn>
+        <mo class='MathClass-bin' stretchy='false'>×</mo>
+        <mn>128</mn>
+      </mrow>
+    </math>
+    and change the colour space to YCbCr. We used batch size
+    <!-- l. 6 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <mrow>
+        <mn>64</mn>
+      </mrow>
+    </math> for all
+    of the images.
+  </p>
+  <p>
+  </p>
+
+  <h4 class='subsectionHead' id='training-setup'><span class='titlemark'>4.2 </span> <a id='x1-100004.2'></a>Training
+    setup</h4>
+  <p>We used AdamW [<a href='#Xadmw'>48</a>] rather than Adam optimizer, as we used weight normalization weight
+    decay from AdamW will be a reasonable regularizer. The weights are initialized in
+    uniform distribution as proposed by He et al. [<a href='#Xkaiming'>49</a>] initial biases were set to zero. The
+    learning rate we consider for training the model is 0.0001 and the weight decay is
+    <!-- l. 10 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <mrow>
+        <mn>1</mn>
+        <msup>
+          <mrow>
+            <mn>0</mn>
+          </mrow>
+          <mrow>
+            <mo class='MathClass-bin' stretchy='false'>−</mo>
+            <mn>5</mn>
+          </mrow>
+        </msup>
+      </mrow>
+    </math>. If the
+    loss doesn’t change for 7 epochs, then dynamically the learning rate will be reduced by a
+    factor of 2.
+  </p>
+  <p> After testing both <!-- l. 12 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <msub>
+        <mrow>
+          <mstyle mathvariant='script'>
+            <mi>L</mi>
+          </mstyle>
+        </mrow>
+        <mrow>
+          <mn>1</mn>
+        </mrow>
+      </msub>
+    </math>
+    (<a href='#x1-7003r3'>3<!-- tex4ht:ref: eqn:l1_loss  --></a>) and <!-- l. 12 --><math display='inline'
+      xmlns='http://www.w3.org/1998/Math/MathML'>
+      <msub>
+        <mrow>
+          <mstyle mathvariant='script'>
+            <mi>L</mi>
+          </mstyle>
+        </mrow>
+        <mrow>
+          <mn>2</mn>
+        </mrow>
+      </msub>
+    </math> losses
+    (<a href='#x1-7004r4'>4<!-- tex4ht:ref: eqn:mse  --></a>), we choose <!-- l. 12 --><math display='inline'
+      xmlns='http://www.w3.org/1998/Math/MathML'>
+      <msub>
+        <mrow>
+          <mstyle mathvariant='script'>
+            <mi>L</mi>
+          </mstyle>
+        </mrow>
+        <mrow>
+          <mn>2</mn>
+        </mrow>
+      </msub>
+    </math>
+    as our primary loss. The final loss function includes
+    <!-- l. 12 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <msub>
+        <mrow>
+          <mstyle mathvariant='script'>
+            <mi>L</mi>
+          </mstyle>
+        </mrow>
+        <mrow>
+          <mn>2</mn>
+        </mrow>
+      </msub>
+    </math> loss,
+    Frequency domain loss (<a href='#x1-7002r2'>2<!-- tex4ht:ref: eqn:fft  --></a>), and structural similarity loss (<a
+      href='#x1-7007r7'>7<!-- tex4ht:ref: eqn:ssim_loss  --></a>), and metrics include PSNR (<a
+      href='#x1-7005r5'>5<!-- tex4ht:ref: eqn:psnr  --></a>)
+    and SSIM (<a href='#x1-7006r6'>6<!-- tex4ht:ref: eqn:ssim  --></a>) as shown in Fig (<a
+      href='#the-training-and-validation-plot-blue-train-indicates-training-and-orange-val-indicates-validation-a-loss-b-psnr-cssim'>3<!-- tex4ht:ref: tab:vis_loss_metric  --></a>).
+  </p>
+  <figure class='figure' id='x1-10001r3'><span
+      id='the-training-and-validation-plot-blue-train-indicates-training-and-orange-val-indicates-validation-a-loss-b-psnr-cssim'></span>
+
+
+
+
+
+
+    <figcaption class='caption'><span class='id'><span class='cmbx-10'>Fig. 3</span>: </span><span class='content'>The
+        training and validation plot. Blue (train) indicates training and orange
+        (val) indicates validation. a) Loss, b) PSNR, c)SSIM
+      </span></figcaption><!-- tex4ht:label?: x1-10001r3  -->
+    <!-- tex4ht:inline -->
+    <div class='tabular'>
+      <table class='tabular' id='TBL-4'>
+        <colgroup id='TBL-4-1g'>
+          <col id='TBL-4-1' />
+          <col id='TBL-4-2' />
+          <col id='TBL-4-3' />
+        </colgroup>
+        <tr id='TBL-4-1-' style='vertical-align:baseline;'>
+          <td class='td11' id='TBL-4-1-1' style='text-align:left; white-space:nowrap;'> <img alt='PIC' height='198'
+              src='images/loss.jpg' width='255' /> </td>
+          <td class='td11' id='TBL-4-1-2' style='text-align:left; white-space:nowrap;'> <img alt='PIC' height='198'
+              src='images/PSNR.jpg' width='255' /> </td>
+          <td class='td11' id='TBL-4-1-3' style='text-align:left; white-space:nowrap;'> <img alt='PIC' height='198'
+              src='images/SSIM.jpg' width='255' /> </td>
+        </tr>
+        <tr id='TBL-4-2-' style='vertical-align:baseline;'>
+          <td class='td11' id='TBL-4-2-1' style='text-align:center; white-space:nowrap;'>
+            <div class='multicolumn' style='text-align:center; white-space:nowrap;'>a)
+              Loss </div>
+          </td>
+          <td class='td11' id='TBL-4-2-2' style='text-align:center; white-space:nowrap;'>
+            <div class='multicolumn' style='text-align:center; white-space:nowrap;'>b)
+              PSNR </div>
+          </td>
+          <td class='td11' id='TBL-4-2-3' style='text-align:center; white-space:nowrap;'>
+            <div class='multicolumn' style='text-align:center; white-space:nowrap;'>c)
+              SSIM</div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+
+  </figure>
+  <h4 class='subsectionHead' id='comparing-results-with-other-methods'><span class='titlemark'>4.3 </span> <a
+      id='x1-110004.3'></a>Comparing results with other methods</h4>
+  <p>We computed metrics PSNR (<a href='#x1-7005r5'>5<!-- tex4ht:ref: eqn:psnr  --></a>) and SSIM (<a
+      href='#x1-7006r6'>6<!-- tex4ht:ref: eqn:ssim  --></a>) on various real-world and synthetic images.
+    We presented our results in Table. (<a
+      href='#the-quantitative-result-of-different-traditional-methods-with-our-model-on-ihaze-ohaze-'>1<!-- tex4ht:ref: tab:my-table  --></a>)
+    and Table. (<a
+      href='#the-quantitative-analysis-of-result-with-respect-to-the-existing-methods-and-our-model-on-densehaze-nhhaze-'>2<!-- tex4ht:ref: tab:my-table1  --></a>)
+    with a detail analysis with existing
+    methods.
+  </p>
+  <div class='table'>
+
+
+    <p> </p>
+    <figure class='float'>
+
+
+      <div class='center'>
+        <p>
+        </p>
+        <div class='threeparttable'
+          id='the-quantitative-analysis-of-result-with-respect-to-the-existing-methods-and-our-model-on-densehaze-nhhaze-'>
+          <a id='x1-11001r2'></a>
+          <div class='tabular'>
+            <figcaption class='caption'><span class='id'><span class='cmbx-10'>Table 2</span>: </span><span
+                class='content'>The quantitative analysis of result with respect to the existing methods and our model
+                on
+                Dense-Haze, NH-Haze.
+              </span></figcaption><!-- tex4ht:label?: x1-11001r2  -->
+            <table class='tabular' id='TBL-5'>
+              <colgroup id='TBL-5-1g'>
+                <col id='TBL-5-1' />
+                <col id='TBL-5-2' />
+                <col id='TBL-5-3' />
+                <col id='TBL-5-4' />
+                <col id='TBL-5-5' />
+                <col id='TBL-5-6' />
+              </colgroup>
+              <tr id='TBL-5-1-' style='vertical-align:baseline;'>
+                <td class='td11' colspan='3' id='TBL-5-1-1' style='text-align:center; white-space:nowrap;'></td>
+                <div class='multicolumn' style='text-align:center; white-space:nowrap;'><em><strong><span
+                        class='cmbxti-10x-x-80'>Dense-Haze</span></strong></em> <span class='cmr-8'>[</span><a
+                    href='#Xdense_haze'><span class='cmr-8'>41</span></a><span class='cmr-8'>] </span></div>
+              </tr>
+              <tr class='array-hline'>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr id='TBL-5-2-' style='vertical-align:baseline;'>
+                <td class='td11' id='TBL-5-2-1' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>Metric</span></strong> </td>
+                <td class='td11' id='TBL-5-2-2' style='text-align:center; white-space:nowrap;'> <em><strong><span
+                        class='cmbxti-10x-x-80'>Berman et al.</span></strong></em> <span class='cmr-8'>[</span><a
+                    href='#Xprior1'><span class='cmr-8'>16</span></a><span class='cmr-8'>] </span></td>
+                <td class='td11' id='TBL-5-2-3' style='text-align:center; white-space:nowrap;'> <em><strong><span
+                        class='cmbxti-10x-x-80'>AOD-Net</span></strong></em> <span class='cmr-8'>[</span><a
+                    href='#Xaod'><span class='cmr-8'>26</span></a><span class='cmr-8'>] </span></td>
+                <td class='td11' id='TBL-5-2-4' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>BPPNet</span></strong> <span class='cmr-8'>[</span><a href='#Xbppnet_sota'><span
+                      class='cmr-8'>35</span></a><span class='cmr-8'>] </span></td>
+                <td class='td11' id='TBL-5-2-5' style='text-align:center; white-space:nowrap;'> <em><strong><span
+                        class='cmbxti-10x-x-80'>EDN-GTM</span></strong></em> <span class='cmr-8'>[</span><a
+                    href='#Xsec_sota'><span class='cmr-8'>36</span></a><span class='cmr-8'>] </span></td>
+                <td class='td11' id='TBL-5-2-6' style='text-align:center; white-space:nowrap;'> <em><strong><span
+                        class='cmbxti-10x-x-80'>Our</span></strong></em> </td>
+              </tr>
+              <tr class='array-hline'>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr id='TBL-5-3-' style='vertical-align:baseline;'>
+                <td class='td11' id='TBL-5-3-1' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>PSNR (dB)</span></strong> </td>
+                <td class='td11' id='TBL-5-3-2' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>13.18 </span></td>
+                <td class='td11' id='TBL-5-3-3' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>13.14 </span></td>
+                <td class='td11' id='TBL-5-3-4' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>17.01 </span></td>
+                <td class='td11' id='TBL-5-3-5' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>15.43 </span></td>
+                <td class='td11' id='TBL-5-3-6' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>17.60</span></strong> </td>
+              </tr>
+              <tr id='TBL-5-4-' style='vertical-align:baseline;'>
+                <td class='td11' id='TBL-5-4-1' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>SSIM</span></strong> </td>
+                <td class='td11' id='TBL-5-4-2' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.358 </span></td>
+                <td class='td11' id='TBL-5-4-3' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.414 </span></td>
+                <td class='td11' id='TBL-5-4-4' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.613 </span></td>
+                <td class='td11' id='TBL-5-4-5' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.520 </span></td>
+                <td class='td11' id='TBL-5-4-6' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>0.716</span></strong> </td>
+              </tr>
+              <tr class='array-hline'>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr id='TBL-5-5-' style='vertical-align:baseline;'>
+                <td class='td11' colspan='3' id='TBL-5-5-1' style='text-align:center; white-space:nowrap;'></td>
+                <div class='multicolumn' style='text-align:left; white-space:nowrap;'></div>
+              </tr>
+              <tr id='TBL-5-6-' style='vertical-align:baseline;'>
+                <td class='td11' colspan='3' id='TBL-5-6-1' style='text-align:center; white-space:nowrap;'></td>
+                <div class='multicolumn' style='text-align:center; white-space:nowrap;'><em><strong><span
+                        class='cmbxti-10x-x-80'>NH-Haze</span></strong></em> <span class='cmr-8'>[</span><a
+                    href='#Xnh_haze'><span class='cmr-8'>47</span></a><span class='cmr-8'>]</span></div>
+              </tr>
+              <tr class='array-hline'>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr id='TBL-5-7-' style='vertical-align:baseline;'>
+                <td class='td11' id='TBL-5-7-1' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>Metric </span></td>
+                <td class='td11' id='TBL-5-7-2' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>He et al.</span></strong> <span class='cmr-8'>[</span><a href='#Xhe'><span
+                      class='cmr-8'>19</span></a><span class='cmr-8'>] </span></td>
+                <td class='td11' colspan='2' id='TBL-5-7-3' style='text-align:center; white-space:nowrap;'>
+                  <div class='multicolumn' style='text-align:center; white-space:nowrap;'><strong><span
+                        class='cmbx-8'>AOD-Net</span></strong> <span class='cmr-8'>[</span><a href='#Xaod'><span
+                        class='cmr-8'>26</span></a><span class='cmr-8'>]</span></div>
+                </td>
+                <td class='td11' id='TBL-5-7-5' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>EDN-GTM</span></strong> <span class='cmr-8'>[</span><a href='#Xsec_sota'><span
+                      class='cmr-8'>36</span></a><span class='cmr-8'>] </span></td>
+                <td class='td11' id='TBL-5-7-6' style='text-align:center; white-space:nowrap;'> <em><strong><span
+                        class='cmbxti-10x-x-80'>Our</span></strong></em> </td>
+              </tr>
+              <tr class='array-hline'>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr id='TBL-5-8-' style='vertical-align:baseline;'>
+                <td class='td11' id='TBL-5-8-1' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>PSNR (dB)</span></strong> </td>
+                <td class='td11' id='TBL-5-8-2' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>16.62 </span></td>
+                <td class='td11' colspan='2' id='TBL-5-8-3' style='text-align:center; white-space:nowrap;'>
+                  <div class='multicolumn' style='text-align:center; white-space:nowrap;'><span
+                      class='cmr-8'>15.40</span></div>
+                </td>
+                <td class='td11' id='TBL-5-8-5' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>20.24</span></strong> </td>
+                <td class='td11' id='TBL-5-8-6' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>18.93 </span></td>
+              </tr>
+              <tr id='TBL-5-9-' style='vertical-align:baseline;'>
+                <td class='td11' id='TBL-5-9-1' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>SSIM</span></strong> </td>
+                <td class='td11' id='TBL-5-9-2' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.523 </span></td>
+                <td class='td11' colspan='2' id='TBL-5-9-3' style='text-align:center; white-space:nowrap;'>
+                  <div class='multicolumn' style='text-align:center; white-space:nowrap;'><span
+                      class='cmr-8'>0.569</span></div>
+                </td>
+                <td class='td11' id='TBL-5-9-5' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.718 </span></td>
+                <td class='td11' id='TBL-5-9-6' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>0.746</span></strong> </td>
+              </tr>
+              <tr class='array-hline'>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+    </figure>
+  </div>
+  <p> As exhibited in Table (<a
+      href='#the-quantitative-result-of-different-traditional-methods-with-our-model-on-ihaze-ohaze-'>1<!-- tex4ht:ref: tab:my-table  --></a>),
+    the model performs near state-of-the-art in both PSNR and
+    SSIM metrics on both datasetes [<a href='#Xo_haze'>40</a>, <a href='#Xi_haze'>42</a>]. Whereas from Table (<a
+      href='#the-quantitative-analysis-of-result-with-respect-to-the-existing-methods-and-our-model-on-densehaze-nhhaze-'>2<!-- tex4ht:ref: tab:my-table1  --></a>),
+    our model outperforms
+    existing methods in both PSNR and SSIM with the Dense-haze dataset [<a href='#Xdense_haze'>41</a>]. For
+    the NH-Haze [<a href='#Xnh_haze'>47</a>] dataset, our model outperforms existing models in SSIM and
+    the PSNR difference between our model and the existing model is 1.31dB. In
+    both cases, EDN-GTM [<a href='#Xsec_sota'>36</a>] struggles in the SSIM metric, but our method gives a
+    precise SSIM score because of the Structural similarity loss (<a
+      href='#x1-7007r7'>7<!-- tex4ht:ref: eqn:ssim_loss  --></a>), see results in Fig
+    (<a href='#x1-6007r2'>2<!-- tex4ht:ref: tab:Results  --></a>).
+  </p>
+
+  <h3 class='sectionHead' id='ablation-study'><span class='titlemark'>5 </span> <a id='x1-120005'></a>Ablation study
+  </h3>
+  <p>We conducted an ablation study on I-Haze, O-Haze, Dense-Haze and NH-haze datasets. We
+    evaluated ablation with loss components in Section <a
+      href='#loss-ablation'>5.1<!-- tex4ht:ref: loss_ablation  --></a> and colourspace image
+    representation in training images in Section <a
+      href='#use-of-ycbcr-versus-rgb-space'>5.2<!-- tex4ht:ref: ycbcr_vs_rgb  --></a>.
+  </p>
+
+  <h4 class='subsectionHead' id='loss-ablation'><span class='titlemark'>5.1 </span> <a id='x1-130005.1'></a>Loss
+    ablation</h4>
+  <p>In section <a href='#losses-and-metrics'>3.4<!-- tex4ht:ref: loss_metric  --></a>, we used three types of losses to
+    train our neural network.
+    In this section, we will assess the result if we change the loss function
+    <!-- l. 6 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <msub>
+        <mrow>
+          <mstyle mathvariant='script'>
+            <mi>L</mi>
+          </mstyle>
+        </mrow>
+        <mrow>
+          <mn>2</mn>
+        </mrow>
+      </msub>
+    </math> with
+    <!-- l. 6 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <msub>
+        <mrow>
+          <mstyle mathvariant='script'>
+            <mi>L</mi>
+          </mstyle>
+        </mrow>
+        <mrow>
+          <mn>1</mn>
+        </mrow>
+      </msub>
+    </math>, i.e.
+    Huber loss. Our observation is presented in Table (<a
+      href='#the-quantitative-comparison-result-of-l-verses-l-on-ihaze-ohaze-densehaze-and-nhhaze'>3<!-- tex4ht:ref: tab:l1vl2  --></a>),
+    which shows the qualitative
+    comparison between these losses.
+  </p>
+  <div class='table'>
+
+
+    <p> </p>
+    <figure class='float'>
+
+
+      <div class='center'>
+        <p>
+        </p>
+        <div class='threeparttable'
+          id='the-quantitative-comparison-result-of-l-verses-l-on-ihaze-ohaze-densehaze-and-nhhaze'><a
+            id='x1-13001r3'></a>
+          <div class='tabular'>
+            <figcaption class='caption'><span class='id'><span class='cmbx-10'>Table 3</span>: </span><span
+                class='content'>The quantitative comparison result of
+                <!-- l. 23 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+                  <msub>
+                    <mrow>
+                      <mstyle mathvariant='script'>
+                        <mi>L</mi>
+                      </mstyle>
+                    </mrow>
+                    <mrow>
+                      <mn>1</mn>
+                    </mrow>
+                  </msub>
+                </math>
+                verses
+                <!-- l. 23 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+                  <msub>
+                    <mrow>
+                      <mstyle mathvariant='script'>
+                        <mi>L</mi>
+                      </mstyle>
+                    </mrow>
+                    <mrow>
+                      <mn>2</mn>
+                    </mrow>
+                  </msub>
+                </math>
+                on I-Haze, O-Haze, Dense-Haze and NH-Haze.
+              </span></figcaption><!-- tex4ht:label?: x1-13001r3  -->
+            <table class='tabular' id='TBL-6'>
+              <colgroup id='TBL-6-1g'>
+                <col id='TBL-6-1' />
+                <col id='TBL-6-2' />
+                <col id='TBL-6-3' />
+                <col id='TBL-6-4' />
+                <col id='TBL-6-5' />
+              </colgroup>
+              <tr id='TBL-6-1-' style='vertical-align:baseline;'>
+                <td class='td11' colspan='3' id='TBL-6-1-1' style='text-align:center; white-space:nowrap;'></td>
+                <div class='multicolumn' style='text-align:center; white-space:nowrap;'><em><strong><span
+                        class='cmbxti-10x-x-80'>A) </span><!-- l. 14 --><math display='inline'
+                        xmlns='http://www.w3.org/1998/Math/MathML'>
+                        <msub>
+                          <mrow>
+                            <mstyle mathvariant='script'>
+                              <mi>L</mi>
+                            </mstyle>
+                          </mrow>
+                          <mrow>
+                            <mn>1</mn>
+                          </mrow>
+                        </msub>
+                      </math> <span class='cmbxti-10x-x-80'>Loss</span></strong></em></div>
+              </tr>
+              <tr class='array-hline'>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr id='TBL-6-2-' style='vertical-align:baseline;'>
+                <td class='td11' id='TBL-6-2-1' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>Metric</span></strong> </td>
+                <td class='td11' id='TBL-6-2-2' style='text-align:center; white-space:nowrap;'> <em><strong><span
+                        class='cmbxti-10x-x-80'>I-Haze</span></strong></em> <span class='cmr-8'>[</span><a
+                    href='#Xi_haze'><span class='cmr-8'>42</span></a><span class='cmr-8'>] </span></td>
+                <td class='td11' id='TBL-6-2-3' style='text-align:center; white-space:nowrap;'> <em><strong><span
+                        class='cmbxti-10x-x-80'>O-Haze</span></strong></em> <span class='cmr-8'>[</span><a
+                    href='#Xo_haze'><span class='cmr-8'>40</span></a><span class='cmr-8'>] </span></td>
+                <td class='td11' id='TBL-6-2-4' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>Dense-Haze</span></strong> <span class='cmr-8'>[</span><a href='#Xdense_haze'><span
+                      class='cmr-8'>41</span></a><span class='cmr-8'>] </span></td>
+                <td class='td11' id='TBL-6-2-5' style='text-align:center; white-space:nowrap;'> <em><strong><span
+                        class='cmbxti-10x-x-80'>NH-Haze</span></strong></em> <span class='cmr-8'>[</span><a
+                    href='#Xnh_haze'><span class='cmr-8'>47</span></a><span class='cmr-8'>] </span></td>
+              </tr>
+              <tr class='array-hline'>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr id='TBL-6-3-' style='vertical-align:baseline;'>
+                <td class='td11' id='TBL-6-3-1' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>PSNR (dB)</span></strong> </td>
+                <td class='td11' id='TBL-6-3-2' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>21.41 </span></td>
+                <td class='td11' id='TBL-6-3-3' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>21.24 </span></td>
+                <td class='td11' id='TBL-6-3-4' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>17.44 </span></td>
+                <td class='td11' id='TBL-6-3-5' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>17.78 </span></td>
+              </tr>
+              <tr id='TBL-6-4-' style='vertical-align:baseline;'>
+                <td class='td11' id='TBL-6-4-1' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>SSIM</span></strong> </td>
+                <td class='td11' id='TBL-6-4-2' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.843 </span></td>
+                <td class='td11' id='TBL-6-4-3' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.779 </span></td>
+                <td class='td11' id='TBL-6-4-4' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.697 </span></td>
+                <td class='td11' id='TBL-6-4-5' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.713 </span></td>
+              </tr>
+              <tr class='array-hline'>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr id='TBL-6-5-' style='vertical-align:baseline;'>
+                <td class='td11' colspan='3' id='TBL-6-5-1' style='text-align:center; white-space:nowrap;'></td>
+                <div class='multicolumn' style='text-align:left; white-space:nowrap;'></div>
+              </tr>
+              <tr id='TBL-6-6-' style='vertical-align:baseline;'>
+                <td class='td11' colspan='3' id='TBL-6-6-1' style='text-align:center; white-space:nowrap;'></td>
+                <div class='multicolumn' style='text-align:center; white-space:nowrap;'><em><strong><span
+                        class='cmbxti-10x-x-80'>B) </span><!-- l. 19 --><math display='inline'
+                        xmlns='http://www.w3.org/1998/Math/MathML'>
+                        <msub>
+                          <mrow>
+                            <mstyle mathvariant='script'>
+                              <mi>L</mi>
+                            </mstyle>
+                          </mrow>
+                          <mrow>
+                            <mn>2</mn>
+                          </mrow>
+                        </msub>
+                      </math> <span class='cmbxti-10x-x-80'>Loss</span></strong></em></div>
+              </tr>
+              <tr class='array-hline'>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr id='TBL-6-7-' style='vertical-align:baseline;'>
+                <td class='td11' id='TBL-6-7-1' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>Metric</span></strong> </td>
+                <td class='td11' id='TBL-6-7-2' style='text-align:center; white-space:nowrap;'> <em><strong><span
+                        class='cmbxti-10x-x-80'>I-Haze</span></strong></em> <span class='cmr-8'>[</span><a
+                    href='#Xi_haze'><span class='cmr-8'>42</span></a><span class='cmr-8'>] </span></td>
+                <td class='td11' id='TBL-6-7-3' style='text-align:center; white-space:nowrap;'> <em><strong><span
+                        class='cmbxti-10x-x-80'>O-Haze</span></strong></em> <span class='cmr-8'>[</span><a
+                    href='#Xo_haze'><span class='cmr-8'>40</span></a><span class='cmr-8'>] </span></td>
+                <td class='td11' id='TBL-6-7-4' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>Dense-Haze</span></strong> <span class='cmr-8'>[</span><a href='#Xdense_haze'><span
+                      class='cmr-8'>41</span></a><span class='cmr-8'>] </span></td>
+                <td class='td11' id='TBL-6-7-5' style='text-align:center; white-space:nowrap;'> <em><strong><span
+                        class='cmbxti-10x-x-80'>NH-Haze</span></strong></em> <span class='cmr-8'>[</span><a
+                    href='#Xnh_haze'><span class='cmr-8'>47</span></a><span class='cmr-8'>] </span></td>
+              </tr>
+              <tr class='array-hline'>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr id='TBL-6-8-' style='vertical-align:baseline;'>
+                <td class='td11' id='TBL-6-8-1' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>PSNR (dB)</span></strong> </td>
+                <td class='td11' id='TBL-6-8-2' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>22.54 </span></td>
+                <td class='td11' id='TBL-6-8-3' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>23.02 </span></td>
+                <td class='td11' id='TBL-6-8-4' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>17.60 </span></td>
+                <td class='td11' id='TBL-6-8-5' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>18.93 </span></td>
+              </tr>
+              <tr id='TBL-6-9-' style='vertical-align:baseline;'>
+                <td class='td11' id='TBL-6-9-1' style='text-align:center; white-space:nowrap;'> <strong><span
+                      class='cmbx-8'>SSIM</span></strong> </td>
+                <td class='td11' id='TBL-6-9-2' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.870 </span></td>
+                <td class='td11' id='TBL-6-9-3' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.803 </span></td>
+                <td class='td11' id='TBL-6-9-4' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.716 </span></td>
+                <td class='td11' id='TBL-6-9-5' style='text-align:center; white-space:nowrap;'> <span
+                    class='cmr-8'>0.746 </span></td>
+              </tr>
+              <tr class='array-hline'>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+    </figure>
+  </div>
+  <h4 class='subsectionHead' id='use-of-ycbcr-versus-rgb-space'><span class='titlemark'>5.2 </span> <a
+      id='x1-140005.2'></a>Use of YCbCr versus RGB space</h4>
+  <p>In Section <a href='#colour-space'>3.1<!-- tex4ht:ref: color_space  --></a>, we discussed the use of YCbCr
+    colourspace over RGB. In this section, we will
+    examine the qualitative results of both colourspace image representations for training the
+    proposed network. Our findings reveal that the YCbCr colourspace images give slightly
+    better results than the RGB colourspace images in most of the datasets. On some input
+    images, RGB-based images were perceptually better than the YCbCr. Also, the metric-wise
+    difference is diminutive for all datasets.
+  </p>
+  <p>
+  </p>
+
+  <h3 class='sectionHead' id='conclusion'><span class='titlemark'>6 </span> <a id='x1-150006'></a>Conclusion</h3>
+  <p>We presented the coherent architecture train on sufficiently large and diverse data that can
+    give near state-of-the-art results on indoor, outdoor, non-homogenous, dense and synthetic
+    haze environments on qualitative metrics PSNR and SSIM. Our model gives structurally
+    enhanced output on poorly visible input images. We used a combination of loss functions to
+    generate a haze-free image without colour degradation, noise and structural loss. Our
+    method demonstrated by choosing adequate qualitative and quantitative data miniature
+    and straightforward network can effective as the existing methods. In future, our
+    model can be used to get haze-free images for vision tasks such as object detection,
+    segmentation and human action recognition if needed. Also, we will improve our
+    model on low-light hazy images and colour restoration from densely hazy images.
+  </p>
+  <p>
+  </p>
+
+  <h3 class='likesectionHead' id='references'><a id='x1-16000'></a>References</h3>
+  <p>
+  </p>
+  <div class='thebibliography'>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xtourist'></a>[1] <span class='bibsp'>   </span></span>Wang, L., Zhou, X., Lu, M., Cui, Z.: Impacts of
+      haze weather on tourist
+      arrivals and destination preference: Analysis based on Baidu Index of 73 scenic
+      spots in Beijing, China. Journal of Cleaner Production <strong><span class='cmbx-10'>273</span></strong>, 122887
+      (2020)
+      <a class='url'
+        href='https://doi.org/10.1016/j.jclepro.2020.122887'>https://doi.org/10.1016/j.jclepro.2020.122887</a>
+    </p>
+
+
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xobj_det_cnn'></a>[2] <span class='bibsp'>   </span></span>Tran, L.-A., Moon, S., Park, D.-C.: A Novel
+      Encoder-Decoder Network with Guided
+      Transmission Map for Single Image Dehazing. Technical report (February 2022).
+      Publication Title: arXiv e-prints ADS Bibcode: 2022arXiv220204757T Type:
+      article. <a class='url'
+        href='https://ui.adsabs.harvard.edu/abs/2022arXiv220204757T'>https://ui.adsabs.harvard.edu/abs/2022arXiv220204757T</a>
+      Accessed
+      2022-10-13
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xmotion_seg_cnn'></a>[3] <span class='bibsp'>   </span></span>Patil, P.W., Murala, S.: MSFgNet: A Novel
+      Compact End-to-End Deep Network for
+      Moving Object Detection. IEEE Transactions on Intelligent Transportation Systems
+      <strong><span class='cmbx-10'>20</span></strong>(11), 4066–4077 (2019) <a class='url'
+        href='https://doi.org/10.1109/TITS.2018.2880096'>https://doi.org/10.1109/TITS.2018.2880096</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xlai'></a>[4] <span class='bibsp'>   </span></span>Lai, Y.-H., Chen, Y.-L., Chiou, C.-J., Hsu, C.-T.:
+      Single-Image Dehazing via Optimal
+      Transmission Map Under Scene Priors. IEEE Transactions on Circuits and Systems for
+      Video Technology <strong><span class='cmbx-10'>25</span></strong>(1), 1–14 (2015) <a class='url'
+        href='https://doi.org/10.1109/TCSVT.2014.2329381'>https://doi.org/10.1109/TCSVT.2014.2329381</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xmulti_sc'></a>[5] <span class='bibsp'>   </span></span>Cozman, F., Krotkov, E.: Depth from scattering.
+      In: Proceedings of IEEE
+      Computer Society Conference on Computer Vision and Pattern Recognition, pp.
+      801–806 (1997). <a class='url'
+        href='https://doi.org/10.1109/CVPR.1997.609419'>https://doi.org/10.1109/CVPR.1997.609419</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xfilters'></a>[6] <span class='bibsp'>   </span></span>Huang, S.-C., Chen, B.-H., Wang, W.-J.: Visibility
+      Restoration of Single Hazy
+      Images Captured in Real-World Weather Conditions. IEEE Transactions
+      on Circuits and Systems for Video Technology <strong><span class='cmbx-10'>24</span></strong>(10), 1814–1824
+      (2014)
+      <a class='url' href='https://doi.org/10.1109/TCSVT.2014.2317854'>https://doi.org/10.1109/TCSVT.2014.2317854</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xpol_fil_sc'></a>[7] <span class='bibsp'>   </span></span>Shwartz, S., Namer, E., Schechner, Y.Y.: Blind
+      Haze Separation. In:
+      <!-- l. 142 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+        <mrow>
+          <mn>2006</mn>
+        </mrow>
+      </math>
+      IEEE Computer Society Conference on Computer Vision and Pattern Recognition
+      (CVPR’<!-- l. 142 --><math display='inline' xmlns='http://www.w3.org/1998/Math/MathML'>
+        <mrow>
+          <mn>06</mn>
+        </mrow>
+      </math>),
+      vol. 2, pp. 1984–1991 (2006). <a class='url'
+        href='https://doi.org/10.1109/CVPR.2006.71'>https://doi.org/10.1109/CVPR.2006.71</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xpol_filter2'></a>[8] <span class='bibsp'>   </span></span>Schechner, Y.Y., Narasimhan, S.G., Nayar,
+      S.K.: Instant dehazing of images using
+      polarization. In: Proceedings of the 2001 IEEE Computer Society Conference on
+      Computer Vision and Pattern Recognition. CVPR 2001, vol. 1, p. (2001).
+      <a class='url' href='https://doi.org/10.1109/CVPR.2001.990493'>https://doi.org/10.1109/CVPR.2001.990493</a>
+
+
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xprior_filt'></a>[9] <span class='bibsp'>   </span></span>Zhu, Q., Mai, J., Shao, L.: A fast single image
+      haze removal algorithm using color
+      attenuation prior. IEEE transactions on image processing <strong><span class='cmbx-10'>24</span></strong>(11),
+      3522–3533 (2015).
+      Publisher: IEEE
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xretinex'></a>[10] <span class='bibsp'>   </span></span>Parthasarathy, S., Sankaran, P.: A retinex based
+      haze removal method. In: 2012
+      IEEE 7th International Conference on Industrial and Information Systems (ICIIS), pp.
+      1–6 (2012). <a class='url'
+        href='https://doi.org/10.1109/ICIInfS.2012.6304767'>https://doi.org/10.1109/ICIInfS.2012.6304767</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xu_net'></a>[11] <span class='bibsp'>   </span></span>Ronneberger, O., Fischer, P., Brox, T.: U-Net:
+      Convolutional Networks for Biomedical
+      Image Segmentation. arXiv (2015). <a class='url'
+        href='https://doi.org/10.48550/ARXIV.1505.04597'>https://doi.org/10.48550/ARXIV.1505.04597</a> .
+      <a class='url' href='https://arxiv.org/abs/1505.04597'>https://arxiv.org/abs/1505.04597</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xprior_cap'></a>[12] <span class='bibsp'>   </span></span>Wang, Q., Zhao, L., Tang, G., Zhao, H., Zhang,
+      X.: Single-Image
+      Dehazing Using Color Attenuation Prior Based on Haze-Lines. In: 2019 IEEE
+      International Conference on Big Data (Big Data), pp. 5080–5087 (2019).
+      <a class='url'
+        href='https://doi.org/10.1109/BigData47090.2019.9005603'>https://doi.org/10.1109/BigData47090.2019.9005603</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xatm'></a>[13] <span class='bibsp'>   </span></span>McCartney, E.J.: Optics of the atmosphere: scattering
+      by molecules and particles.
+      New York (1976)
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xreal_time_atm'></a>[14] <span class='bibsp'>   </span></span>Bai, L., Wu, Y., Xie, J., Wen, P.: Real
+      Time Image Haze Removal on Multi-core DSP.
+      Procedia Engineering <strong><span class='cmbx-10'>99</span></strong>, 244–252 (2015) <a class='url'
+        href='https://doi.org/10.1016/j.proeng.2014.12.532'>https://doi.org/10.1016/j.proeng.2014.12.532</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xatm_illu'></a>[15] <span class='bibsp'>   </span></span>Wang, A., Wang, W., Liu, J., Gu, N.: AIPNet:
+      Image-to-Image Single Image
+      Dehazing With Atmospheric Illumination Prior. IEEE Transactions on Image
+      Processing <strong><span class='cmbx-10'>28</span></strong>(1), 381–393 (2019) <a class='url'
+        href='https://doi.org/10.1109/TIP.2018.2868567'>https://doi.org/10.1109/TIP.2018.2868567</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xprior1'></a>[16] <span class='bibsp'>   </span></span>Berman, D., Treibitz, T., Avidan, S.: Non-local
+      image dehazing. In: 2016 IEEE
+      Conference on Computer Vision and Pattern Recognition (CVPR), pp. 1674–1682
+      (2016). <a class='url' href='https://doi.org/10.1109/CVPR.2016.185'>https://doi.org/10.1109/CVPR.2016.185</a>
+
+
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xprior2'></a>[17] <span class='bibsp'>   </span></span>Tan, R.T.: Visibility in bad weather from a single
+      image. In: 2008 IEEE
+      Conference on Computer Vision and Pattern Recognition, pp. 1–8 (2008).
+      <a class='url' href='https://doi.org/10.1109/CVPR.2008.4587643'>https://doi.org/10.1109/CVPR.2008.4587643</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xprior_cnn1'></a>[18] <span class='bibsp'>   </span></span>Tang, K., Yang, J., Wang, J.: Investigating
+      haze-relevant features in a learning
+      framework for image dehazing. In: Proceedings of the IEEE Conference on Computer
+      Vision and Pattern Recognition, pp. 2995–3000 (2014)
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xhe'></a>[19] <span class='bibsp'>   </span></span>He, K., Sun, J., Tang, X.: Single Image Haze Removal
+      Using Dark Channel Prior.
+      IEEE Transactions on Pattern Analysis and Machine Intelligence <strong><span
+          class='cmbx-10'>33</span></strong>(12), 2341–2353
+      (2011) <a class='url' href='https://doi.org/10.1109/TPAMI.2010.168'>https://doi.org/10.1109/TPAMI.2010.168</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xhalo_cai_cnn'></a>[20] <span class='bibsp'>   </span></span>Cai, B., Xu, X., Jia, K., Qing, C., Tao, D.:
+      DehazeNet: An End-to-End System for
+      Single Image Haze Removal. IEEE Transactions on Image Processing <strong><span
+          class='cmbx-10'>25</span></strong>(11),
+      5187–5198 (2016) <a class='url'
+        href='https://doi.org/10.1109/TIP.2016.2598681'>https://doi.org/10.1109/TIP.2016.2598681</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xwang'></a>[21] <span class='bibsp'>   </span></span>Wang, J., Lu, K., Xue, J., He, N., Shao, L.: Single
+      Image Dehazing
+      Based on the Physical Model and MSRCR Algorithm. IEEE Transactions
+      on Circuits and Systems for Video Technology <strong><span class='cmbx-10'>28</span></strong>(9), 2190–2199 (2018)
+      <a class='url' href='https://doi.org/10.1109/TCSVT.2017.2728822'>https://doi.org/10.1109/TCSVT.2017.2728822</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xren'></a>[22] <span class='bibsp'>   </span></span>Ren, W., Pan, J., Zhang, H., Cao, X., Yang, M.-H.:
+      Single Image Dehazing via
+      Multi-scale Convolutional Neural Networks with Holistic Edges. International Journal of
+      Computer Vision <strong><span class='cmbx-10'>128</span></strong>(1), 240–259 (2020) <a class='url'
+        href='https://doi.org/10.1007/s11263-019-01235-8'>https://doi.org/10.1007/s11263-019-01235-8</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xzhang'></a>[23] <span class='bibsp'>   </span></span>Zhang, H., Patel, V.M.: Densely Connected Pyramid
+      Dehazing Network. arXiv (2018).
+      <a class='url' href='https://doi.org/10.48550/ARXIV.1803.08396'>https://doi.org/10.48550/ARXIV.1803.08396</a> . <a
+        class='url' href='https://arxiv.org/abs/1803.08396'>https://arxiv.org/abs/1803.08396</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xcnn_o'></a>[24] <span class='bibsp'>   </span></span>Tang, G., Zhao, L., Jiang, R., Zhang, X.: Single
+      Image Dehazing via Lightweight
+      Multi-scale Networks. In: 2019 IEEE International Conference on Big Data (Big Data),
+      pp. 5062–5069 (2019). <a class='url'
+        href='https://doi.org/10.1109/BigData47090.2019.9006075'>https://doi.org/10.1109/BigData47090.2019.9006075</a>
+
+
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xgated'></a>[25] <span class='bibsp'>   </span></span>Chen, D., He, M., Fan, Q., Liao, J., Zhang, L.,
+      Hou, D., Yuan, L., Hua, G.: Gated
+      context aggregation network for image dehazing and deraining. In: 2019 IEEE Winter
+      Conference on Applications of Computer Vision (WACV), pp. 1375–1383
+      (2019)
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xaod'></a>[26] <span class='bibsp'>   </span></span>Li, B., Peng, X., Wang, Z., Xu, J., Feng, D.:
+      AOD-Net: All-in-One Dehazing
+      Network. In: 2017 IEEE International Conference on Computer Vision (ICCV), pp.
+      4780–4788. IEEE, Venice (2017). <a class='url'
+        href='https://doi.org/10.1109/ICCV.2017.511'>https://doi.org/10.1109/ICCV.2017.511</a> .
+      http://H.Bieeexplore.H.Bieee.H.Borg/H.Bdocument/H.B8237773/H.B Accessed
+      2022-10-13
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xswami'></a>[27] <span class='bibsp'>   </span></span>Swami, K., Das, S.K.: CANDY: Conditional
+      Adversarial Networks
+      based End-to-End System for Single Image Haze Removal. In: 2018 24th
+      International Conference on Pattern Recognition (ICPR), pp. 3061–3067 (2018).
+      <a class='url' href='https://doi.org/10.1109/ICPR.2018.8545522'>https://doi.org/10.1109/ICPR.2018.8545522</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xres_unp'></a>[28] <span class='bibsp'>   </span></span>Dudhane, A., Murala, S.: CDNet: Single Image
+      De-Hazing Using Unpaired
+      Adversarial Training. In: 2019 IEEE Winter Conference on Applications of Computer
+      Vision (WACV), pp. 1147–1155 (2019). <a class='url'
+        href='https://doi.org/10.1109/WACV.2019.00127'>https://doi.org/10.1109/WACV.2019.00127</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xres_unp1'></a>[29] <span class='bibsp'>   </span></span>Engin, D., Genc, A., Ekenel, H.K.: Cycle-Dehaze:
+      Enhanced CycleGAN
+      for Single Image Dehazing. In: 2018 IEEE/CVF Conference on Computer
+      Vision and Pattern Recognition Workshops (CVPRW), pp. 938–9388 (2018).
+      <a class='url' href='https://doi.org/10.1109/CVPRW.2018.00127'>https://doi.org/10.1109/CVPRW.2018.00127</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xnon_uniform'></a>[30] <span class='bibsp'>   </span></span>Chen, Z., Li, Q., Feng, H., Xu, Z., Chen, Y.:
+      Nonuniformly Dehaze Network for
+      Visible Remote Sensing Images. In: 2022 IEEE/CVF Conference on Computer
+      Vision and Pattern Recognition Workshops (CVPRW), pp. 446–455 (2022).
+      <a class='url'
+        href='https://doi.org/10.1109/CVPRW56347.2022.00060'>https://doi.org/10.1109/CVPRW56347.2022.00060</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xuhd'></a>[31] <span class='bibsp'>   </span></span>Zheng, Z., Ren, W., Cao, X., Hu, X., Wang, T., Song,
+      F., Jia, X.: Ultra-High-Definition
+      Image Dehazing via Multi-Guided Bilateral Learning. In: Proceedings of the
+
+
+      IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), pp.
+      16185–16194 (2021)
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xcol_d_ill'></a>[32] <span class='bibsp'>   </span></span>Wang, C., Hu, J., Luo, X., Kwan, M.-P., Chen,
+      W., Wang, H.: Color-Dense
+      Illumination Adjustment Network for Removing Haze and Smoke from Fire Scenario
+      Images. Sensors (Basel, Switzerland) <strong><span class='cmbx-10'>22</span></strong>(3), 911 (2022) <a
+        class='url' href='https://doi.org/10.3390/s22030911'>https://doi.org/10.3390/s22030911</a>
+      . Accessed 2022-10-13
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='XVRHI'></a>[33] <span class='bibsp'>   </span></span>Ju, M., Chen, C., Liu, J., Chen, K., Zhang, D.:
+      VRHI: Visibility Restoration for
+      Hazy Images Using a Haze Density Model. In: Proceedings of the IEEE/CVF
+      Conference on Computer Vision and Pattern Recognition (CVPR) Workshops, pp.
+      897–904 (2021)
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xmulti_scale_ad'></a>[34] <span class='bibsp'>   </span></span>Chen, S., Chen, Y., Qu, Y., Huang, J.,
+      Hong, M.: Multi-Scale Adaptive
+      Dehazing Network. In: 2019 IEEE/CVF Conference on Computer Vision
+      and Pattern Recognition Workshops (CVPRW), pp. 2051–2059 (2019).
+      <a class='url' href='https://doi.org/10.1109/CVPRW.2019.00257'>https://doi.org/10.1109/CVPRW.2019.00257</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xbppnet_sota'></a>[35] <span class='bibsp'>   </span></span>Singh, A., Bhave, A., Prasad, D.K.: Single
+      image dehazing for a variety of haze
+      scenarios using back projected pyramid network. arXiv. arXiv:2008.06713 [cs, eess] version:
+      1 (2020). <a class='url'
+        href='https://doi.org/10.48550/arXiv.2008.06713'>https://doi.org/10.48550/arXiv.2008.06713</a> . <a class='url'
+        href='http://arxiv.org/abs/2008.06713'>http://arxiv.org/abs/2008.06713</a>
+      Accessed 2022-10-13
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xsec_sota'></a>[36] <span class='bibsp'>   </span></span>Tran, L.-A., Moon, S., Park, D.-C.: A Novel
+      Encoder-Decoder Network with Guided
+      Transmission Map for Single Image Dehazing. arXiv. arXiv:2202.04757 [cs] version: 1
+      (2022). <a class='url'
+        href='https://doi.org/10.48550/arXiv.2202.04757'>https://doi.org/10.48550/arXiv.2202.04757</a> . <a class='url'
+        href='http://arxiv.org/abs/2202.04757'>http://arxiv.org/abs/2202.04757</a>
+      Accessed 2022-10-13
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xdw_gan'></a>[37] <span class='bibsp'>   </span></span>Fu, M., Liu, H., Yu, Y., Chen, J., Wang, K.:
+      DW-GAN: A Discrete Wavelet
+      Transform GAN for NonHomogeneous Dehazing. In: 2021 IEEE/CVF Conference on
+      Computer Vision and Pattern Recognition Workshops (CVPRW), pp. 203–212. IEEE,
+      Nashville, TN, USA (2021). <a class='url'
+        href='https://doi.org/10.1109/CVPRW53098.2021.00029'>https://doi.org/10.1109/CVPRW53098.2021.00029</a> .
+      https://H.Bieeexplore.H.Bieee.H.Borg/H.Bdocument/H.B9523134/H.B Accessed
+      2022-10-13
+
+
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xri_gan'></a>[38] <span class='bibsp'>   </span></span>Dudhane, A., Aulakh, H.S., Murala, S.: RI-GAN: An
+      End-To-End Network for
+      Single Image Haze Removal. In: 2019 IEEE/CVF Conference on Computer
+      Vision and Pattern Recognition Workshops (CVPRW), pp. 2014–2023 (2019).
+      <a class='url' href='https://doi.org/10.1109/CVPRW.2019.00253'>https://doi.org/10.1109/CVPRW.2019.00253</a>
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xhr_haze'></a>[39] <span class='bibsp'>   </span></span>Bianco, S., Celona, L., Piccoli, F., Schettini,
+      R.: High-Resolution Single Image
+      Dehazing Using Encoder-Decoder Architecture. In: 2019 IEEE/CVF Conference on
+      Computer Vision and Pattern Recognition Workshops (CVPRW), pp. 1927–1935.
+      IEEE, Long Beach, CA, USA (2019). <a class='url'
+        href='https://doi.org/10.1109/CVPRW.2019.00244'>https://doi.org/10.1109/CVPRW.2019.00244</a> .
+      https://H.Bieeexplore.H.Bieee.H.Borg/H.Bdocument/H.B9025545/H.B Accessed
+      2022-10-13
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xo_haze'></a>[40] <span class='bibsp'>   </span></span>Ancuti, C.O., Ancuti, C., Timofte, R.,
+      Vleeschouwer, C.D.: O-HAZE: a dehazing
+      benchmark with real hazy and haze-free outdoor images. In: IEEE Conference on
+      Computer Vision and Pattern Recognition, NTIRE Workshop. NTIRE CVPR’18
+      (2018). event-place: Salt Lake City, Utah, USA
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xdense_haze'></a>[41] <span class='bibsp'>   </span></span>Ancuti, C.O., Ancuti, C., Sbert, M., Timofte,
+      R.: Dense-haze: A benchmark
+      for image dehazing with dense-haze and haze-free images. In: 2019 IEEE
+      International Conference on Image Processing (ICIP), pp. 1014–1018 (2019).
+      IEEE
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xi_haze'></a>[42] <span class='bibsp'>   </span></span>Ancuti, C.O., Ancuti, C., Timofte, R.,
+      Vleeschouwer, C.D.: I-HAZE: a dehazing
+      benchmark with real hazy and haze-free indoor images. In: arXiv:1804.05091v1
+      (2018)
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xfft'></a>[43] <span class='bibsp'>   </span></span>Yadav, O., Ghosal, K., Lutz, S., Smolic, A.:
+      Frequency-domain loss function for
+      deep exposure correction of dark images. Signal, Image and Video Processing <strong><span
+          class='cmbx-10'>15</span></strong>(8),
+      1829–1836 (2021) <a class='url'
+        href='https://doi.org/10.1007/s11760-021-01915-4'>https://doi.org/10.1007/s11760-021-01915-4</a> . Publisher:
+      Springer
+      Science and Business Media LLC
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xhuber'></a>[44] <span class='bibsp'>   </span></span>Huber, P.J.: Robust Estimation of a Location
+      Parameter. The Annals of
+
+
+      Mathematical Statistics <strong><span class='cmbx-10'>35</span></strong>(1), 73–101 (1964). Publisher: Institute
+      of Mathematical
+      Statistics. Accessed 2022-09-26
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xbench'></a>[45] <span class='bibsp'>   </span></span>Li, B., Ren, W., Fu, D., Tao, D., Feng, D., Zeng,
+      W., Wang, Z.: Benchmarking
+      Single-Image Dehazing and Beyond. IEEE Transactions on Image Processing <strong><span
+          class='cmbx-10'>28</span></strong>(1),
+      492–505 (2019). Publisher: IEEE
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xrevid'></a>[46] <span class='bibsp'>   </span></span>Zhang, X., Dong, H., Pan, J., Zhu, C., Tai, Y.,
+      Wang, C., Li, J., Huang, F., Wang,
+      F.: Learning to restore hazy video: A new real-world dataset and a new method. In:
+      Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
+      Recognition, pp. 9239–9248 (2021)
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xnh_haze'></a>[47] <span class='bibsp'>   </span></span>Ancuti, C.O., Ancuti, C., Timofte, R.: Nh-haze:
+      An image dehazing benchmark
+      with non-homogeneous hazy and haze-free images. In: Proceedings of the IEEE/CVF
+      Conference on Computer Vision and Pattern Recognition Workshops, pp. 444–445
+      (2020)
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xadmw'></a>[48] <span class='bibsp'>   </span></span>Loshchilov, I., Hutter, F.: Decoupled weight decay
+      regularization. arXiv preprint
+      arXiv:1711.05101 (2017)
+    </p>
+    <p class='bibitem'> <span class='biblabel'>
+        <a id='Xkaiming'></a>[49] <span class='bibsp'>   </span></span>He, K., Zhang, X., Ren, S., Sun, J.: Delving deep
+      into rectifiers: Surpassing
+      human-level performance on imagenet classification. In: Proceedings of the IEEE
+      International Conference on Computer Vision, pp. 1026–1034 (2015)
+    </p>
+  </div>
+
+</body>
+
+</html>

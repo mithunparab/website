@@ -1,0 +1,660 @@
+
+@misc{u_net,
+	title = {U-{Net}: {Convolutional} {Networks} for {Biomedical} {Image} {Segmentation}},
+	copyright = {arXiv.org perpetual, non-exclusive license},
+	url = {https://arxiv.org/abs/1505.04597},
+	publisher = {arXiv},
+	author = {Ronneberger, Olaf and Fischer, Philipp and Brox, Thomas},
+	year = {2015},
+	doi = {10.48550/ARXIV.1505.04597},
+	keywords = {Computer Vision and Pattern Recognition (cs.CV), FOS: Computer and information sciences},
+	annote = {6 in stanford
+},
+}
+
+@article{fft,
+	title = {Frequency-domain loss function for deep exposure correction of dark images},
+	volume = {15},
+	url = {https://doi.org/10.1007%2Fs11760-021-01915-4},
+	doi = {10.1007/s11760-021-01915-4},
+	number = {8},
+	journal = {Signal, Image and Video Processing},
+	author = {Yadav, Ojasvi and Ghosal, Koustav and Lutz, Sebastian and Smolic, Aljosa},
+	month = may,
+	year = {2021},
+	note = {Publisher: Springer Science and Business Media LLC},
+	pages = {1829--1836},
+	annote = {FFT loss
+},
+}
+
+@misc{adamw,
+	title = {Decoupled {Weight} {Decay} {Regularization}},
+	copyright = {arXiv.org perpetual, non-exclusive license},
+	url = {https://arxiv.org/abs/1711.05101},
+	publisher = {arXiv},
+	author = {Loshchilov, Ilya and Hutter, Frank},
+	year = {2017},
+	doi = {10.48550/ARXIV.1711.05101},
+	keywords = {FOS: Computer and information sciences, FOS: Mathematics, Machine Learning (cs.LG), Neural and Evolutionary Computing (cs.NE), Optimization and Control (math.OC)},
+	annote = {AdamW
+},
+}
+
+@article{huber,
+	title = {Robust {Estimation} of a {Location} {Parameter}},
+	volume = {35},
+	issn = {00034851},
+	url = {http://www.jstor.org/stable/2238020},
+	abstract = {[This paper contains a new approach toward a theory of robust estimation; it treats in detail the asymptotic theory of estimating a location parameter for contaminated normal distributions, and exhibits estimators--intermediaries between sample mean and sample median--that are asymptotically most robust (in a sense to be specified) among all translation invariant estimators. For the general background, see Tukey (1960) (p. 448 ff.) Let x1, ⋯, xn be independent random variables with common distribution function F(t - ξ). The problem is to estimate the location parameter ξ, but with the complication that the prototype distribution F(t) is only approximately known. I shall primarily be concerned with the model of indeterminacy F = (1 - ε)Φ + ε H, where \$0 {\textbackslash}leqq {\textbackslash}epsilon {\textless} 1\$ is a known number, Φ(t) = (2π)-1/2 ∫t -∞ exp(-1/2s2) ds is the standard normal cumulative and H is an unknown contaminating distribution. This model arises for instance if the observations are assumed to be normal with variance 1, but a fraction ε of them is affected by gross errors. Later on, I shall also consider other models of indeterminacy, e.g., \${\textbackslash}sup\_t {\textbar}F(t) - {\textbackslash}Phi(t){\textbar} {\textbackslash}leqq {\textbackslash}epsilon\$. Some inconvenience is caused by the fact that location and scale parameters are not uniquely determined: in general, for fixed ε, there will be several values of ξ and σ such that \${\textbackslash}sup\_t{\textbar}F(t) - {\textbackslash}Phi((t - {\textbackslash}xi)/{\textbackslash}sigma){\textbar} {\textbackslash}leqq {\textbackslash}epsilon\$, and similarly for the contaminated case. Although this inherent and unavoidable indeterminacy is small if ε is small and is rather irrelevant for practical purposes, it poses awkward problems for the theory, especially for optimality questions. To remove this difficulty, one may either (i) restrict attention to symmetric distributions, and estimate the location of the center of symmetry (this works for ξ but not for σ); or (ii) one may define the parameter to be estimated in terms of the estimator itself, namely by its asymptotic value for sample size n → ∞; or (iii) one may define the parameters by arbitrarily chosen functionals of the distribution (e.g., by the expectation, or the median of F). All three possibilities have unsatisfactory aspects, and I shall usually choose the variant which is mathematically most convenient. It is interesting to look back to the very origin of the theory of estimation, namely to Gauss and his theory of least squares. Gauss was fully aware that his main reason for assuming an underlying normal distribution and a quadratic loss function was mathematical, i.e., computational, convenience. In later times, this was often forgotten, partly because of the central limit theorem. However, if one wants to be honest, the central limit theorem can at most explain why many distributions occurring in practice are approximately normal. The stress is on the word "approximately." This raises a question which could have been asked already by Gauss, but which was, as far as I know, only raised a few years ago (notably by Tukey): What happens if the true distribution deviates slightly from the assumed normal one? As is now well known, the sample mean then may have a catastrophically bad performance: seemingly quite mild deviations may already explode its variance. Tukey and others proposed several more robust substitutes--trimmed means, Winsorized means, etc.--and explored their performance for a few typical violations of normality. A general theory of robust estimation is still lacking; it is hoped that the present paper will furnish the first few steps toward such a theory. At the core of the method of least squares lies the idea to minimize the sum of the squared "errors," that is, to adjust the unknown parameters such that the sum of the squares of the differences between observed and computed values is minimized. In the simplest case, with which we are concerned here, namely the estimation of a location parameter, one has to minimize the expression ∑i (xi - T)2; this is of course achieved by the sample mean T = ∑i xi/n. I should like to emphasize that no loss function is involved here; I am only describing how the least squares estimator is defined, and neither the underlying family of distributions nor the true value of the parameter to be estimated enters so far. It is quite natural to ask whether one can obtain more robustness by minimizing another function of the errors than the sum of their squares. We shall therefore concentrate our attention to estimators that can be defined by a minimum principle of the form (for a location parameter): T = Tn(x1, ⋯, xn) minimizes ∑i ρ(xi - T), {\textbackslash}begin\{equation*\} {\textbackslash}tag\{M\} where {\textbackslash}rho is a non-constant function. {\textbackslash}end\{equation*\} Of course, this definition generalizes at once to more general least squares type problems, where several parameters have to be determined. This class of estimators contains in particular (i) the sample mean (ρ(t) = t2), (ii) the sample median (ρ(t) = {\textbar}t{\textbar}), and more generally, (iii) all maximum likelihood estimators (ρ(t) = -log f(t), where f is the assumed density of the untranslated distribution). These (M)-estimators, as I shall call them for short, have rather pleasant asymptotic properties; sufficient conditions for asymptotic normality and an explicit expression for their asymptotic variance will be given. How should one judge the robustness of an estimator Tn(x) = Tn(x1, ⋯, xn)? Since ill effects from contamination are mainly felt for large sample sizes, it seems that one should primarily optimize large sample robustness properties. Therefore, a convenient measure of robustness for asymptotically normal estimators seems to be the supremum of the asymptotic variance (n → ∞) when F ranges over some suitable set of underlying distributions, in particular over the set of all F = (1 - ε)Φ + ε H for fixed ε and symmetric H. On second thought, it turns out that the asymptotic variance is not only easier to handle, but that even for moderate values of n it is a better measure of performance than the actual variance, because (i) the actual variance of an estimator depends very much on the behavior of the tails of H, and the supremum of the actual variance is infinite for any estimator whose value is always contained in the convex hull of the observations. (ii) If an estimator is asymptotically normal, then the important central part of its distribution and confidence intervals for moderate confidence levels can better be approximated in terms of the asymptotic variance than in terms of the actual variance. If we adopt this measure of robustness, and if we restrict attention to (M)-estimators, then it will be shown that the most robust estimator is uniquely determined and corresponds to the following ρ:ρ(t) = 1/2t2 for \${\textbar}t{\textbar} {\textless} k, {\textbackslash}rho(t) = k{\textbar}t{\textbar} - {\textbackslash}frac\{1\}\{2\}k{\textasciicircum}2\$ for {\textbar}t{\textbar} ≥ k, with k depending on ε. This estimator is most robust even among all translation invariant estimators. Sample mean (k = ∞) and sample median (k = 0) are limiting cases corresponding to ε = 0 and ε = 1, respectively, and the estimator is closely related and asymptotically equivalent to Winsorizing. I recall the definition of Winsorizing: assume that the observations have been ordered, x1 ≤ x2 ≤ ⋯ ≤ xn, then the statistic T = n-1(gxg + 1 + xg + 1 + xg + 2 + ⋯ + xn - h + hxn - h) is called the Winsorized mean, obtained by Winsorizing the g leftmost and the h rightmost observations. The above most robust (M)-estimators can be described by the same formula, except that in the first and in the last summand, the factors xg + 1 and xn - h have to be replaced by some numbers u, v satisfying xg ≤ u ≤ xg + 1 and xn - h ≤ v ≤ xn - h + 1, respectively; g, h, u and v depend on the sample. In fact, this (M)-estimator is the maximum likelihood estimator corresponding to a unique least favorable distribution F0 with density f0(t) = (1 - ε)(2π)-1/2e-ρ(t). This f0 behaves like a normal density for small t, like an exponential density for large t. At least for me, this was rather surprising--I would have expected an f0 with much heavier tails. This result is a particular case of a more general one that can be stated roughly as follows: Assume that F belongs to some convex set C of distribution functions. Then the most robust (M)-estimator for the set C coincides with the maximum likelihood estimator for the unique F0 ε C which has the smallest Fisher information number I(F) = ∫ (f'/f)2f dt among all F ε C. Miscellaneous related problems will also be treated: the case of non-symmetric contaminating distributions; the most robust estimator for the model of indeterminacy \${\textbackslash}sup\_t{\textbar}F(t) - {\textbackslash}Phi(t){\textbar} {\textbackslash}leqq {\textbackslash}epsilon\$; robust estimation of a scale parameter; how to estimate location, if scale and ε are unknown; numerical computation of the estimators; more general estimators, e.g., minimizing \${\textbackslash}sum\_\{i {\textless} j\} {\textbackslash}rho(x\_i - T, x\_j - T)\$, where ρ is a function of two arguments. Questions of small sample size theory will not be touched in this paper.]},
+	number = {1},
+	urldate = {2022-09-26},
+	journal = {The Annals of Mathematical Statistics},
+	author = {Huber, Peter J.},
+	year = {1964},
+	note = {Publisher: Institute of Mathematical Statistics},
+	pages = {73--101},
+}
+
+@article{tourist,
+	title = {Impacts of haze weather on tourist arrivals and destination preference: {Analysis} based on {Baidu} {Index} of 73 scenic spots in {Beijing}, {China}},
+	volume = {273},
+	issn = {0959-6526},
+	url = {https://www.sciencedirect.com/science/article/pii/S0959652620329322},
+	doi = {https://doi.org/10.1016/j.jclepro.2020.122887},
+	abstract = {Environmental quality is an important factor affecting the tourism industry. As a world-famous tourist city, Beijing is seriously affected by haze weather. Tourists carefully consider haze weather and shortlist their destinations based on these considerations. It is thus important to analyze the impact of haze weather on tourist arrivals and examine whether haze weather affects tourists’ destination preference for scenic spots. This study incorporates the tourism resource heterogeneity into the push-pull theory to construct a new theoretical framework of haze weather affecting tourism. Using the Baidu Index, we obtain the daily tourist arrivals data for 73 scenic spots (4A and 5A) in Beijing and construct the FE-OLS, IV-2SLS, and air-bin models to evaluate and analyze the effects of haze weather on tourist arrivals, preferences of scenic spots, and tourism economic losses. The following conclusions are drawn. First, from a regional perspective, haze weather has a significant and negative impact on tourist arrivals. Second, the degree of the effect on tourism is related to the severity of the haze. Moderate, heavy, and severe haze led to a reduction in tourist arrivals by 2.29\%, 6.0\%, and 14.77\%, respectively. Third, haze weather changes the choice of tourist destination from preferred cultural and natural attractions to recreational attractions. Lastly, it is estimated that Beijing lost 5.22 million tourists and 8.95 billion yuan in tourism revenue due to haze from 2016 to 2018. This study also provides policy recommendations to help the tourism industry cope with haze weather and suggestions to expand and enrich the theoretical perspective of climate change and tourism industry research.},
+	journal = {Journal of Cleaner Production},
+	author = {Wang, Li and Zhou, Xianghong and Lu, Minghui and Cui, Zhaocai},
+	year = {2020},
+	keywords = {Baidu index, Destination preference, Haze weather, Push-pull theory, Tourism resource heterogeneity, Tourist arrivals},
+	pages = {122887},
+}
+
+
+
+@article{real_time_atm,
+	title = {Real {Time} {Image} {Haze} {Removal} on {Multi}-core {DSP}},
+	volume = {99},
+	issn = {1877-7058},
+	url = {https://www.sciencedirect.com/science/article/pii/S1877705814036467},
+	doi = {https://doi.org/10.1016/j.proeng.2014.12.532},
+	abstract = {The quality and visual effect of an image is high demanded in avionic embedded field. But the frog and haze is common in the nature environment, so foggy images gathered in bad weather need to be disposed to remove the haze. The single image haze removal algorithm using dark channel prior can achieve great haze removal effect, but the process of optimizing the medium transmission in this algorithm costs too much time, while the computational complexity is too high to be real-time operating for high resolution image. In this paper, a novel method is proposed which uses a new kind of filter called guided filter to optimize the medium transmission. This method is much faster and also can achieve good haze removal effect. In addition, the method uses down sampling and interpolation method to transform a high resolution image into a low one to reduce the quantity of calculation. At last, we implement the novel algorithm on a multi-core DSP of TI company. The experimental results show that the method costs less than 40ms for a 600*400 resolution image and can satisfy the demand of real-time image process.},
+	journal = {Procedia Engineering},
+	author = {Bai, Linting and Wu, Yongwei and Xie, Jianchun and Wen, Pengcheng},
+	year = {2015},
+	pages = {244--252},
+	annote = {2014 Asia-Pacific International Symposium on Aerospace Technology, APISAT2014 September 24-26, 2014 Shanghai, China},
+}
+
+@inproceedings{ri_gan,
+	title = {{RI}-{GAN}: {An} {End}-{To}-{End} {Network} for {Single} {Image} {Haze} {Removal}},
+	doi = {10.1109/CVPRW.2019.00253},
+	booktitle = {2019 {IEEE}/{CVF} {Conference} on {Computer} {Vision} and {Pattern} {Recognition} {Workshops} ({CVPRW})},
+	author = {Dudhane, Akshay and Aulakh, Harshjeet Singh and Murala, Subrahmanyam},
+	year = {2019},
+	pages = {2014--2023},
+}
+
+@article{col_d_ill,
+	title = {Color-{Dense} {Illumination} {Adjustment} {Network} for {Removing} {Haze} and {Smoke} from {Fire} {Scenario} {Images}},
+	volume = {22},
+	issn = {1424-8220},
+	url = {https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8838094/},
+	doi = {10.3390/s22030911},
+	abstract = {The atmospheric particles and aerosols from burning usually cause visual artifacts in single images captured from fire scenarios. Most existing haze removal methods exploit the atmospheric scattering model (ASM) for visual enhancement, which inevitably leads to inaccurate estimation of the atmosphere light and transmission matrix of the smoky and hazy inputs. To solve these problems, we present a novel color-dense illumination adjustment network (CIANet) for joint recovery of transmission matrix, illumination intensity, and the dominant color of aerosols from a single image. Meanwhile, to improve the visual effects of the recovered images, the proposed CIANet jointly optimizes the transmission map, atmospheric optical value, the color of aerosol, and a preliminary recovered scene. Furthermore, we designed a reformulated ASM, called the aerosol scattering model (ESM), to smooth out the enhancement results while keeping the visual effects and the semantic information of different objects. Experimental results on both the proposed RFSIE and NTIRE’20 demonstrate our superior performance favorably against state-of-the-art dehazing methods regarding PSNR, SSIM and subjective visual quality. Furthermore, when concatenating CIANet with Faster R-CNN, we witness an improvement of the objection performance with a large margin.},
+	number = {3},
+	urldate = {2022-10-13},
+	journal = {Sensors (Basel, Switzerland)},
+	author = {Wang, Chuansheng and Hu, Jinxing and Luo, Xiaowei and Kwan, Mei-Po and Chen, Weihua and Wang, Hao},
+	month = jan,
+	year = {2022},
+	pmid = {35161660},
+	pmcid = {PMC8838094},
+	pages = {911},
+	file = {PubMed Central Full Text PDF:/Users/mithunparab/Zotero/storage/ZZQEZ5D2/Wang et al. - 2022 - Color-Dense Illumination Adjustment Network for Re.pdf:application/pdf},
+}
+
+@inproceedings{dw_gan,
+	address = {Nashville, TN, USA},
+	title = {{DW}-{GAN}: {A} {Discrete} {Wavelet} {Transform} {GAN} for {NonHomogeneous} {Dehazing}},
+	isbn = {978-1-66544-899-4},
+	shorttitle = {{DW}-{GAN}},
+	url = {https://ieeexplore.ieee.org/document/9523134/},
+	doi = {10.1109/CVPRW53098.2021.00029},
+	language = {en},
+	urldate = {2022-10-13},
+	booktitle = {2021 {IEEE}/{CVF} {Conference} on {Computer} {Vision} and {Pattern} {Recognition} {Workshops} ({CVPRW})},
+	publisher = {IEEE},
+	author = {Fu, Minghan and Liu, Huan and Yu, Yankun and Chen, Jun and Wang, Keyan},
+	month = jun,
+	year = {2021},
+	pages = {203--212},
+}
+
+@inproceedings{hr_haze,
+	address = {Long Beach, CA, USA},
+	title = {High-{Resolution} {Single} {Image} {Dehazing} {Using} {Encoder}-{Decoder} {Architecture}},
+	isbn = {978-1-72812-506-0},
+	url = {https://ieeexplore.ieee.org/document/9025545/},
+	doi = {10.1109/CVPRW.2019.00244},
+	abstract = {In this work we propose HR-Dehazer, a novel and accurate method for image dehazing. An encoder-decoder neural network is trained to learn a direct mapping between a hazy image and its respective clear version. We designed a special loss that forces the network to keep into account the semantics of the input image and to promote consistency among local structures. In addition, this loss makes the system more invariant to scale changes. Quantitative results on the recently released Dense-Haze dataset introduced for the NTIRE2019-Dehazing Challenge demonstrates the effectiveness of the proposed method. Furthermore, qualitative results on real data show that the described solution generalizes well to different never-seen scenarios.},
+	language = {en},
+	urldate = {2022-10-13},
+	booktitle = {2019 {IEEE}/{CVF} {Conference} on {Computer} {Vision} and {Pattern} {Recognition} {Workshops} ({CVPRW})},
+	publisher = {IEEE},
+	author = {Bianco, Simone and Celona, Luigi and Piccoli, Flavio and Schettini, Raimondo},
+	month = jun,
+	year = {2019},
+	pages = {1927--1935},
+}
+
+@inproceedings{uhd,
+	title = {Ultra-{High}-{Definition} {Image} {Dehazing} via {Multi}-{Guided} {Bilateral} {Learning}},
+	booktitle = {Proceedings of the {IEEE}/{CVF} {Conference} on {Computer} {Vision} and {Pattern} {Recognition} ({CVPR})},
+	author = {Zheng, Zhuoran and Ren, Wenqi and Cao, Xiaochun and Hu, Xiaobin and Wang, Tao and Song, Fenglong and Jia, Xiuyi},
+	month = jun,
+	year = {2021},
+	pages = {16185--16194},
+}
+
+@inproceedings{VRHI,
+	title = {{VRHI}: {Visibility} {Restoration} for {Hazy} {Images} {Using} a {Haze} {Density} {Model}},
+	booktitle = {Proceedings of the {IEEE}/{CVF} {Conference} on {Computer} {Vision} and {Pattern} {Recognition} ({CVPR}) {Workshops}},
+	author = {Ju, Mingye and Chen, Chuheng and Liu, Juping and Chen, Kai and Zhang, Dengyin},
+	month = jun,
+	year = {2021},
+	pages = {897--904},
+}
+
+@inproceedings{non_uniform,
+	title = {Nonuniformly {Dehaze} {Network} for {Visible} {Remote} {Sensing} {Images}},
+	doi = {10.1109/CVPRW56347.2022.00060},
+	booktitle = {2022 {IEEE}/{CVF} {Conference} on {Computer} {Vision} and {Pattern} {Recognition} {Workshops} ({CVPRW})},
+	author = {Chen, Zhaojie and Li, Qi and Feng, Huajun and Xu, Zhihai and Chen, Yueting},
+	year = {2022},
+	pages = {446--455},
+	annote = {EDN-GTM
+},
+}
+
+@misc{bppnet_sota,
+	title = {Single image dehazing for a variety of haze scenarios using back projected pyramid network},
+	url = {http://arxiv.org/abs/2008.06713},
+	doi = {10.48550/arXiv.2008.06713},
+	abstract = {Learning to dehaze single hazy images, especially using a small training dataset is quite challenging. We propose a novel generative adversarial network architecture for this problem, namely back projected pyramid network (BPPNet), that gives good performance for a variety of challenging haze conditions, including dense haze and inhomogeneous haze. Our architecture incorporates learning of multiple levels of complexities while retaining spatial context through iterative blocks of UNets and structural information of multiple scales through a novel pyramidal convolution block. These blocks together for the generator and are amenable to learning through back projection. We have shown that our network can be trained without over-fitting using as few as 20 image pairs of hazy and non-hazy images. We report the state of the art performances on NTIRE 2018 homogeneous haze datasets for indoor and outdoor images, NTIRE 2019 denseHaze dataset, and NTIRE 2020 non-homogeneous haze dataset.},
+	urldate = {2022-10-13},
+	publisher = {arXiv},
+	author = {Singh, Ayush and Bhave, Ajay and Prasad, Dilip K.},
+	month = aug,
+	year = {2020},
+	note = {arXiv:2008.06713 [cs, eess]
+version: 1},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition, Electrical Engineering and Systems Science - Image and Video Processing},
+	annote = {Comment: 16 pages, 8 figures, to be published in Computer Vision ECCV 2020 Workshops},
+	file = {arXiv Fulltext PDF:/Users/mithunparab/Zotero/storage/NTQA3QZI/Singh et al. - 2020 - Single image dehazing for a variety of haze scenar.pdf:application/pdf;arXiv.org Snapshot:/Users/mithunparab/Zotero/storage/BP6PP53A/2008.html:text/html},
+}
+
+@misc{sec_sota,
+	title = {A {Novel} {Encoder}-{Decoder} {Network} with {Guided} {Transmission} {Map} for {Single} {Image} {Dehazing}},
+	url = {http://arxiv.org/abs/2202.04757},
+	doi = {10.48550/arXiv.2202.04757},
+	abstract = {A novel Encoder-Decoder Network with Guided Transmission Map (EDN-GTM) for single image dehazing scheme is proposed in this paper. The proposed EDN-GTM takes conventional RGB hazy image in conjunction with its transmission map estimated by adopting dark channel prior as the inputs of the network. The proposed EDN-GTM utilizes U-Net for image segmentation as the core network and utilizes various modifications including spatial pyramid pooling module and Swish activation to achieve state-of-the-art dehazing performance. Experiments on benchmark datasets show that the proposed EDN-GTM outperforms most of traditional and deep learning-based image dehazing schemes in terms of PSNR and SSIM metrics. The proposed EDN-GTM furthermore proves its applicability to object detection problems. Specifically, when applied to an image preprocessing tool for driving object detection, the proposed EDN-GTM can efficiently remove haze and significantly improve detection accuracy by 4.73\% in terms of mAP measure. The code is available at: https://github.com/tranleanh/edn-gtm.},
+	urldate = {2022-10-13},
+	publisher = {arXiv},
+	author = {Tran, Le-Anh and Moon, Seokyong and Park, Dong-Chul},
+	month = feb,
+	year = {2022},
+	note = {arXiv:2202.04757 [cs]
+version: 1},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition},
+	annote = {Comment: 8 pages, 5 figures, iSCSi'22},
+	file = {arXiv Fulltext PDF:/Users/mithunparab/Zotero/storage/CE42DC94/Tran et al. - 2022 - A Novel Encoder-Decoder Network with Guided Transm.pdf:application/pdf;arXiv.org Snapshot:/Users/mithunparab/Zotero/storage/I7L8UFZU/2202.html:text/html},
+}
+
+@article{he,
+	title = {Single {Image} {Haze} {Removal} {Using} {Dark} {Channel} {Prior}},
+	volume = {33},
+	doi = {10.1109/TPAMI.2010.168},
+	number = {12},
+	journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+	author = {He, Kaiming and Sun, Jian and Tang, Xiaoou},
+	year = {2011},
+	pages = {2341--2353},
+	annote = {Kaiming He et al.
+},
+}
+
+@inproceedings{multi_scale_ad,
+	title = {Multi-{Scale} {Adaptive} {Dehazing} {Network}},
+	doi = {10.1109/CVPRW.2019.00257},
+	booktitle = {2019 {IEEE}/{CVF} {Conference} on {Computer} {Vision} and {Pattern} {Recognition} {Workshops} ({CVPRW})},
+	author = {Chen, Shuxin and Chen, Yizi and Qu, Yanyun and Huang, Jingying and Hong, Ming},
+	year = {2019},
+	pages = {2051--2059},
+}
+
+@inproceedings{ancuti_dense_2019,
+	series = {{IEEE} {ICIP} 2019},
+	title = {Dense haze: {A} benchmark for image dehazing with dense-haze and haze-free images},
+	booktitle = {{IEEE} {International} {Conference} on {Image} {Processing} ({ICIP})},
+	author = {Ancuti, Codruta O. and Ancuti, Cosmin and Sbert, Mateu and Timofte, Radu},
+	year = {2019},
+	note = {event-place: Taipei, Taiwan},
+}
+
+@inproceedings{i_haze,
+	title = {I-{HAZE}: a dehazing benchmark with real hazy and haze-free indoor images},
+	booktitle = {{arXiv}:1804.05091v1},
+	author = {Ancuti, Codruta O. and Ancuti, Cosmin and Timofte, Radu and Vleeschouwer, Christophe De},
+	year = {2018},
+}
+
+@inproceedings{o_haze,
+	series = {{NTIRE} {CVPR}'18},
+	title = {O-{HAZE}: a dehazing benchmark with real hazy and haze-free outdoor images},
+	booktitle = {{IEEE} {Conference} on {Computer} {Vision} and {Pattern} {Recognition}, {NTIRE} {Workshop}},
+	author = {Ancuti, Codruta O. and Ancuti, Cosmin and Timofte, Radu and Vleeschouwer, Christophe De},
+	year = {2018},
+	note = {event-place: Salt Lake City, Utah, USA},
+}
+
+@inproceedings{h_haze,
+	series = {{IEEE} {CVPR} 2020},
+	title = {{NH}-{HAZE}: {An} {Image} {Dehazing} {Benchmark} with {Non}-{Homogeneous} {Hazy} and {Haze}-{Free} {Images}},
+	booktitle = {Proceedings of the {IEEE} {Conference} on {Computer} {Vision} and {Pattern} {Recognition} {Workshops}},
+	author = {Ancuti, Codruta O. and Ancuti, Cosmin and Timofte, Radu},
+	year = {2020},
+	note = {event-place: Washington, US},
+}
+
+@article{halo_cai_cnn,
+	title = {{DehazeNet}: {An} {End}-to-{End} {System} for {Single} {Image} {Haze} {Removal}},
+	volume = {25},
+	doi = {10.1109/TIP.2016.2598681},
+	number = {11},
+	journal = {IEEE Transactions on Image Processing},
+	author = {Cai, Bolun and Xu, Xiangmin and Jia, Kui and Qing, Chunmei and Tao, Dacheng},
+	year = {2016},
+	pages = {5187--5198},
+	annote = {halo effect, Cai, CNN
+},
+}
+
+@inproceedings{cnn_o,
+	title = {Single {Image} {Dehazing} via {Lightweight} {Multi}-scale {Networks}},
+	doi = {10.1109/BigData47090.2019.9006075},
+	booktitle = {2019 {IEEE} {International} {Conference} on {Big} {Data} ({Big} {Data})},
+	author = {Tang, Guiying and Zhao, Li and Jiang, Runhua and Zhang, Xiaoqin},
+	year = {2019},
+	pages = {5062--5069},
+	annote = {CNN
+},
+}
+
+@article{atm_illu,
+	title = {{AIPNet}: {Image}-to-{Image} {Single} {Image} {Dehazing} {With} {Atmospheric} {Illumination} {Prior}},
+	volume = {28},
+	doi = {10.1109/TIP.2018.2868567},
+	number = {1},
+	journal = {IEEE Transactions on Image Processing},
+	author = {Wang, Anna and Wang, Wenhui and Liu, Jinglu and Gu, Nanhui},
+	year = {2019},
+	pages = {381--393},
+}
+
+@techreport{obj_det_cnn,
+	title = {A {Novel} {Encoder}-{Decoder} {Network} with {Guided} {Transmission} {Map} for {Single} {Image} {Dehazing}},
+	url = {https://ui.adsabs.harvard.edu/abs/2022arXiv220204757T},
+	abstract = {A novel Encoder-Decoder Network with Guided Transmission Map (EDN-GTM) for single image dehazing scheme is proposed in this paper. The proposed EDN-GTM takes conventional RGB hazy image in conjunction with its transmission map estimated by adopting dark channel prior as the inputs of the network. The proposed EDN-GTM utilizes U-Net for image segmentation as the core network and utilizes various modifications including spatial pyramid pooling module and Swish activation to achieve state-of-the-art dehazing performance. Experiments on benchmark datasets show that the proposed EDN-GTM outperforms most of traditional and deep learning-based image dehazing schemes in terms of PSNR and SSIM metrics. The proposed EDN-GTM furthermore proves its applicability to object detection problems. Specifically, when applied to an image preprocessing tool for driving object detection, the proposed EDN-GTM can efficiently remove haze and significantly improve detection accuracy by 4.73\% in terms of mAP measure. The code is available at: https://github.com/tranleanh/edn-gtm.},
+	urldate = {2022-10-13},
+	author = {Tran, Le-Anh and Moon, Seokyong and Park, Dong-Chul},
+	month = feb,
+	year = {2022},
+	note = {Publication Title: arXiv e-prints
+ADS Bibcode: 2022arXiv220204757T
+Type: article},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition},
+	file = {Full Text PDF:/Users/mithunparab/Zotero/storage/7I65YCXU/Tran et al. - 2022 - A Novel Encoder-Decoder Network with Guided Transm.pdf:application/pdf},
+}
+
+@inproceedings{aod,
+	address = {Venice},
+	title = {{AOD}-{Net}: {All}-in-{One} {Dehazing} {Network}},
+	isbn = {978-1-5386-1032-9},
+	shorttitle = {{AOD}-{Net}},
+	url = {http://ieeexplore.ieee.org/document/8237773/},
+	doi = {10.1109/ICCV.2017.511},
+	abstract = {This paper proposes an image dehazing model built with a convolutional neural network (CNN), called All-in-One Dehazing Network (AOD-Net). It is designed based on a re-formulated atmospheric scattering model. Instead of estimating the transmission matrix and the atmospheric light separately as most previous models did, AOD-Net directly generates the clean image through a light-weight CNN. Such a novel end-to-end design makes it easy to embed AOD-Net into other deep models, e.g., Faster R-CNN, for improving high-level tasks on hazy images. Experimental results on both synthesized and natural hazy image datasets demonstrate our superior performance than the state-ofthe-art in terms of PSNR, SSIM and the subjective visual quality. Furthermore, when concatenating AOD-Net with Faster R-CNN, we witness a large improvement of the object detection performance on hazy images.},
+	language = {en},
+	urldate = {2022-10-13},
+	booktitle = {2017 {IEEE} {International} {Conference} on {Computer} {Vision} ({ICCV})},
+	publisher = {IEEE},
+	author = {Li, Boyi and Peng, Xiulian and Wang, Zhangyang and Xu, Jizheng and Feng, Dan},
+	month = oct,
+	year = {2017},
+	pages = {4780--4788},
+	annote = {Li et. al.
+},
+	file = {Li et al. - 2017 - AOD-Net All-in-One Dehazing Network.pdf:/Users/mithunparab/Zotero/storage/PRKPD8WG/Li et al. - 2017 - AOD-Net All-in-One Dehazing Network.pdf:application/pdf},
+}
+
+@inproceedings{prior,
+	title = {Vision in bad weather},
+	volume = {2},
+	booktitle = {Proceedings of the seventh {IEEE} international conference on computer vision},
+	publisher = {IEEE},
+	author = {Nayar, Shree K and Narasimhan, Srinivasa G},
+	year = {1999},
+	pages = {820--827},
+	annote = {Shree Nayer et al. multi scene
+},
+}
+
+@inproceedings{prior_cnn1,
+	title = {Investigating haze-relevant features in a learning framework for image dehazing},
+	booktitle = {Proceedings of the {IEEE} conference on computer vision and pattern recognition},
+	author = {Tang, Ketan and Yang, Jianchao and Wang, Jue},
+	year = {2014},
+	pages = {2995--3000},
+	annote = {prior, CNN
+},
+}
+
+@article{ren,
+	title = {Single {Image} {Dehazing} via {Multi}-scale {Convolutional} {Neural} {Networks} with {Holistic} {Edges}},
+	volume = {128},
+	issn = {1573-1405},
+	url = {https://doi.org/10.1007/s11263-019-01235-8},
+	doi = {10.1007/s11263-019-01235-8},
+	abstract = {Single image dehazing has been a challenging problem which aims to recover clear images from hazy ones. The performance of existing image dehazing methods is limited by hand-designed features and priors. In this paper, we propose a multi-scale deep neural network for single image dehazing by learning the mapping between hazy images and their transmission maps. The proposed algorithm consists of a coarse-scale net which predicts a holistic transmission map based on the entire image, and a fine-scale net which refines dehazed results locally. To train the multi-scale deep network, we synthesize a dataset comprised of hazy images and corresponding transmission maps based on the NYU Depth dataset. In addition, we propose a holistic edge guided network to refine edges of the estimated transmission map. Extensive experiments demonstrate that the proposed algorithm performs favorably against the state-of-the-art methods on both synthetic and real-world images in terms of quality and speed.},
+	number = {1},
+	journal = {International Journal of Computer Vision},
+	author = {Ren, Wenqi and Pan, Jinshan and Zhang, Hua and Cao, Xiaochun and Yang, Ming-Hsuan},
+	month = jan,
+	year = {2020},
+	pages = {240--259},
+	annote = {Ren et al.
+},
+}
+
+@misc{zhang,
+	title = {Densely {Connected} {Pyramid} {Dehazing} {Network}},
+	copyright = {arXiv.org perpetual, non-exclusive license},
+	url = {https://arxiv.org/abs/1803.08396},
+	publisher = {arXiv},
+	author = {Zhang, He and Patel, Vishal M.},
+	year = {2018},
+	doi = {10.48550/ARXIV.1803.08396},
+	keywords = {Computer Vision and Pattern Recognition (cs.CV), electronic engineering, FOS: Computer and information sciences, FOS: Electrical engineering, Image and Video Processing (eess.IV), information engineering},
+	annote = {Zhang et al.
+
+},
+}
+
+@article{atm,
+	title = {Optics of the atmosphere: scattering by molecules and particles},
+	journal = {New York},
+	author = {McCartney, Earl J},
+	year = {1976},
+}
+
+@inproceedings{gated,
+	title = {Gated context aggregation network for image dehazing and deraining},
+	booktitle = {2019 {IEEE} winter conference on applications of computer vision ({WACV})},
+	author = {Chen, Dongdong and He, Mingming and Fan, Qingnan and Liao, Jing and Zhang, Liheng and Hou, Dongdong and Yuan, Lu and Hua, Gang},
+	year = {2019},
+	pages = {1375--1383},
+}
+
+@article{prior_filt,
+	title = {A fast single image haze removal algorithm using color attenuation prior},
+	volume = {24},
+	number = {11},
+	journal = {IEEE transactions on image processing},
+	author = {Zhu, Qingsong and Mai, Jiaming and Shao, Ling},
+	year = {2015},
+	note = {Publisher: IEEE},
+	pages = {3522--3533},
+	annote = {prior and filter
+},
+}
+
+@inproceedings{prior,
+	title = {Non-local image dehazing},
+	booktitle = {Proceedings of the {IEEE} conference on computer vision and pattern recognition},
+	author = {Berman, Dana and Avidan, Shai and {others}},
+	year = {2016},
+	pages = {1674--1682},
+	annote = {prioir
+},
+}
+
+@article{bench,
+	title = {Benchmarking {Single}-{Image} {Dehazing} and {Beyond}},
+	volume = {28},
+	number = {1},
+	journal = {IEEE Transactions on Image Processing},
+	author = {Li, Boyi and Ren, Wenqi and Fu, Dengpan and Tao, Dacheng and Feng, Dan and Zeng, Wenjun and Wang, Zhangyang},
+	year = {2019},
+	note = {Publisher: IEEE},
+	pages = {492--505},
+}
+
+@article{motion_seg_cnn,
+	title = {{MSFgNet}: {A} {Novel} {Compact} {End}-to-{End} {Deep} {Network} for {Moving} {Object} {Detection}},
+	volume = {20},
+	doi = {10.1109/TITS.2018.2880096},
+	number = {11},
+	journal = {IEEE Transactions on Intelligent Transportation Systems},
+	author = {Patil, Prashant W. and Murala, Subrahmanyam},
+	year = {2019},
+	pages = {4066--4077},
+	annote = {moving segmentation, researcher
+},
+}
+
+@inproceedings{pol_filter2,
+	title = {Instant dehazing of images using polarization},
+	volume = {1},
+	doi = {10.1109/CVPR.2001.990493},
+	booktitle = {Proceedings of the 2001 {IEEE} {Computer} {Society} {Conference} on {Computer} {Vision} and {Pattern} {Recognition}. {CVPR} 2001},
+	author = {Schechner, Y.Y. and Narasimhan, S.G. and Nayar, S.K.},
+	year = {2001},
+	pages = {I--I},
+	annote = {pol filter
+},
+}
+
+@inproceedings{pol_fil_sc,
+	title = {Blind {Haze} {Separation}},
+	volume = {2},
+	doi = {10.1109/CVPR.2006.71},
+	booktitle = {$2006$ {IEEE} {Computer} {Society} {Conference} on {Computer} {Vision} and {Pattern} {Recognition} ({CVPR}'$06$)},
+	author = {Shwartz, S. and Namer, E. and Schechner, Y.Y.},
+	year = {2006},
+	pages = {1984--1991},
+	annote = {pol filter1 sc},
+}
+
+@inproceedings{multi_sc,
+	title = {Depth from scattering},
+	doi = {10.1109/CVPR.1997.609419},
+	booktitle = {Proceedings of {IEEE} {Computer} {Society} {Conference} on {Computer} {Vision} and {Pattern} {Recognition}},
+	author = {Cozman, F. and Krotkov, E.},
+	year = {1997},
+	pages = {801--806},
+	annote = {multi scene
+},
+}
+
+@inproceedings{prior,
+	title = {Visibility in bad weather from a single image},
+	doi = {10.1109/CVPR.2008.4587643},
+	booktitle = {2008 {IEEE} {Conference} on {Computer} {Vision} and {Pattern} {Recognition}},
+	author = {Tan, Robby T.},
+	year = {2008},
+	pages = {1--8},
+	annote = {prior-based
+},
+}
+
+@article{filters,
+	title = {Visibility {Restoration} of {Single} {Hazy} {Images} {Captured} in {Real}-{World} {Weather} {Conditions}},
+	volume = {24},
+	doi = {10.1109/TCSVT.2014.2317854},
+	number = {10},
+	journal = {IEEE Transactions on Circuits and Systems for Video Technology},
+	author = {Huang, Shih-Chia and Chen, Bo-Hao and Wang, Wei-Jheng},
+	year = {2014},
+	pages = {1814--1824},
+	annote = {filters
+},
+}
+
+@article{lai,
+	title = {Single-{Image} {Dehazing} via {Optimal} {Transmission} {Map} {Under} {Scene} {Priors}},
+	volume = {25},
+	doi = {10.1109/TCSVT.2014.2329381},
+	number = {1},
+	journal = {IEEE Transactions on Circuits and Systems for Video Technology},
+	author = {Lai, Yi-Hsuan and Chen, Yi-Lei and Chiou, Chuan-Ju and Hsu, Chiou-Ting},
+	year = {2015},
+	pages = {1--14},
+	annote = {Li
+},
+}
+
+@article{wang,
+	title = {Single {Image} {Dehazing} {Based} on the {Physical} {Model} and {MSRCR} {Algorithm}},
+	volume = {28},
+	doi = {10.1109/TCSVT.2017.2728822},
+	number = {9},
+	journal = {IEEE Transactions on Circuits and Systems for Video Technology},
+	author = {Wang, Jinbao and Lu, Ke and Xue, Jian and He, Ning and Shao, Ling},
+	year = {2018},
+	pages = {2190--2199},
+	annote = {wang et al.
+
+},
+}
+
+@inproceedings{prior_cap,
+	title = {Single-{Image} {Dehazing} {Using} {Color} {Attenuation} {Prior} {Based} on {Haze}-{Lines}},
+	doi = {10.1109/BigData47090.2019.9005603},
+	booktitle = {2019 {IEEE} {International} {Conference} on {Big} {Data} ({Big} {Data})},
+	author = {Wang, Qianru and Zhao, Li and Tang, Guiying and Zhao, Hanli and Zhang, Xiaoqin},
+	year = {2019},
+	pages = {5080--5087},
+	annote = {prior and CAP
+},
+}
+
+@inproceedings{swami,
+	title = {{CANDY}: {Conditional} {Adversarial} {Networks} based {End}-to-{End} {System} for {Single} {Image} {Haze} {Removal}},
+	doi = {10.1109/ICPR.2018.8545522},
+	booktitle = {2018 24th {International} {Conference} on {Pattern} {Recognition} ({ICPR})},
+	author = {Swami, Kunal and Das, Saikat Kumar},
+	year = {2018},
+	pages = {3061--3067},
+	annote = {Swami et al.
+},
+}
+
+@inproceedings{res_unp1,
+	title = {Cycle-{Dehaze}: {Enhanced} {CycleGAN} for {Single} {Image} {Dehazing}},
+	doi = {10.1109/CVPRW.2018.00127},
+	booktitle = {2018 {IEEE}/{CVF} {Conference} on {Computer} {Vision} and {Pattern} {Recognition} {Workshops} ({CVPRW})},
+	author = {Engin, Deniz and Genc, Anil and Ekenel, Hazim Kemal},
+	year = {2018},
+	pages = {938--9388},
+	annote = {researcher unpaired
+},
+}
+
+@inproceedings{res_unp,
+	title = {{CDNet}: {Single} {Image} {De}-{Hazing} {Using} {Unpaired} {Adversarial} {Training}},
+	doi = {10.1109/WACV.2019.00127},
+	booktitle = {2019 {IEEE} {Winter} {Conference} on {Applications} of {Computer} {Vision} ({WACV})},
+	author = {Dudhane, Akshay and Murala, Subrahmanyam},
+	year = {2019},
+	pages = {1147--1155},
+	annote = {researcher, unpaired
+},
+}
+
+@INPROCEEDINGS{retinex,
+  author={Parthasarathy, Sudharsan and Sankaran, Praveen},
+  booktitle={2012 IEEE 7th International Conference on Industrial and Information Systems (ICIIS)}, 
+  title={A RETINEX based haze removal method}, 
+  year={2012},
+  volume={},
+  number={},
+  pages={1-6},
+  doi={10.1109/ICIInfS.2012.6304767}}
+
+
+  
+  
+  @INPROCEEDINGS{prior1,
+  author={Berman, Dana and Treibitz, Tali and Avidan, Shai},
+  booktitle={2016 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, 
+  title={Non-local Image Dehazing}, 
+  year={2016},
+  volume={},
+  number={},
+  pages={1674-1682},
+  doi={10.1109/CVPR.2016.185}}
+
+  @INPROCEEDINGS{prior2,
+  author={Tan, Robby T.},
+  booktitle={2008 IEEE Conference on Computer Vision and Pattern Recognition}, 
+  title={Visibility in bad weather from a single image}, 
+  year={2008},
+  volume={},
+  number={},
+  pages={1-8},
+  doi={10.1109/CVPR.2008.4587643}}
+
+ 
+  
+
+
+@inproceedings{revid,
+  title={Learning to restore hazy video: A new real-world dataset and a new method},
+  author={Zhang, Xinyi and Dong, Hang and Pan, Jinshan and Zhu, Chao and Tai, Ying and Wang, Chengjie and Li, Jilin and Huang, Feiyue and Wang, Fei},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={9239--9248},
+  year={2021}
+}
+
+@inproceedings{dense_haze,
+  title={Dense-haze: A benchmark for image dehazing with dense-haze and haze-free images},
+  author={Ancuti, Codruta O and Ancuti, Cosmin and Sbert, Mateu and Timofte, Radu},
+  booktitle={2019 IEEE international conference on image processing (ICIP)},
+  pages={1014--1018},
+  year={2019},
+  organization={IEEE}
+}
+
+@inproceedings{nh_haze,
+  title={NH-HAZE: An image dehazing benchmark with non-homogeneous hazy and haze-free images},
+  author={Ancuti, Codruta O and Ancuti, Cosmin and Timofte, Radu},
+  booktitle={Proceedings of the IEEE/CVF conference on computer vision and pattern recognition workshops},
+  pages={444--445},
+  year={2020}
+}
+
+@article{admw,
+  title={Decoupled weight decay regularization},
+  author={Loshchilov, Ilya and Hutter, Frank},
+  journal={arXiv preprint arXiv:1711.05101},
+  year={2017}
+}
+
+@inproceedings{kaiming,
+  title={Delving deep into rectifiers: Surpassing human-level performance on imagenet classification},
+  author={He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
+  booktitle={Proceedings of the IEEE international conference on computer vision},
+  pages={1026--1034},
+  year={2015}
+}

@@ -1,0 +1,794 @@
+%% BioMed_Central_Bib_Style_v1.01
+
+\begin{thebibliography}{49}
+% BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
+\ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
+\ifx \binits  \undefined \def \binits#1{#1}\fi
+\ifx \bauthor  \undefined \def \bauthor#1{#1}\fi
+\ifx \batitle  \undefined \def \batitle#1{#1}\fi
+\ifx \bjtitle  \undefined \def \bjtitle#1{#1}\fi
+\ifx \bvolume  \undefined \def \bvolume#1{\textbf{#1}}\fi
+\ifx \byear  \undefined \def \byear#1{#1}\fi
+\ifx \bissue  \undefined \def \bissue#1{#1}\fi
+\ifx \bfpage  \undefined \def \bfpage#1{#1}\fi
+\ifx \blpage  \undefined \def \blpage #1{#1}\fi
+\ifx \burl  \undefined \def \burl#1{\textsf{#1}}\fi
+\ifx \doiurl  \undefined \def \doiurl#1{\url{https://doi.org/#1}}\fi
+\ifx \betal  \undefined \def \betal{\textit{et al.}}\fi
+\ifx \binstitute  \undefined \def \binstitute#1{#1}\fi
+\ifx \binstitutionaled  \undefined \def \binstitutionaled#1{#1}\fi
+\ifx \bctitle  \undefined \def \bctitle#1{#1}\fi
+\ifx \beditor  \undefined \def \beditor#1{#1}\fi
+\ifx \bpublisher  \undefined \def \bpublisher#1{#1}\fi
+\ifx \bbtitle  \undefined \def \bbtitle#1{#1}\fi
+\ifx \bedition  \undefined \def \bedition#1{#1}\fi
+\ifx \bseriesno  \undefined \def \bseriesno#1{#1}\fi
+\ifx \blocation  \undefined \def \blocation#1{#1}\fi
+\ifx \bsertitle  \undefined \def \bsertitle#1{#1}\fi
+\ifx \bsnm \undefined \def \bsnm#1{#1}\fi
+\ifx \bsuffix \undefined \def \bsuffix#1{#1}\fi
+\ifx \bparticle \undefined \def \bparticle#1{#1}\fi
+\ifx \barticle \undefined \def \barticle#1{#1}\fi
+\bibcommenthead
+\ifx \bconfdate \undefined \def \bconfdate #1{#1}\fi
+\ifx \botherref \undefined \def \botherref #1{#1}\fi
+\ifx \url \undefined \def \url#1{\textsf{#1}}\fi
+\ifx \bchapter \undefined \def \bchapter#1{#1}\fi
+\ifx \bbook \undefined \def \bbook#1{#1}\fi
+\ifx \bcomment \undefined \def \bcomment#1{#1}\fi
+\ifx \oauthor \undefined \def \oauthor#1{#1}\fi
+\ifx \citeauthoryear \undefined \def \citeauthoryear#1{#1}\fi
+\ifx \endbibitem  \undefined \def \endbibitem {}\fi
+\ifx \bconflocation  \undefined \def \bconflocation#1{#1}\fi
+\ifx \arxivurl  \undefined \def \arxivurl#1{\textsf{#1}}\fi
+\csname PreBibitemsHook\endcsname
+
+%%% 1
+\bibitem[\protect\citeauthoryear{Wang et~al.}{2020}]{tourist}
+\begin{barticle}
+\bauthor{\bsnm{Wang}, \binits{L.}},
+\bauthor{\bsnm{Zhou}, \binits{X.}},
+\bauthor{\bsnm{Lu}, \binits{M.}},
+\bauthor{\bsnm{Cui}, \binits{Z.}}:
+\batitle{Impacts of haze weather on tourist arrivals and destination preference: {Analysis} based on {Baidu} {Index} of 73 scenic spots in {Beijing}, {China}}.
+\bjtitle{Journal of Cleaner Production}
+\bvolume{273},
+\bfpage{122887}
+(\byear{2020})
+\doiurl{10.1016/j.jclepro.2020.122887}
+\end{barticle}
+\endbibitem
+
+%%% 2
+\bibitem[\protect\citeauthoryear{Tran et~al.}{2022}]{obj_det_cnn}
+\begin{botherref}
+\oauthor{\bsnm{Tran}, \binits{L.-A.}},
+\oauthor{\bsnm{Moon}, \binits{S.}},
+\oauthor{\bsnm{Park}, \binits{D.-C.}}:
+A {Novel} {Encoder}-{Decoder} {Network} with {Guided} {Transmission} {Map} for {Single} {Image} {Dehazing}.
+Technical report
+(February 2022).
+Publication Title: arXiv e-prints ADS Bibcode: 2022arXiv220204757T Type: article.
+\url{https://ui.adsabs.harvard.edu/abs/2022arXiv220204757T}
+Accessed 2022-10-13
+\end{botherref}
+\endbibitem
+
+%%% 3
+\bibitem[\protect\citeauthoryear{Patil and Murala}{2019}]{motion_seg_cnn}
+\begin{barticle}
+\bauthor{\bsnm{Patil}, \binits{P.W.}},
+\bauthor{\bsnm{Murala}, \binits{S.}}:
+\batitle{{MSFgNet}: {A} {Novel} {Compact} {End}-to-{End} {Deep} {Network} for {Moving} {Object} {Detection}}.
+\bjtitle{IEEE Transactions on Intelligent Transportation Systems}
+\bvolume{20}(\bissue{11}),
+\bfpage{4066}--\blpage{4077}
+(\byear{2019})
+\doiurl{10.1109/TITS.2018.2880096}
+\end{barticle}
+\endbibitem
+
+%%% 4
+\bibitem[\protect\citeauthoryear{Lai et~al.}{2015}]{lai}
+\begin{barticle}
+\bauthor{\bsnm{Lai}, \binits{Y.-H.}},
+\bauthor{\bsnm{Chen}, \binits{Y.-L.}},
+\bauthor{\bsnm{Chiou}, \binits{C.-J.}},
+\bauthor{\bsnm{Hsu}, \binits{C.-T.}}:
+\batitle{Single-{Image} {Dehazing} via {Optimal} {Transmission} {Map} {Under} {Scene} {Priors}}.
+\bjtitle{IEEE Transactions on Circuits and Systems for Video Technology}
+\bvolume{25}(\bissue{1}),
+\bfpage{1}--\blpage{14}
+(\byear{2015})
+\doiurl{10.1109/TCSVT.2014.2329381}
+\end{barticle}
+\endbibitem
+
+%%% 5
+\bibitem[\protect\citeauthoryear{Cozman and Krotkov}{1997}]{multi_sc}
+\begin{bchapter}
+\bauthor{\bsnm{Cozman}, \binits{F.}},
+\bauthor{\bsnm{Krotkov}, \binits{E.}}:
+\bctitle{Depth from scattering}.
+In: \bbtitle{Proceedings of {IEEE} {Computer} {Society} {Conference} on {Computer} {Vision} and {Pattern} {Recognition}},
+pp. \bfpage{801}--\blpage{806}
+(\byear{1997}).
+\doiurl{10.1109/CVPR.1997.609419}
+\end{bchapter}
+\endbibitem
+
+%%% 6
+\bibitem[\protect\citeauthoryear{Huang et~al.}{2014}]{filters}
+\begin{barticle}
+\bauthor{\bsnm{Huang}, \binits{S.-C.}},
+\bauthor{\bsnm{Chen}, \binits{B.-H.}},
+\bauthor{\bsnm{Wang}, \binits{W.-J.}}:
+\batitle{Visibility {Restoration} of {Single} {Hazy} {Images} {Captured} in {Real}-{World} {Weather} {Conditions}}.
+\bjtitle{IEEE Transactions on Circuits and Systems for Video Technology}
+\bvolume{24}(\bissue{10}),
+\bfpage{1814}--\blpage{1824}
+(\byear{2014})
+\doiurl{10.1109/TCSVT.2014.2317854}
+\end{barticle}
+\endbibitem
+
+%%% 7
+\bibitem[\protect\citeauthoryear{Shwartz et~al.}{2006}]{pol_fil_sc}
+\begin{bchapter}
+\bauthor{\bsnm{Shwartz}, \binits{S.}},
+\bauthor{\bsnm{Namer}, \binits{E.}},
+\bauthor{\bsnm{Schechner}, \binits{Y.Y.}}:
+\bctitle{Blind {Haze} {Separation}}.
+In: \bbtitle{$2006$ {IEEE} {Computer} {Society} {Conference} on {Computer} {Vision} and {Pattern} {Recognition} ({CVPR}'$06$)},
+vol. \bseriesno{2},
+pp. \bfpage{1984}--\blpage{1991}
+(\byear{2006}).
+\doiurl{10.1109/CVPR.2006.71}
+\end{bchapter}
+\endbibitem
+
+%%% 8
+\bibitem[\protect\citeauthoryear{Schechner et~al.}{2001}]{pol_filter2}
+\begin{bchapter}
+\bauthor{\bsnm{Schechner}, \binits{Y.Y.}},
+\bauthor{\bsnm{Narasimhan}, \binits{S.G.}},
+\bauthor{\bsnm{Nayar}, \binits{S.K.}}:
+\bctitle{Instant dehazing of images using polarization}.
+In: \bbtitle{Proceedings of the 2001 {IEEE} {Computer} {Society} {Conference} on {Computer} {Vision} and {Pattern} {Recognition}. {CVPR} 2001},
+vol. \bseriesno{1},
+p.
+(\byear{2001}).
+\doiurl{10.1109/CVPR.2001.990493}
+\end{bchapter}
+\endbibitem
+
+%%% 9
+\bibitem[\protect\citeauthoryear{Zhu et~al.}{2015}]{prior_filt}
+\begin{barticle}
+\bauthor{\bsnm{Zhu}, \binits{Q.}},
+\bauthor{\bsnm{Mai}, \binits{J.}},
+\bauthor{\bsnm{Shao}, \binits{L.}}:
+\batitle{A fast single image haze removal algorithm using color attenuation prior}.
+\bjtitle{IEEE transactions on image processing}
+\bvolume{24}(\bissue{11}),
+\bfpage{3522}--\blpage{3533}
+(\byear{2015}).
+\bcomment{Publisher: IEEE}
+\end{barticle}
+\endbibitem
+
+%%% 10
+\bibitem[\protect\citeauthoryear{Parthasarathy and Sankaran}{2012}]{retinex}
+\begin{bchapter}
+\bauthor{\bsnm{Parthasarathy}, \binits{S.}},
+\bauthor{\bsnm{Sankaran}, \binits{P.}}:
+\bctitle{A retinex based haze removal method}.
+In: \bbtitle{2012 IEEE 7th International Conference on Industrial and Information Systems (ICIIS)},
+pp. \bfpage{1}--\blpage{6}
+(\byear{2012}).
+\doiurl{10.1109/ICIInfS.2012.6304767}
+\end{bchapter}
+\endbibitem
+
+%%% 11
+\bibitem[\protect\citeauthoryear{Ronneberger et~al.}{2015}]{u_net}
+\begin{botherref}
+\oauthor{\bsnm{Ronneberger}, \binits{O.}},
+\oauthor{\bsnm{Fischer}, \binits{P.}},
+\oauthor{\bsnm{Brox}, \binits{T.}}:
+U-{Net}: {Convolutional} {Networks} for {Biomedical} {Image} {Segmentation}.
+arXiv
+(2015).
+\doiurl{10.48550/ARXIV.1505.04597} .
+\url{https://arxiv.org/abs/1505.04597}
+\end{botherref}
+\endbibitem
+
+%%% 12
+\bibitem[\protect\citeauthoryear{Wang et~al.}{2019}]{prior_cap}
+\begin{bchapter}
+\bauthor{\bsnm{Wang}, \binits{Q.}},
+\bauthor{\bsnm{Zhao}, \binits{L.}},
+\bauthor{\bsnm{Tang}, \binits{G.}},
+\bauthor{\bsnm{Zhao}, \binits{H.}},
+\bauthor{\bsnm{Zhang}, \binits{X.}}:
+\bctitle{Single-{Image} {Dehazing} {Using} {Color} {Attenuation} {Prior} {Based} on {Haze}-{Lines}}.
+In: \bbtitle{2019 {IEEE} {International} {Conference} on {Big} {Data} ({Big} {Data})},
+pp. \bfpage{5080}--\blpage{5087}
+(\byear{2019}).
+\doiurl{10.1109/BigData47090.2019.9005603}
+\end{bchapter}
+\endbibitem
+
+%%% 13
+\bibitem[\protect\citeauthoryear{McCartney}{1976}]{atm}
+\begin{botherref}
+\oauthor{\bsnm{McCartney}, \binits{E.J.}}:
+Optics of the atmosphere: scattering by molecules and particles.
+New York
+(1976)
+\end{botherref}
+\endbibitem
+
+%%% 14
+\bibitem[\protect\citeauthoryear{Bai et~al.}{2015}]{real_time_atm}
+\begin{barticle}
+\bauthor{\bsnm{Bai}, \binits{L.}},
+\bauthor{\bsnm{Wu}, \binits{Y.}},
+\bauthor{\bsnm{Xie}, \binits{J.}},
+\bauthor{\bsnm{Wen}, \binits{P.}}:
+\batitle{Real {Time} {Image} {Haze} {Removal} on {Multi}-core {DSP}}.
+\bjtitle{Procedia Engineering}
+\bvolume{99},
+\bfpage{244}--\blpage{252}
+(\byear{2015})
+\doiurl{10.1016/j.proeng.2014.12.532}
+\end{barticle}
+\endbibitem
+
+%%% 15
+\bibitem[\protect\citeauthoryear{Wang et~al.}{2019}]{atm_illu}
+\begin{barticle}
+\bauthor{\bsnm{Wang}, \binits{A.}},
+\bauthor{\bsnm{Wang}, \binits{W.}},
+\bauthor{\bsnm{Liu}, \binits{J.}},
+\bauthor{\bsnm{Gu}, \binits{N.}}:
+\batitle{{AIPNet}: {Image}-to-{Image} {Single} {Image} {Dehazing} {With} {Atmospheric} {Illumination} {Prior}}.
+\bjtitle{IEEE Transactions on Image Processing}
+\bvolume{28}(\bissue{1}),
+\bfpage{381}--\blpage{393}
+(\byear{2019})
+\doiurl{10.1109/TIP.2018.2868567}
+\end{barticle}
+\endbibitem
+
+%%% 16
+\bibitem[\protect\citeauthoryear{Berman et~al.}{2016}]{prior1}
+\begin{bchapter}
+\bauthor{\bsnm{Berman}, \binits{D.}},
+\bauthor{\bsnm{Treibitz}, \binits{T.}},
+\bauthor{\bsnm{Avidan}, \binits{S.}}:
+\bctitle{Non-local image dehazing}.
+In: \bbtitle{2016 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+pp. \bfpage{1674}--\blpage{1682}
+(\byear{2016}).
+\doiurl{10.1109/CVPR.2016.185}
+\end{bchapter}
+\endbibitem
+
+%%% 17
+\bibitem[\protect\citeauthoryear{Tan}{2008}]{prior2}
+\begin{bchapter}
+\bauthor{\bsnm{Tan}, \binits{R.T.}}:
+\bctitle{Visibility in bad weather from a single image}.
+In: \bbtitle{2008 IEEE Conference on Computer Vision and Pattern Recognition},
+pp. \bfpage{1}--\blpage{8}
+(\byear{2008}).
+\doiurl{10.1109/CVPR.2008.4587643}
+\end{bchapter}
+\endbibitem
+
+%%% 18
+\bibitem[\protect\citeauthoryear{Tang et~al.}{2014}]{prior_cnn1}
+\begin{bchapter}
+\bauthor{\bsnm{Tang}, \binits{K.}},
+\bauthor{\bsnm{Yang}, \binits{J.}},
+\bauthor{\bsnm{Wang}, \binits{J.}}:
+\bctitle{Investigating haze-relevant features in a learning framework for image dehazing}.
+In: \bbtitle{Proceedings of the {IEEE} Conference on Computer Vision and Pattern Recognition},
+pp. \bfpage{2995}--\blpage{3000}
+(\byear{2014})
+\end{bchapter}
+\endbibitem
+
+%%% 19
+\bibitem[\protect\citeauthoryear{He et~al.}{2011}]{he}
+\begin{barticle}
+\bauthor{\bsnm{He}, \binits{K.}},
+\bauthor{\bsnm{Sun}, \binits{J.}},
+\bauthor{\bsnm{Tang}, \binits{X.}}:
+\batitle{Single {Image} {Haze} {Removal} {Using} {Dark} {Channel} {Prior}}.
+\bjtitle{IEEE Transactions on Pattern Analysis and Machine Intelligence}
+\bvolume{33}(\bissue{12}),
+\bfpage{2341}--\blpage{2353}
+(\byear{2011})
+\doiurl{10.1109/TPAMI.2010.168}
+\end{barticle}
+\endbibitem
+
+%%% 20
+\bibitem[\protect\citeauthoryear{Cai et~al.}{2016}]{halo_cai_cnn}
+\begin{barticle}
+\bauthor{\bsnm{Cai}, \binits{B.}},
+\bauthor{\bsnm{Xu}, \binits{X.}},
+\bauthor{\bsnm{Jia}, \binits{K.}},
+\bauthor{\bsnm{Qing}, \binits{C.}},
+\bauthor{\bsnm{Tao}, \binits{D.}}:
+\batitle{{DehazeNet}: {An} {End}-to-{End} {System} for {Single} {Image} {Haze} {Removal}}.
+\bjtitle{IEEE Transactions on Image Processing}
+\bvolume{25}(\bissue{11}),
+\bfpage{5187}--\blpage{5198}
+(\byear{2016})
+\doiurl{10.1109/TIP.2016.2598681}
+\end{barticle}
+\endbibitem
+
+%%% 21
+\bibitem[\protect\citeauthoryear{Wang et~al.}{2018}]{wang}
+\begin{barticle}
+\bauthor{\bsnm{Wang}, \binits{J.}},
+\bauthor{\bsnm{Lu}, \binits{K.}},
+\bauthor{\bsnm{Xue}, \binits{J.}},
+\bauthor{\bsnm{He}, \binits{N.}},
+\bauthor{\bsnm{Shao}, \binits{L.}}:
+\batitle{Single {Image} {Dehazing} {Based} on the {Physical} {Model} and {MSRCR} {Algorithm}}.
+\bjtitle{IEEE Transactions on Circuits and Systems for Video Technology}
+\bvolume{28}(\bissue{9}),
+\bfpage{2190}--\blpage{2199}
+(\byear{2018})
+\doiurl{10.1109/TCSVT.2017.2728822}
+\end{barticle}
+\endbibitem
+
+%%% 22
+\bibitem[\protect\citeauthoryear{Ren et~al.}{2020}]{ren}
+\begin{barticle}
+\bauthor{\bsnm{Ren}, \binits{W.}},
+\bauthor{\bsnm{Pan}, \binits{J.}},
+\bauthor{\bsnm{Zhang}, \binits{H.}},
+\bauthor{\bsnm{Cao}, \binits{X.}},
+\bauthor{\bsnm{Yang}, \binits{M.-H.}}:
+\batitle{Single {Image} {Dehazing} via {Multi}-scale {Convolutional} {Neural} {Networks} with {Holistic} {Edges}}.
+\bjtitle{International Journal of Computer Vision}
+\bvolume{128}(\bissue{1}),
+\bfpage{240}--\blpage{259}
+(\byear{2020})
+\doiurl{10.1007/s11263-019-01235-8}
+\end{barticle}
+\endbibitem
+
+%%% 23
+\bibitem[\protect\citeauthoryear{Zhang and Patel}{2018}]{zhang}
+\begin{botherref}
+\oauthor{\bsnm{Zhang}, \binits{H.}},
+\oauthor{\bsnm{Patel}, \binits{V.M.}}:
+Densely {Connected} {Pyramid} {Dehazing} {Network}.
+arXiv
+(2018).
+\doiurl{10.48550/ARXIV.1803.08396} .
+\url{https://arxiv.org/abs/1803.08396}
+\end{botherref}
+\endbibitem
+
+%%% 24
+\bibitem[\protect\citeauthoryear{Tang et~al.}{2019}]{cnn_o}
+\begin{bchapter}
+\bauthor{\bsnm{Tang}, \binits{G.}},
+\bauthor{\bsnm{Zhao}, \binits{L.}},
+\bauthor{\bsnm{Jiang}, \binits{R.}},
+\bauthor{\bsnm{Zhang}, \binits{X.}}:
+\bctitle{Single {Image} {Dehazing} via {Lightweight} {Multi}-scale {Networks}}.
+In: \bbtitle{2019 {IEEE} {International} {Conference} on {Big} {Data} ({Big} {Data})},
+pp. \bfpage{5062}--\blpage{5069}
+(\byear{2019}).
+\doiurl{10.1109/BigData47090.2019.9006075}
+\end{bchapter}
+\endbibitem
+
+%%% 25
+\bibitem[\protect\citeauthoryear{Chen et~al.}{2019}]{gated}
+\begin{bchapter}
+\bauthor{\bsnm{Chen}, \binits{D.}},
+\bauthor{\bsnm{He}, \binits{M.}},
+\bauthor{\bsnm{Fan}, \binits{Q.}},
+\bauthor{\bsnm{Liao}, \binits{J.}},
+\bauthor{\bsnm{Zhang}, \binits{L.}},
+\bauthor{\bsnm{Hou}, \binits{D.}},
+\bauthor{\bsnm{Yuan}, \binits{L.}},
+\bauthor{\bsnm{Hua}, \binits{G.}}:
+\bctitle{Gated context aggregation network for image dehazing and deraining}.
+In: \bbtitle{2019 {IEEE} Winter Conference on Applications of Computer Vision ({WACV})},
+pp. \bfpage{1375}--\blpage{1383}
+(\byear{2019})
+\end{bchapter}
+\endbibitem
+
+%%% 26
+\bibitem[\protect\citeauthoryear{Li et~al.}{2017}]{aod}
+\begin{bchapter}
+\bauthor{\bsnm{Li}, \binits{B.}},
+\bauthor{\bsnm{Peng}, \binits{X.}},
+\bauthor{\bsnm{Wang}, \binits{Z.}},
+\bauthor{\bsnm{Xu}, \binits{J.}},
+\bauthor{\bsnm{Feng}, \binits{D.}}:
+\bctitle{{AOD}-{Net}: {All}-in-{One} {Dehazing} {Network}}.
+In: \bbtitle{2017 {IEEE} {International} {Conference} on {Computer} {Vision} ({ICCV})},
+pp. \bfpage{4780}--\blpage{4788}.
+\bpublisher{IEEE},
+\blocation{Venice}
+(\byear{2017}).
+\doiurl{10.1109/ICCV.2017.511} .
+\burl{http://ieeexplore.ieee.org/document/8237773/}
+Accessed 2022-10-13
+\end{bchapter}
+\endbibitem
+
+%%% 27
+\bibitem[\protect\citeauthoryear{Swami and Das}{2018}]{swami}
+\begin{bchapter}
+\bauthor{\bsnm{Swami}, \binits{K.}},
+\bauthor{\bsnm{Das}, \binits{S.K.}}:
+\bctitle{{CANDY}: {Conditional} {Adversarial} {Networks} based {End}-to-{End} {System} for {Single} {Image} {Haze} {Removal}}.
+In: \bbtitle{2018 24th {International} {Conference} on {Pattern} {Recognition} ({ICPR})},
+pp. \bfpage{3061}--\blpage{3067}
+(\byear{2018}).
+\doiurl{10.1109/ICPR.2018.8545522}
+\end{bchapter}
+\endbibitem
+
+%%% 28
+\bibitem[\protect\citeauthoryear{Dudhane and Murala}{2019}]{res_unp}
+\begin{bchapter}
+\bauthor{\bsnm{Dudhane}, \binits{A.}},
+\bauthor{\bsnm{Murala}, \binits{S.}}:
+\bctitle{{CDNet}: {Single} {Image} {De}-{Hazing} {Using} {Unpaired} {Adversarial} {Training}}.
+In: \bbtitle{2019 {IEEE} {Winter} {Conference} on {Applications} of {Computer} {Vision} ({WACV})},
+pp. \bfpage{1147}--\blpage{1155}
+(\byear{2019}).
+\doiurl{10.1109/WACV.2019.00127}
+\end{bchapter}
+\endbibitem
+
+%%% 29
+\bibitem[\protect\citeauthoryear{Engin et~al.}{2018}]{res_unp1}
+\begin{bchapter}
+\bauthor{\bsnm{Engin}, \binits{D.}},
+\bauthor{\bsnm{Genc}, \binits{A.}},
+\bauthor{\bsnm{Ekenel}, \binits{H.K.}}:
+\bctitle{Cycle-{Dehaze}: {Enhanced} {CycleGAN} for {Single} {Image} {Dehazing}}.
+In: \bbtitle{2018 {IEEE}/{CVF} {Conference} on {Computer} {Vision} and {Pattern} {Recognition} {Workshops} ({CVPRW})},
+pp. \bfpage{938}--\blpage{9388}
+(\byear{2018}).
+\doiurl{10.1109/CVPRW.2018.00127}
+\end{bchapter}
+\endbibitem
+
+%%% 30
+\bibitem[\protect\citeauthoryear{Chen et~al.}{2022}]{non_uniform}
+\begin{bchapter}
+\bauthor{\bsnm{Chen}, \binits{Z.}},
+\bauthor{\bsnm{Li}, \binits{Q.}},
+\bauthor{\bsnm{Feng}, \binits{H.}},
+\bauthor{\bsnm{Xu}, \binits{Z.}},
+\bauthor{\bsnm{Chen}, \binits{Y.}}:
+\bctitle{Nonuniformly {Dehaze} {Network} for {Visible} {Remote} {Sensing} {Images}}.
+In: \bbtitle{2022 {IEEE}/{CVF} {Conference} on {Computer} {Vision} and {Pattern} {Recognition} {Workshops} ({CVPRW})},
+pp. \bfpage{446}--\blpage{455}
+(\byear{2022}).
+\doiurl{10.1109/CVPRW56347.2022.00060}
+\end{bchapter}
+\endbibitem
+
+%%% 31
+\bibitem[\protect\citeauthoryear{Zheng et~al.}{2021}]{uhd}
+\begin{bchapter}
+\bauthor{\bsnm{Zheng}, \binits{Z.}},
+\bauthor{\bsnm{Ren}, \binits{W.}},
+\bauthor{\bsnm{Cao}, \binits{X.}},
+\bauthor{\bsnm{Hu}, \binits{X.}},
+\bauthor{\bsnm{Wang}, \binits{T.}},
+\bauthor{\bsnm{Song}, \binits{F.}},
+\bauthor{\bsnm{Jia}, \binits{X.}}:
+\bctitle{Ultra-{High}-{Definition} {Image} {Dehazing} via {Multi}-{Guided} {Bilateral} {Learning}}.
+In: \bbtitle{Proceedings of the {IEEE}/{CVF} {Conference} on {Computer} {Vision} and {Pattern} {Recognition} ({CVPR})},
+pp. \bfpage{16185}--\blpage{16194}
+(\byear{2021})
+\end{bchapter}
+\endbibitem
+
+%%% 32
+\bibitem[\protect\citeauthoryear{Wang et~al.}{2022}]{col_d_ill}
+\begin{barticle}
+\bauthor{\bsnm{Wang}, \binits{C.}},
+\bauthor{\bsnm{Hu}, \binits{J.}},
+\bauthor{\bsnm{Luo}, \binits{X.}},
+\bauthor{\bsnm{Kwan}, \binits{M.-P.}},
+\bauthor{\bsnm{Chen}, \binits{W.}},
+\bauthor{\bsnm{Wang}, \binits{H.}}:
+\batitle{Color-{Dense} {Illumination} {Adjustment} {Network} for {Removing} {Haze} and {Smoke} from {Fire} {Scenario} {Images}}.
+\bjtitle{Sensors (Basel, Switzerland)}
+\bvolume{22}(\bissue{3}),
+\bfpage{911}
+(\byear{2022})
+\doiurl{10.3390/s22030911} .
+Accessed 2022-10-13
+\end{barticle}
+\endbibitem
+
+%%% 33
+\bibitem[\protect\citeauthoryear{Ju et~al.}{2021}]{VRHI}
+\begin{bchapter}
+\bauthor{\bsnm{Ju}, \binits{M.}},
+\bauthor{\bsnm{Chen}, \binits{C.}},
+\bauthor{\bsnm{Liu}, \binits{J.}},
+\bauthor{\bsnm{Chen}, \binits{K.}},
+\bauthor{\bsnm{Zhang}, \binits{D.}}:
+\bctitle{{VRHI}: {Visibility} {Restoration} for {Hazy} {Images} {Using} a {Haze} {Density} {Model}}.
+In: \bbtitle{Proceedings of the {IEEE}/{CVF} {Conference} on {Computer} {Vision} and {Pattern} {Recognition} ({CVPR}) {Workshops}},
+pp. \bfpage{897}--\blpage{904}
+(\byear{2021})
+\end{bchapter}
+\endbibitem
+
+%%% 34
+\bibitem[\protect\citeauthoryear{Chen et~al.}{2019}]{multi_scale_ad}
+\begin{bchapter}
+\bauthor{\bsnm{Chen}, \binits{S.}},
+\bauthor{\bsnm{Chen}, \binits{Y.}},
+\bauthor{\bsnm{Qu}, \binits{Y.}},
+\bauthor{\bsnm{Huang}, \binits{J.}},
+\bauthor{\bsnm{Hong}, \binits{M.}}:
+\bctitle{Multi-{Scale} {Adaptive} {Dehazing} {Network}}.
+In: \bbtitle{2019 {IEEE}/{CVF} {Conference} on {Computer} {Vision} and {Pattern} {Recognition} {Workshops} ({CVPRW})},
+pp. \bfpage{2051}--\blpage{2059}
+(\byear{2019}).
+\doiurl{10.1109/CVPRW.2019.00257}
+\end{bchapter}
+\endbibitem
+
+%%% 35
+\bibitem[\protect\citeauthoryear{Singh et~al.}{2020}]{bppnet_sota}
+\begin{botherref}
+\oauthor{\bsnm{Singh}, \binits{A.}},
+\oauthor{\bsnm{Bhave}, \binits{A.}},
+\oauthor{\bsnm{Prasad}, \binits{D.K.}}:
+Single image dehazing for a variety of haze scenarios using back projected pyramid network.
+arXiv.
+arXiv:2008.06713 [cs, eess] version: 1
+(2020).
+\doiurl{10.48550/arXiv.2008.06713} .
+\url{http://arxiv.org/abs/2008.06713}
+Accessed 2022-10-13
+\end{botherref}
+\endbibitem
+
+%%% 36
+\bibitem[\protect\citeauthoryear{Tran et~al.}{2022}]{sec_sota}
+\begin{botherref}
+\oauthor{\bsnm{Tran}, \binits{L.-A.}},
+\oauthor{\bsnm{Moon}, \binits{S.}},
+\oauthor{\bsnm{Park}, \binits{D.-C.}}:
+A {Novel} {Encoder}-{Decoder} {Network} with {Guided} {Transmission} {Map} for {Single} {Image} {Dehazing}.
+arXiv.
+arXiv:2202.04757 [cs] version: 1
+(2022).
+\doiurl{10.48550/arXiv.2202.04757} .
+\url{http://arxiv.org/abs/2202.04757}
+Accessed 2022-10-13
+\end{botherref}
+\endbibitem
+
+%%% 37
+\bibitem[\protect\citeauthoryear{Fu et~al.}{2021}]{dw_gan}
+\begin{bchapter}
+\bauthor{\bsnm{Fu}, \binits{M.}},
+\bauthor{\bsnm{Liu}, \binits{H.}},
+\bauthor{\bsnm{Yu}, \binits{Y.}},
+\bauthor{\bsnm{Chen}, \binits{J.}},
+\bauthor{\bsnm{Wang}, \binits{K.}}:
+\bctitle{{DW}-{GAN}: {A} {Discrete} {Wavelet} {Transform} {GAN} for {NonHomogeneous} {Dehazing}}.
+In: \bbtitle{2021 {IEEE}/{CVF} {Conference} on {Computer} {Vision} and {Pattern} {Recognition} {Workshops} ({CVPRW})},
+pp. \bfpage{203}--\blpage{212}.
+\bpublisher{IEEE},
+\blocation{Nashville, TN, USA}
+(\byear{2021}).
+\doiurl{10.1109/CVPRW53098.2021.00029} .
+\burl{https://ieeexplore.ieee.org/document/9523134/}
+Accessed 2022-10-13
+\end{bchapter}
+\endbibitem
+
+%%% 38
+\bibitem[\protect\citeauthoryear{Dudhane et~al.}{2019}]{ri_gan}
+\begin{bchapter}
+\bauthor{\bsnm{Dudhane}, \binits{A.}},
+\bauthor{\bsnm{Aulakh}, \binits{H.S.}},
+\bauthor{\bsnm{Murala}, \binits{S.}}:
+\bctitle{{RI}-{GAN}: {An} {End}-{To}-{End} {Network} for {Single} {Image} {Haze} {Removal}}.
+In: \bbtitle{2019 {IEEE}/{CVF} {Conference} on {Computer} {Vision} and {Pattern} {Recognition} {Workshops} ({CVPRW})},
+pp. \bfpage{2014}--\blpage{2023}
+(\byear{2019}).
+\doiurl{10.1109/CVPRW.2019.00253}
+\end{bchapter}
+\endbibitem
+
+%%% 39
+\bibitem[\protect\citeauthoryear{Bianco et~al.}{2019}]{hr_haze}
+\begin{bchapter}
+\bauthor{\bsnm{Bianco}, \binits{S.}},
+\bauthor{\bsnm{Celona}, \binits{L.}},
+\bauthor{\bsnm{Piccoli}, \binits{F.}},
+\bauthor{\bsnm{Schettini}, \binits{R.}}:
+\bctitle{High-{Resolution} {Single} {Image} {Dehazing} {Using} {Encoder}-{Decoder} {Architecture}}.
+In: \bbtitle{2019 {IEEE}/{CVF} {Conference} on {Computer} {Vision} and {Pattern} {Recognition} {Workshops} ({CVPRW})},
+pp. \bfpage{1927}--\blpage{1935}.
+\bpublisher{IEEE},
+\blocation{Long Beach, CA, USA}
+(\byear{2019}).
+\doiurl{10.1109/CVPRW.2019.00244} .
+\burl{https://ieeexplore.ieee.org/document/9025545/}
+Accessed 2022-10-13
+\end{bchapter}
+\endbibitem
+
+%%% 40
+\bibitem[\protect\citeauthoryear{Ancuti et~al.}{2018}]{o_haze}
+\begin{bchapter}
+\bauthor{\bsnm{Ancuti}, \binits{C.O.}},
+\bauthor{\bsnm{Ancuti}, \binits{C.}},
+\bauthor{\bsnm{Timofte}, \binits{R.}},
+\bauthor{\bsnm{Vleeschouwer}, \binits{C.D.}}:
+\bctitle{O-{HAZE}: a dehazing benchmark with real hazy and haze-free outdoor images}.
+In: \bbtitle{{IEEE} {Conference} on {Computer} {Vision} and {Pattern} {Recognition}, {NTIRE} {Workshop}}.
+\bsertitle{{NTIRE} {CVPR}'18}
+(\byear{2018}).
+\bcomment{event-place: Salt Lake City, Utah, USA}
+\end{bchapter}
+\endbibitem
+
+%%% 41
+\bibitem[\protect\citeauthoryear{Ancuti et~al.}{2019}]{dense_haze}
+\begin{bchapter}
+\bauthor{\bsnm{Ancuti}, \binits{C.O.}},
+\bauthor{\bsnm{Ancuti}, \binits{C.}},
+\bauthor{\bsnm{Sbert}, \binits{M.}},
+\bauthor{\bsnm{Timofte}, \binits{R.}}:
+\bctitle{Dense-haze: A benchmark for image dehazing with dense-haze and haze-free images}.
+In: \bbtitle{2019 IEEE International Conference on Image Processing (ICIP)},
+pp. \bfpage{1014}--\blpage{1018}
+(\byear{2019}).
+\bcomment{IEEE}
+\end{bchapter}
+\endbibitem
+
+%%% 42
+\bibitem[\protect\citeauthoryear{Ancuti et~al.}{2018}]{i_haze}
+\begin{bchapter}
+\bauthor{\bsnm{Ancuti}, \binits{C.O.}},
+\bauthor{\bsnm{Ancuti}, \binits{C.}},
+\bauthor{\bsnm{Timofte}, \binits{R.}},
+\bauthor{\bsnm{Vleeschouwer}, \binits{C.D.}}:
+\bctitle{I-{HAZE}: a dehazing benchmark with real hazy and haze-free indoor images}.
+In: \bbtitle{{arXiv}:1804.05091v1}
+(\byear{2018})
+\end{bchapter}
+\endbibitem
+
+%%% 43
+\bibitem[\protect\citeauthoryear{Yadav et~al.}{2021}]{fft}
+\begin{barticle}
+\bauthor{\bsnm{Yadav}, \binits{O.}},
+\bauthor{\bsnm{Ghosal}, \binits{K.}},
+\bauthor{\bsnm{Lutz}, \binits{S.}},
+\bauthor{\bsnm{Smolic}, \binits{A.}}:
+\batitle{Frequency-domain loss function for deep exposure correction of dark images}.
+\bjtitle{Signal, Image and Video Processing}
+\bvolume{15}(\bissue{8}),
+\bfpage{1829}--\blpage{1836}
+(\byear{2021})
+\doiurl{10.1007/s11760-021-01915-4} .
+\bcomment{Publisher: Springer Science and Business Media LLC}
+\end{barticle}
+\endbibitem
+
+%%% 44
+\bibitem[\protect\citeauthoryear{Huber}{1964}]{huber}
+\begin{barticle}
+\bauthor{\bsnm{Huber}, \binits{P.J.}}:
+\batitle{Robust {Estimation} of a {Location} {Parameter}}.
+\bjtitle{The Annals of Mathematical Statistics}
+\bvolume{35}(\bissue{1}),
+\bfpage{73}--\blpage{101}
+(\byear{1964}).
+\bcomment{Publisher: Institute of Mathematical Statistics}.
+Accessed 2022-09-26
+\end{barticle}
+\endbibitem
+
+%%% 45
+\bibitem[\protect\citeauthoryear{Li et~al.}{2019}]{bench}
+\begin{barticle}
+\bauthor{\bsnm{Li}, \binits{B.}},
+\bauthor{\bsnm{Ren}, \binits{W.}},
+\bauthor{\bsnm{Fu}, \binits{D.}},
+\bauthor{\bsnm{Tao}, \binits{D.}},
+\bauthor{\bsnm{Feng}, \binits{D.}},
+\bauthor{\bsnm{Zeng}, \binits{W.}},
+\bauthor{\bsnm{Wang}, \binits{Z.}}:
+\batitle{Benchmarking {Single}-{Image} {Dehazing} and {Beyond}}.
+\bjtitle{IEEE Transactions on Image Processing}
+\bvolume{28}(\bissue{1}),
+\bfpage{492}--\blpage{505}
+(\byear{2019}).
+\bcomment{Publisher: IEEE}
+\end{barticle}
+\endbibitem
+
+%%% 46
+\bibitem[\protect\citeauthoryear{Zhang et~al.}{2021}]{revid}
+\begin{bchapter}
+\bauthor{\bsnm{Zhang}, \binits{X.}},
+\bauthor{\bsnm{Dong}, \binits{H.}},
+\bauthor{\bsnm{Pan}, \binits{J.}},
+\bauthor{\bsnm{Zhu}, \binits{C.}},
+\bauthor{\bsnm{Tai}, \binits{Y.}},
+\bauthor{\bsnm{Wang}, \binits{C.}},
+\bauthor{\bsnm{Li}, \binits{J.}},
+\bauthor{\bsnm{Huang}, \binits{F.}},
+\bauthor{\bsnm{Wang}, \binits{F.}}:
+\bctitle{Learning to restore hazy video: A new real-world dataset and a new method}.
+In: \bbtitle{Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+pp. \bfpage{9239}--\blpage{9248}
+(\byear{2021})
+\end{bchapter}
+\endbibitem
+
+%%% 47
+\bibitem[\protect\citeauthoryear{Ancuti et~al.}{2020}]{nh_haze}
+\begin{bchapter}
+\bauthor{\bsnm{Ancuti}, \binits{C.O.}},
+\bauthor{\bsnm{Ancuti}, \binits{C.}},
+\bauthor{\bsnm{Timofte}, \binits{R.}}:
+\bctitle{Nh-haze: An image dehazing benchmark with non-homogeneous hazy and haze-free images}.
+In: \bbtitle{Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops},
+pp. \bfpage{444}--\blpage{445}
+(\byear{2020})
+\end{bchapter}
+\endbibitem
+
+%%% 48
+\bibitem[\protect\citeauthoryear{Loshchilov and Hutter}{2017}]{admw}
+\begin{botherref}
+\oauthor{\bsnm{Loshchilov}, \binits{I.}},
+\oauthor{\bsnm{Hutter}, \binits{F.}}:
+Decoupled weight decay regularization.
+arXiv preprint arXiv:1711.05101
+(2017)
+\end{botherref}
+\endbibitem
+
+%%% 49
+\bibitem[\protect\citeauthoryear{He et~al.}{2015}]{kaiming}
+\begin{bchapter}
+\bauthor{\bsnm{He}, \binits{K.}},
+\bauthor{\bsnm{Zhang}, \binits{X.}},
+\bauthor{\bsnm{Ren}, \binits{S.}},
+\bauthor{\bsnm{Sun}, \binits{J.}}:
+\bctitle{Delving deep into rectifiers: Surpassing human-level performance on imagenet classification}.
+In: \bbtitle{Proceedings of the IEEE International Conference on Computer Vision},
+pp. \bfpage{1026}--\blpage{1034}
+(\byear{2015})
+\end{bchapter}
+\endbibitem
+
+\end{thebibliography}

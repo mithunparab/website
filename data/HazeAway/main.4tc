@@ -1,0 +1,23 @@
+\expandafter\ifx\csname doTocEntry\endcsname\relax \expandafter\endinput\fi
+\doTocEntry\tocsection{1}{\csname a:TocLink\endcsname{1}{x1-10001}{QQ2-1-1}{Introduction}}{4}\relax 
+\doTocEntry\tocsection{2}{\csname a:TocLink\endcsname{1}{x1-20002}{QQ2-1-2}{Related Work}}{5}\relax 
+\doTocEntry\tocsection{3}{\csname a:TocLink\endcsname{1}{x1-30003}{QQ2-1-3}{Proposed Method}}{6}\relax 
+\doTocEntry\toclof{1}{\csname a:TocLink\endcsname{1}{x1-3001r1}{}{\ignorespaces The architecture we used in this paper for haze removal. A) Encoder block and B) Decoder block}}{figure}\relax 
+\doTocEntry\tocsubsection{3.1}{\csname a:TocLink\endcsname{1}{x1-40003.1}{QQ2-1-5}{Colour space}}{9}\relax 
+\doTocEntry\tocsubsection{3.2}{\csname a:TocLink\endcsname{1}{x1-50003.2}{QQ2-1-6}{Model overview}}{9}\relax 
+\doTocEntry\tocsubsection{3.3}{\csname a:TocLink\endcsname{1}{x1-60003.3}{QQ2-1-7}{Model architecture}}{9}\relax 
+\doTocEntry\toclof{2}{\csname a:TocLink\endcsname{1}{x1-6001r2}{}{\ignorespaces The results on datasets O-Haze \cite  {o_haze}, Dense-Haze \cite  {dense_haze} and I-Haze \cite  {i_haze}}}{figure}\relax 
+\doTocEntry\tocsubsection{3.4}{\csname a:TocLink\endcsname{1}{x1-70003.4}{QQ2-1-9}{Losses and metrics}}{13}\relax 
+\doTocEntry\toclot{1}{\csname a:TocLink\endcsname{1}{x1-7008r1}{}{\ignorespaces The quantitative result of different traditional methods with our model on I-Haze, O-Haze. }}{table}\relax 
+\doTocEntry\tocsection{4}{\csname a:TocLink\endcsname{1}{x1-80004}{QQ2-1-11}{Experiments}}{19}\relax 
+\doTocEntry\tocsubsection{4.1}{\csname a:TocLink\endcsname{1}{x1-90004.1}{QQ2-1-12}{Dataset}}{19}\relax 
+\doTocEntry\tocsubsection{4.2}{\csname a:TocLink\endcsname{1}{x1-100004.2}{QQ2-1-13}{Training setup}}{19}\relax 
+\doTocEntry\toclof{3}{\csname a:TocLink\endcsname{1}{x1-10001r3}{}{\ignorespaces The training and validation plot. Blue (train) indicates training and orange (val) indicates validation. a) Loss, b) PSNR, c)SSIM}}{figure}\relax 
+\doTocEntry\tocsubsection{4.3}{\csname a:TocLink\endcsname{1}{x1-110004.3}{QQ2-1-15}{Comparing results with other methods}}{22}\relax 
+\doTocEntry\toclot{2}{\csname a:TocLink\endcsname{1}{x1-11001r2}{}{\ignorespaces The quantitative analysis of result with respect to the existing methods and our model on Dense-Haze, NH-Haze. }}{table}\relax 
+\doTocEntry\tocsection{5}{\csname a:TocLink\endcsname{1}{x1-120005}{QQ2-1-17}{Ablation study}}{25}\relax 
+\doTocEntry\tocsubsection{5.1}{\csname a:TocLink\endcsname{1}{x1-130005.1}{QQ2-1-18}{Loss ablation}}{25}\relax 
+\doTocEntry\toclot{3}{\csname a:TocLink\endcsname{1}{x1-13001r3}{}{\ignorespaces The quantitative comparison result of $\mathcal  {L}_1$ verses $\mathcal  {L}_2$ on I-Haze, O-Haze, Dense-Haze and NH-Haze.}}{table}\relax 
+\doTocEntry\tocsubsection{5.2}{\csname a:TocLink\endcsname{1}{x1-140005.2}{QQ2-1-20}{Use of YCbCr versus RGB space}}{28}\relax 
+\doTocEntry\tocsection{6}{\csname a:TocLink\endcsname{1}{x1-150006}{QQ2-1-21}{Conclusion}}{28}\relax 
+\doTocEntry\toclikesection{}{\csname a:TocLink\endcsname{1}{x1-16000}{QQ2-1-22}{References}}{28}\relax 

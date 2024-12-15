@@ -1,0 +1,29 @@
+\section{Ablation study}
+\label{ablation study}
+We conducted an ablation study on I-Haze, O-Haze, Dense-Haze and NH-haze datasets.  We evaluated ablation with loss components in Section \ref{loss_ablation} and colourspace image representation in training images in Section \ref{ycbcr_vs_rgb}.
+\subsection{Loss ablation}
+\label{loss_ablation}
+In section \ref{loss_metric}, we used three types of losses to train our neural network. In this section, we will assess the result if we change the loss function $\mathcal{L}_2$ with $\mathcal{L}_1$, i.e. Huber loss. Our observation is presented in Table \eqref{tab:l1vl2}, which shows the qualitative comparison between these losses.
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[h]
+\caption{The quantitative comparison result of $\mathcal{L}_1$ verses $\mathcal{L}_2$ on I-Haze, O-Haze, Dense-Haze and NH-Haze.}
+    \label{tab:l1vl2}
+\centering
+    \begin{tabular}{ccccc}
+        \multicolumn{5}{c}{\textit{\textbf{A) $\mathcal{L}_1$ Loss}}}   \\ \hline
+        \textbf{Metric} & \textit{\textbf{I-Haze}} \cite{i_haze} & \textit{\textbf{O-Haze}} \cite{o_haze} & \textbf{Dense-Haze} \cite{dense_haze} & \textit{\textbf{NH-Haze}} \cite{nh_haze} \\ \hline
+        \textbf{PSNR (dB)} & 21.41 & 21.24 & 17.44 & 17.78 \\
+        \textbf{SSIM}      & 0.843 & 0.779 & 0.697 & 0.713 \\ \hline
+        \multicolumn{5}{l}{}                               \\
+        \multicolumn{5}{c}{\textit{\textbf{B) $\mathcal{L}_2$ Loss}}}   \\ \hline
+        \textbf{Metric} & \textit{\textbf{I-Haze}} \cite{i_haze} & \textit{\textbf{O-Haze}} \cite{o_haze} & \textbf{Dense-Haze} \cite{dense_haze} & \textit{\textbf{NH-Haze}} \cite{nh_haze}        \\ \hline
+        \textbf{PSNR (dB)} & 22.54 & 23.02 & 17.60 & 18.93 \\
+        \textbf{SSIM}      & 0.870 & 0.803 & 0.716 & 0.746 \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Use of YCbCr versus RGB space}
+\label{ycbcr_vs_rgb}
+In Section \ref{color_space}, we discussed the use of YCbCr colourspace over RGB. In this section, we will examine the qualitative results of both colourspace image representations for training the proposed network. Our findings reveal that the YCbCr colourspace images give slightly better results than the RGB colourspace images in most of the datasets. On some input images, RGB-based images were perceptually better than the YCbCr. Also, the metric-wise difference is diminutive for all datasets.
+

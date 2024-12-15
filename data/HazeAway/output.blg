@@ -1,0 +1,70 @@
+This is BibTeX, Version 0.99d (TeX Live 2024)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: output.aux
+The style file: sn-mathphys.bst
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=200001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: HAze.bib
+Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Warning--empty institution in obj_det_cnn
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+You've used 49 entries,
+            7480 wiz_defined-function locations,
+            1499 strings with 21801 characters,
+and the built_in function-call counts, 1691918 in all, are:
+= -- 327791
+> -- 2017
+< -- 958
++ -- 214308
+- -- 758
+* -- 30015
+:= -- 286728
+add.period$ -- 93
+call.type$ -- 49
+change.case$ -- 789
+chr.to.int$ -- 2641
+cite$ -- 50
+duplicate$ -- 2565
+empty$ -- 11673
+format.name$ -- 1369
+if$ -- 443579
+int.to.chr$ -- 1
+int.to.str$ -- 85
+missing$ -- 0
+newline$ -- 794
+num.names$ -- 245
+pop$ -- 1323
+preamble$ -- 1
+purify$ -- 231
+quote$ -- 0
+skip$ -- 203346
+stack$ -- 0
+substring$ -- 153047
+swap$ -- 1528
+text.length$ -- 890
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 2114
+warning$ -- 1
+while$ -- 1843
+width$ -- 0
+write$ -- 1086
+(There was 1 warning)
