@@ -38,7 +38,7 @@
                                             href="https://pavankumarbn.github.io" target="_blank">Dr. Pavan Kumar
                                             BN</a>, and at Sejong University, guided by <a
                                             href="https://scholar.google.com/citations?user=ujwJbwwAAAAJ&hl=en"
-                                            target="_blank">Y.G. Kim</a> and <a href="http://palashngl.github.io/"
+                                            target="_blank"> Dr. Y.G. Kim</a> and <a href="http://palashngl.github.io/"
                                             target="_blank">Dr. Palash Ingle</a>.
                                     </p>
 
@@ -62,8 +62,51 @@
                             </tr>
                         </tbody>
                     </table>
+                    <h2 style="padding:20px">Research Experience</h2>
+                    <table style="padding: 0%; width:100%; border:0; border-spacing:0; margin:auto;">
+                        <!-- <caption style="text-align:left; font-size:1.5em; font-weight:bold; margin-bottom:10px;">
+                            Key Achievements and Highlights
+                        </caption> -->
+                        <tbody>
+                            <tr>
+                                <td style="padding:5px; vertical-align:top; width:85%;">
+                                    <li>
+                                        <strong>Sejong University, Seoul, South Korea (Research Intern)</strong><br>
+                                        <p style="padding:0.5px 15px">
+                                            <a href="https://sites.google.com/site/alwaysgabi/intro?authuser=0"
+                                                target="_blank"> Dr. Y.G. Kim</a>
+                                            & <a href="http://palashngl.github.io/" target="_blank">Dr. Palash
+                                                Ingle</a>.<br>
+                                            Advance video anomaly detection technologies by developing robust models to
+                                            identify and analyze anomalies in video data.
+                                        </p>
+                                    </li>
+                                </td>
+                                <td style="padding:5px; vertical-align:top; width:35%; text-align:right;">
+                                    04/24 — 10/24
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:5px; vertical-align:top; width:85%;">
+                                    <li>
+                                        <strong>Indian Institute of Information Technology, Sri City, India (Research
+                                            Intern)</strong><br>
+                                        <p style="padding:0.5px 15px"> <a href="https://pavankumarbn.github.io"
+                                                target="_blank"> Dr. Pavan Kumar B.N. </a>, Department of CSE<br>
+                                            Improved 3D SLAM precision and effectiveness using uncalibrated image-based
+                                            algorithms.</p>
+                                    </li>
+                                </td>
+                                <td style="padding:5px; vertical-align:top; width:15%; text-align:right;">
+                                    09/23 — 03/24
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                    <h2 style="padding:20px">Research</h2>
+
+
+                    <h2 style="padding:20px">Selected Publications</h2>
                     <table
                         style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
                         <tbody>
@@ -249,9 +292,38 @@
 
                     <table
                         style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-                        <h2>Projects</h2>
+                        <h2>Research Projects</h2>
                         <br></br>
                         <tbody>
+
+                            <tr onmouseover="img_start(1)" onmouseout="img_stop(1)">
+                                <td class="td_img">
+                                    <div class="one" style="position:relative; width:100%; height:auto;">
+                                        <div class="two" id="image1"
+                                            style="position:absolute; top:0; left:0; width:100%; height:100%; opacity:0; transition:opacity 0.3s;">
+                                            <img src="data/mcts_viz-o.png" style="width:100%; height:auto;">
+                                        </div>
+                                        <img src="data/mcts_viz-o.png" style="width:100%; height:auto;">
+                                    </div>
+                                    <script type="text/javascript">
+                                        function img_start(id) {
+                                            document.getElementById('image' + id).style.opacity = "1";
+                                        }
+                                        function img_stop(id) {
+                                            document.getElementById('image' + id).style.opacity = "0";
+                                        }
+                                        img_stop(1);
+                                    </script>
+                                </td>
+                                <td style="padding:20px;width:75%;vertical-align:middle">
+                                    <span class="papertitle"><strong>Tetris-Inspired Video Synopsis</strong></span>
+                                    <br>
+                                    <p>A Monte Carlo Tree Search algorithm with a shared-backbone neural network for
+                                        policy and value optimization, efficiently packing 3D tubes to reduce the time
+                                        dimension in video synopsis.
+                                    </p>
+                                </td>
+                            </tr>
 
                             <tr onmouseover="img_start(1)" onmouseout="img_stop(1)">
                                 <td class="td_img">
@@ -277,10 +349,11 @@
                                     <span class="papertitle"><strong>DINO-v2-based Method for Video Anomaly
                                             Detection</strong></span>
                                     <br>
-                                    <p>A DINO-v2-based approach for video anomaly detection, using latent feature
-                                        extraction and dimensionality reduction with VAE, ICA, and PCA. Anomalies are
-                                        scored with One-Class SVM or CNN, with ICA, PCA, and OC-CNN included for
-                                        ablation studies.</p>
+                                    <p>A DINO-v2-based approach for video anomaly detection, using feature embeddings
+                                        and prototype learning to group similar patterns while pushing apart different
+                                        ones. Anomalies are detected based on deviations from learned
+                                        prototypes.
+                                    </p>
                                 </td>
                             </tr>
 
@@ -427,9 +500,10 @@
                                 <td style="padding:0px">
                                     <br>
                                     <p style="text-align:center;font-size:small;">
-                                        Yep it's another <a href="https://github.com/jonbarron/jonbarron_website">Jon
+                                        Yep it's another <a href="https://github.com/jonbarron/jonbarron_website" ,
+                                            target="_blank">Jon
                                             Barron's website
-                                        </a>. <br> Last updated on 16 December 2024
+                                        </a>. <br> Last updated on 7 February 2025
 
                                     </p>
                                 </td>
